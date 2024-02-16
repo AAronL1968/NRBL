@@ -5,4 +5,4 @@
 This application will require Microsoft Access to be installed on the host machine.  By default, the database expects the `NRBL_import` folder to reside at `C:\repos\NRBL\NRBL_import`.
 If you create a "C:\repos" folder and clone this repository into it, the folder will automatically be in the correct location.  If `NRBL_import` is in a different location than expected, use the "Linked Table Manager" in Access to point to the correct location.
 
-Be sure to add the `NRBL` and the `NRBL_import` folders to your "Trusted Locations" in the Access "Trust Center".
+Be sure to add the "NRBL" and the "NRBL_import" folders to your "Trusted Locations" in the Access "Trust Center".
