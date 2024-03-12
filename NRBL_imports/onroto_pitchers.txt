@@ -1,330 +1,330 @@
- Devin Williams, Mil           65     5   36   3.185   1.277     5.85  $28.06
- Raisel Iglesias, Atl          63     5   38   3.714   1.254     5.82  $27.97
- Spencer Strider, Atl         184    14    0   3.375   1.038     5.80  $27.90
- Yoshinobu Yamamoto, LAD      169    13    0   3.036   1.077     5.52  $26.93
- Logan Webb, SF               204    13    0   3.265   1.093     5.44  $26.67
- Paul Sewald, Ari              58     4   35   3.569   1.259     5.05  $25.34
- Evan Phillips, LAD            57     4   33   3.632   1.228     4.77  $24.37
- --> ZAC GALLEN, ARI          185    13    0   3.454   1.092     4.74  $24.28
- Edwin Diaz, NYM               61     4   31   3.541   1.230     4.52  $23.53
- Camilo Doval, SF              64     4   31   3.656   1.266     4.30  $22.78
- Zack Wheeler, Phi            186    13    0   3.629   1.113     4.15  $22.24
- Tyler Glasnow, LAD           132    10    0   3.000   1.053     4.02  $21.82
- David Bednar, Pit             64     4   30   3.938   1.312     3.71  $20.76
- Max Fried, Atl               167    12    0   3.503   1.144     3.56  $20.23
- Aaron Nola, Phi              188    12    0   3.830   1.106     3.45  $19.88
- --> ADBERT ALZOLAY, CHC       61     4   24   3.689   1.180     3.40  $19.70
- Tanner Scott, Mia             66     4   28   3.818   1.348     3.32  $19.42
- Freddy Peralta, Mil          164    11    0   3.622   1.128     3.10  $18.67
- Jose Alvarado, Phi            58     4   25   3.569   1.328     3.10  $18.67
- Ryan Helsley, StL             50     3   26   3.780   1.340     2.75  $17.46
- Joe Musgrove, SD             153     9    0   3.588   1.092     2.70  $17.32
- Alexis Diaz, Cin              61     4   27   4.426   1.344     2.69  $17.28
- Justin Steele, ChC           169    11    0   3.675   1.178     2.57  $16.84
- Yuki Matsui, SD               62     4   22   3.629   1.323     2.57  $16.84
- Yu Darvish, SD               159     9    0   3.792   1.119     2.13  $15.35
- Bobby Miller, LAD            137     9    0   3.745   1.139     1.85  $14.38
- Merrill Kelly, Ari           180    11    0   3.850   1.228     1.75  $14.07
- Jesus Luzardo, Mia           162     9    0   3.889   1.167     1.53  $13.29
- Sonny Gray, StL              162    10    0   3.833   1.222     1.45  $13.02
- Braxton Garrett, Mia         152     9    0   4.026   1.178     1.11  $11.88
- Walker Buehler, LAD          121     8    0   3.793   1.174     1.04  $11.61
- Kyle Finnegan, Was            65     3   20   4.292   1.415     0.95  $11.33
- Robert Suarez, SD             58     3   14   3.724   1.310     0.84  $10.94
- Chris Sale, Atl              115     8    0   3.991   1.165     0.76  $10.69
- Shota Imanaga, ChC           146     9    0   4.130   1.199     0.72  $10.55
- Eduardo Rodriguez, Ari       154     9    0   3.916   1.247     0.71  $10.50
- Mike King, SD                121     7    0   3.719   1.190     0.69  $10.45
- Jojo Romero, StL              54     4    9   3.667   1.278     0.47  $ 9.69
- Kodai Senga, NYM             117     7    0   3.692   1.231     0.42  $ 9.51
- Brusdar Graterol, LAD         61     4    8   3.541   1.295     0.36  $ 9.30
- Hector Neris, ChC             57     4   11   4.105   1.316     0.36  $ 9.29
- Mitch Keller, Pit            179    10    0   4.274   1.246     0.32  $ 9.18
- Miles Mikolas, StL           177    10    0   4.373   1.232     0.26  $ 8.97
- --> CRISTOPHER SANCHEZ, PH   132     8    0   4.023   1.235     0.26  $ 8.95
- A.J. Minter, Atl              59     4    8   3.814   1.288     0.16  $ 8.64
- Steven Matz, StL             125     8    0   4.104   1.232     0.14  $ 8.57
- Sean Manaea, NYM             151     8    0   4.172   1.225     0.09  $ 8.37
- Kyle Gibson, StL             174    10    0   4.293   1.270     0.05  $ 8.25
- Charlie Morton, Atl          148    10    0   4.318   1.277     0.04  $ 8.22
- Kevin Ginkel, Ari             62     4    7   3.774   1.306    -0.04  $ 7.93
- Hunter Harvey, Was            57     3   12   4.105   1.386    -0.06  $ 7.87
- Bryce Elder, Atl             152    10    0   4.263   1.303    -0.10  $ 7.73
- Justin Lawrence, Col          63     3   18   4.714   1.524    -0.14  $ 7.61
- Frankie Montas, Cin          129     8    0   4.256   1.240    -0.16  $ 7.52
- Jeff Hoffman, Phi             55     4    7   3.927   1.309    -0.16  $ 7.52
- Joe Kelly, LAD                53     4    3   3.226   1.264    -0.20  $ 7.39
- Alex Cobb, SF                108     6    0   3.833   1.241    -0.22  $ 7.33
- Adam Ottavino, NYM            61     4    4   3.689   1.262    -0.32  $ 7.00
- Eury Perez, Mia              129     7    0   4.256   1.217    -0.32  $ 6.99
- A.J. Puk, Mia                 61     3    8   3.984   1.295    -0.33  $ 6.95
- Lance Lynn, StL              157     9    0   4.529   1.236    -0.36  $ 6.86
- Brandon Pfaadt, Ari          143     8    0   4.469   1.217    -0.36  $ 6.83
- Taijuan Walker, Phi          155     9    0   4.355   1.277    -0.40  $ 6.72
- Julian Merryweather, ChC      61     4    7   3.984   1.377    -0.48  $ 6.44
- James Paxton, LAD             89     6    0   4.045   1.247    -0.55  $ 6.19
- Joel Payamps, Mil             65     4    4   3.877   1.292    -0.58  $ 6.08
- Jameson Taillon, ChC         144     8    0   4.500   1.236    -0.59  $ 6.08
- Clayton Kershaw, LAD          59     4    0   3.661   1.169    -0.64  $ 5.89
- Kyle Hendricks, ChC          150     8    0   4.500   1.240    -0.65  $ 5.87
- Emmet Sheehan, LAD            90     6    0   4.300   1.211    -0.65  $ 5.87
- Jose Quintana, NYM           144     8    0   4.250   1.299    -0.67  $ 5.78
- Giovanny Gallegos, StL        61     4    4   3.984   1.295    -0.68  $ 5.76
- Keaton Winn, SF              124     6    0   4.137   1.250    -0.71  $ 5.65
- --> COLIN REA, MIL           127     7    0   4.394   1.244    -0.74  $ 5.55
- Ranger Suarez, Phi           149     9    0   4.228   1.349    -0.76  $ 5.48
- Nick Lodolo, Cin             105     6    0   4.457   1.200    -0.80  $ 5.35
- Joe Jimenez, Atl              59     4    3   4.119   1.271    -0.86  $ 5.14
- Ryan Brasier, LAD             57     4    3   3.947   1.316    -0.89  $ 5.05
- Brooks Raley, NYM             57     3    4   3.789   1.316    -0.93  $ 4.89
- Alex Vesia, LAD               57     4    3   4.105   1.333    -1.07  $ 4.43
- Edward Cabrera, Mia          129     7    0   4.256   1.318    -1.09  $ 4.35
- Reynaldo Lopez, Atl           59     4    3   4.119   1.339    -1.11  $ 4.28
- Joe Ross, Mil                 97     5    0   4.082   1.278    -1.11  $ 4.27
- Emilio Pagan, Cin             61     3    8   4.574   1.377    -1.12  $ 4.26
- Andrew Kittredge, StL         46     3    4   4.109   1.326    -1.15  $ 4.15
- Tyler Kinley, Col             55     3   11   5.073   1.455    -1.15  $ 4.15
- Aroldis Chapman, Pit          56     3    6   4.018   1.429    -1.16  $ 4.12
- Woo-Suk Go, SD                58     3    4   4.034   1.328    -1.16  $ 4.10
- Mark Leiter, ChC              54     3    2   4.000   1.259    -1.23  $ 3.88
- Hoby Milner, Mil              61     4    0   3.836   1.295    -1.24  $ 3.84
- Trevor Rogers, Mia           113     6    0   4.381   1.283    -1.27  $ 3.74
- Abner Uribe, Mil              57     3    2   3.789   1.333    -1.34  $ 3.51
- --> WADE MILEY, MIL          125     7    0   4.392   1.328    -1.35  $ 3.45
- Taylor Rogers, SF             53     3    2   4.075   1.283    -1.36  $ 3.43
- Matt Strahm, Phi              51     3    2   4.059   1.294    -1.38  $ 3.36
- Robbie Ray, SF                59     3    0   4.119   1.186    -1.39  $ 3.32 (D) 
- D.L. Hall, Mil               113     6    0   4.301   1.319    -1.40  $ 3.31
- Robert Gasser, Mil            89     5    0   4.551   1.236    -1.40  $ 3.29
- Jordan Hicks, SF             104     5    2   4.240   1.346    -1.42  $ 3.21
- Daniel Hudson, LAD            28     2    3   3.857   1.321    -1.45  $ 3.12
- Kyle Harrison, SF            129     6    0   4.535   1.271    -1.52  $ 2.90
- Jhony Brito, SD               95     5    0   4.358   1.295    -1.54  $ 2.82
- Scott McGough, Ari            54     3    2   4.000   1.352    -1.54  $ 2.80
- Luke Jackson, SF              53     3    2   4.075   1.340    -1.55  $ 2.78
- --> HUNTER GREENE, CIN       136     7    0   4.765   1.265    -1.56  $ 2.75
- Jake Junis, Mil               94     5    0   4.500   1.277    -1.60  $ 2.61
- Pierce Johnson, Atl           55     4    0   3.927   1.382    -1.61  $ 2.59
- Blake Treinen, LAD            40     3    0   3.825   1.325    -1.64  $ 2.46
- Ryan Thompson, Ari            51     3    0   3.882   1.314    -1.67  $ 2.39
- Aaron Bummer, Atl             55     4    0   3.927   1.400    -1.67  $ 2.37
- Nick Martinez, Cin            94     5    6   4.596   1.447    -1.67  $ 2.37
- Andrew Nardi, Mia             61     3    4   4.426   1.377    -1.68  $ 2.34
- Elvis Peguero, Mil            49     3    0   3.857   1.327    -1.68  $ 2.32
- Tyler Rogers, SF              64     3    2   4.078   1.359    -1.69  $ 2.29
- Aaron Ashby, Mil              77     4    0   4.091   1.338    -1.70  $ 2.27
- Jake Bird, Col                68     4    4   4.500   1.426    -1.71  $ 2.25
- Randy Vasquez, SD            108     5    0   4.417   1.296    -1.71  $ 2.24
- Andrew Abbott, Cin           147     8    0   4.653   1.333    -1.71  $ 2.23
- Luis Severino, NYM           111     5    0   4.459   1.288    -1.74  $ 2.14
- Ryan Yarbrough, LAD           63     4    0   4.571   1.270    -1.75  $ 2.11
- Drew Thorpe, SD               51     3    0   4.235   1.275    -1.78  $ 2.01
- Yonny Chirinos, Mia           57     3    0   4.105   1.298    -1.79  $ 1.97
- Hayden Wesneski, ChC          72     4    0   4.375   1.306    -1.79  $ 1.95
- Ryan Walker, SF               57     3    0   3.947   1.333    -1.79  $ 1.94
- --> GAVIN STONE, LAD          48     3    0   4.125   1.312    -1.81  $ 1.89
- Dustin May, LAD               27     2    0   4.000   1.222    -1.84  $ 1.79 (D) 
- Gregory Soto, Phi             58     3    4   4.345   1.448    -1.84  $ 1.79
- Ryan Borucki, Pit             49     3    0   4.224   1.306    -1.86  $ 1.72
- Andrew Saalfrank, Ari         51     3    0   3.706   1.412    -1.86  $ 1.71
- Keynan Middleton, StL         43     3    0   3.977   1.372    -1.86  $ 1.71
- Wandy Peralta, SD             50     3    0   3.780   1.400    -1.87  $ 1.69
- Fernando Cruz, Cin            48     3    0   4.125   1.333    -1.87  $ 1.67
- Michael Tonkin, NYM           42     2    0   3.857   1.286    -1.89  $ 1.60
- Spencer Turnbull, Phi         59     3    0   4.271   1.305    -1.95  $ 1.42
- Colin Holderman, Pit          56     3    2   4.339   1.393    -1.95  $ 1.42
- Enyel De Los Santos, SD       65     3    0   4.154   1.323    -1.96  $ 1.38
- Tom Cosgrove, SD              58     3    0   4.190   1.328    -1.96  $ 1.37
- Steven Wilson, SD             50     3    0   4.320   1.320    -1.97  $ 1.34
- Joe Mantiply, Ari             47     3    0   4.213   1.362    -2.01  $ 1.22
- Janson Junk, Mil              28     2    0   4.179   1.286    -2.02  $ 1.18
- Landon Knack, LAD             16     1    0   3.375   1.188    -2.03  $ 1.15
- Joey Lucchesi, NYM            56     3    0   4.339   1.321    -2.04  $ 1.11
- Sean Reid-Foley, NYM          30     2    0   3.900   1.367    -2.07  $ 1.00
- Seranthony Dominguez, Phi     55     3    2   4.582   1.382    -2.07  $ 0.99
- Anthony Maldonado, Mia        35     2    0   4.114   1.314    -2.08  $ 0.97
- Kyle Hurt, LAD                16     1    0   3.375   1.250    -2.09  $ 0.93
- Ben Brown, ChC                39     2    0   4.154   1.308    -2.10  $ 0.89
- Landen Roupp, SF              32     2    0   4.219   1.312    -2.11  $ 0.88
- David Peterson, NYM           67     3    0   4.299   1.328    -2.12  $ 0.84 (D) 
- Anthony Bender, Mia           48     3    0   4.312   1.375    -2.12  $ 0.83
- Mason Black, SF               59     3    0   4.424   1.322    -2.13  $ 0.80
- Kai-Wei Teng, SF              59     3    0   4.424   1.322    -2.13  $ 0.80
- Huascar Ynoa, Atl             52     3    0   4.500   1.327    -2.13  $ 0.78
- J.T. Chargois, Mia            53     3    0   4.245   1.377    -2.14  $ 0.78
+ Raisel Iglesias, Atl          64     5   38   3.656   1.250     5.89  $23.88
+ Devin Williams, Mil           65     5   36   3.185   1.277     5.84  $23.75
+ Spencer Strider, Atl         184    14    0   3.375   1.038     5.79  $23.60
+ Yoshinobu Yamamoto, LAD      169    13    0   3.036   1.077     5.51  $22.78
+ Logan Webb, SF               204    13    0   3.265   1.098     5.38  $22.42
+ Paul Sewald, Ari              58     4   35   3.569   1.259     5.05  $21.47
+ Evan Phillips, LAD            57     4   33   3.632   1.228     4.77  $20.65
+ --> ZAC GALLEN, ARI          185    13    0   3.454   1.092     4.74  $20.57
+ Edwin Diaz, NYM               61     4   31   3.541   1.230     4.52  $19.94
+ Camilo Doval, SF              64     4   32   3.656   1.266     4.47  $19.80
+ Zack Wheeler, Phi            186    13    0   3.629   1.113     4.15  $18.86
+ Tyler Glasnow, LAD           132    10    0   3.000   1.053     4.01  $18.47
+ David Bednar, Pit             64     4   30   3.938   1.312     3.71  $17.61
+ Max Fried, Atl               167    12    0   3.503   1.144     3.56  $17.16
+ Aaron Nola, Phi              188    12    0   3.830   1.106     3.46  $16.88
+ --> ADBERT ALZOLAY, CHC       61     4   24   3.689   1.180     3.40  $16.71
+ Tanner Scott, Mia             66     4   28   3.818   1.348     3.32  $16.49
+ Freddy Peralta, Mil          164    11    0   3.622   1.128     3.10  $15.85
+ Jose Alvarado, Phi            58     4   25   3.569   1.328     3.10  $15.85
+ Ryan Helsley, StL             50     3   26   3.780   1.340     2.75  $14.83
+ Joe Musgrove, SD             153     9    0   3.588   1.092     2.70  $14.70
+ Alexis Diaz, Cin              61     4   27   4.426   1.344     2.70  $14.70
+ Justin Steele, ChC           169    11    0   3.675   1.178     2.57  $14.32
+ Yuki Matsui, SD               62     4   22   3.774   1.339     2.39  $13.79
+ Yu Darvish, SD               159     9    0   3.792   1.119     2.13  $13.06
+ Bobby Miller, LAD            137     9    0   3.745   1.139     1.84  $12.24
+ Merrill Kelly, Ari           180    11    0   3.850   1.228     1.76  $12.00
+ Jesus Luzardo, Mia           162     9    0   3.889   1.167     1.53  $11.33
+ Sonny Gray, StL              162    10    0   3.833   1.222     1.45  $11.11
+ Walker Buehler, LAD          121     8    0   3.793   1.174     1.04  $ 9.91
+ Kyle Finnegan, Was            65     3   20   4.292   1.400     1.02  $ 9.86
+ Chris Sale, Atl              115     8    0   3.991   1.165     0.77  $ 9.13
+ Mike King, SD                121     7    0   3.719   1.182     0.75  $ 9.10
+ Shota Imanaga, ChC           146     9    0   4.130   1.199     0.73  $ 9.03
+ Robert Suarez, SD             58     3   14   3.879   1.310     0.72  $ 9.00
+ Eduardo Rodriguez, Ari       154     9    0   3.916   1.247     0.72  $ 8.99
+ Braxton Garrett, Mia         135     8    0   4.067   1.178     0.65  $ 8.79
+ Jojo Romero, StL              54     4    9   3.667   1.278     0.47  $ 8.28
+ Hector Neris, ChC             58     4   11   4.034   1.310     0.43  $ 8.15
+ Kodai Senga, NYM             117     7    0   3.692   1.239     0.36  $ 7.97
+ Brusdar Graterol, LAD         61     4    8   3.541   1.295     0.36  $ 7.95
+ Mitch Keller, Pit            179    10    0   4.274   1.246     0.34  $ 7.90
+ Miles Mikolas, StL           177    10    0   4.373   1.232     0.28  $ 7.72
+ --> CRISTOPHER SANCHEZ, PH   132     8    0   4.023   1.235     0.26  $ 7.68
+ A.J. Minter, Atl              60     4    8   3.750   1.283     0.23  $ 7.59
+ Alex Cobb, SF                118     7    0   3.814   1.237     0.20  $ 7.51
+ Steven Matz, StL             125     8    0   4.104   1.232     0.15  $ 7.36
+ Sean Manaea, NYM             151     8    0   4.172   1.225     0.10  $ 7.20
+ Kyle Gibson, StL             174    10    0   4.293   1.270     0.07  $ 7.11
+ Kevin Ginkel, Ari             62     4    7   3.774   1.306    -0.04  $ 6.80
+ Hunter Harvey, Was            57     3   12   4.105   1.386    -0.06  $ 6.76
+ Justin Lawrence, Col          63     3   18   4.714   1.524    -0.13  $ 6.56
+ Frankie Montas, Cin          129     8    0   4.256   1.240    -0.15  $ 6.48
+ Jeff Hoffman, Phi             55     4    7   3.927   1.309    -0.16  $ 6.45
+ Joe Kelly, LAD                53     4    3   3.226   1.264    -0.20  $ 6.34
+ Charlie Morton, Atl          148     9    0   4.318   1.277    -0.28  $ 6.12
+ Brandon Pfaadt, Ari          143     8    0   4.469   1.210    -0.29  $ 6.08
+ A.J. Puk, Mia                 79     4    8   4.215   1.304    -0.31  $ 6.04
+ Eury Perez, Mia              129     7    0   4.256   1.217    -0.31  $ 6.03
+ Adam Ottavino, NYM            61     4    4   3.689   1.262    -0.32  $ 6.01
+ Lance Lynn, StL              157     9    0   4.529   1.236    -0.34  $ 5.94
+ Taijuan Walker, Phi          155     9    0   4.355   1.277    -0.38  $ 5.82
+ Keaton Winn, SF              134     7    0   4.164   1.261    -0.51  $ 5.46
+ Clayton Kershaw, LAD          59     4    0   3.508   1.169    -0.53  $ 5.41 (D) 
+ James Paxton, LAD             89     6    0   4.045   1.247    -0.55  $ 5.34
+ Jameson Taillon, ChC         144     8    0   4.500   1.236    -0.57  $ 5.27
+ Joel Payamps, Mil             65     4    4   3.877   1.292    -0.58  $ 5.24
+ Giovanny Gallegos, StL        61     4    4   3.984   1.279    -0.61  $ 5.15
+ Kyle Hendricks, ChC          150     8    0   4.500   1.240    -0.63  $ 5.10
+ Emmet Sheehan, LAD            90     6    0   4.300   1.211    -0.64  $ 5.07
+ Jose Quintana, NYM           144     8    0   4.250   1.299    -0.66  $ 5.03
+ Ranger Suarez, Phi           149     9    0   4.228   1.342    -0.69  $ 4.95
+ Julian Merryweather, ChC      61     4    6   3.984   1.393    -0.71  $ 4.88
+ --> COLIN REA, MIL           127     7    0   4.394   1.244    -0.73  $ 4.82
+ Nick Lodolo, Cin             105     6    0   4.457   1.200    -0.79  $ 4.65
+ Bryce Elder, Atl             114     7    0   4.263   1.298    -0.87  $ 4.43
+ Ryan Brasier, LAD             57     4    3   3.947   1.316    -0.89  $ 4.37
+ Brooks Raley, NYM             57     3    4   3.789   1.316    -0.93  $ 4.24
+ Joe Jimenez, Atl              60     4    3   4.200   1.283    -0.97  $ 4.13
+ Reynaldo Lopez, Atl           88     6    3   4.398   1.352    -1.00  $ 4.05
+ Alex Vesia, LAD               57     4    3   4.105   1.316    -1.00  $ 4.03
+ Edward Cabrera, Mia          129     7    0   4.256   1.318    -1.08  $ 3.82
+ Joe Ross, Mil                 97     5    0   4.082   1.278    -1.11  $ 3.73
+ Emilio Pagan, Cin             61     3    8   4.574   1.377    -1.11  $ 3.72
+ Tyler Kinley, Col             55     3   11   5.073   1.455    -1.14  $ 3.63
+ Andrew Kittredge, StL         46     3    4   4.109   1.326    -1.15  $ 3.61
+ Aroldis Chapman, Pit          56     3    6   4.018   1.429    -1.15  $ 3.60
+ Jordan Hicks, SF             112     6    2   4.259   1.348    -1.18  $ 3.53
+ --> HUNTER GREENE, CIN       136     8    0   4.765   1.265    -1.21  $ 3.44
+ Hoby Milner, Mil              61     4    0   3.836   1.295    -1.24  $ 3.35
+ Mark Leiter, ChC              54     3    2   4.000   1.278    -1.29  $ 3.20
+ Abner Uribe, Mil              57     3    2   3.789   1.333    -1.34  $ 3.08
+ --> WADE MILEY, MIL          125     7    0   4.392   1.328    -1.34  $ 3.06
+ Taylor Rogers, SF             53     3    2   4.075   1.283    -1.36  $ 3.00
+ Matt Strahm, Phi              51     3    2   4.059   1.294    -1.38  $ 2.95
+ D.L. Hall, Mil               113     6    0   4.301   1.319    -1.39  $ 2.93
+ Robbie Ray, SF                59     3    0   4.119   1.186    -1.39  $ 2.91 (D) 
+ Robert Gasser, Mil            89     5    0   4.551   1.236    -1.39  $ 2.91
+ Woo-Suk Go, SD                58     3    4   4.190   1.362    -1.40  $ 2.88
+ Trevor Rogers, Mia            97     5    0   4.361   1.278    -1.45  $ 2.74
+ Daniel Hudson, LAD            28     2    3   3.857   1.321    -1.45  $ 2.73
+ Kyle Harrison, SF            129     6    0   4.535   1.271    -1.50  $ 2.60
+ Scott McGough, Ari            54     3    2   4.000   1.352    -1.54  $ 2.48
+ Luke Jackson, SF              53     3    2   4.075   1.340    -1.55  $ 2.46
+ Jake Junis, Mil               94     5    0   4.500   1.277    -1.59  $ 2.34
+ Enyel De Los Santos, SD       66     4    0   4.091   1.333    -1.62  $ 2.27
+ Blake Treinen, LAD            40     3    0   3.825   1.325    -1.65  $ 2.19
+ Nick Martinez, Cin            94     5    6   4.596   1.447    -1.66  $ 2.16
+ Ryan Thompson, Ari            51     3    0   3.882   1.314    -1.67  $ 2.13
+ Yonny Chirinos, Mia           57     3    0   3.947   1.298    -1.67  $ 2.12
+ Andrew Nardi, Mia             61     3    4   4.426   1.377    -1.67  $ 2.10
+ Jhony Brito, SD              104     5    0   4.413   1.298    -1.68  $ 2.09
+ Aaron Bummer, Atl             60     4    0   3.900   1.400    -1.68  $ 2.08
+ Elvis Peguero, Mil            49     3    0   3.857   1.327    -1.69  $ 2.07
+ Tyler Rogers, SF              64     3    2   4.078   1.359    -1.69  $ 2.05
+ Andrew Abbott, Cin           147     8    0   4.653   1.333    -1.69  $ 2.05
+ Kyle Hurt, LAD                24     2    0   3.375   1.250    -1.69  $ 2.05
+ Aaron Ashby, Mil              77     4    0   4.091   1.338    -1.69  $ 2.05
+ Jake Bird, Col                68     4    4   4.500   1.426    -1.70  $ 2.03
+ Randy Vasquez, SD            108     5    0   4.417   1.296    -1.70  $ 2.03
+ Pierce Johnson, Atl           56     4    0   4.018   1.393    -1.72  $ 1.98
+ Luis Severino, NYM           111     5    0   4.459   1.288    -1.73  $ 1.95
+ Drew Thorpe, SD               51     3    0   4.235   1.275    -1.78  $ 1.81
+ Hayden Wesneski, ChC          72     4    0   4.375   1.306    -1.79  $ 1.78
+ Ryan Walker, SF               56     3    0   3.857   1.357    -1.81  $ 1.72
+ --> GAVIN STONE, LAD          48     3    0   4.125   1.312    -1.81  $ 1.71
+ Wandy Peralta, SD             47     3    0   3.830   1.383    -1.83  $ 1.65
+ Gregory Soto, Phi             58     3    4   4.345   1.448    -1.83  $ 1.64
+ Dustin May, LAD               27     2    0   4.000   1.222    -1.84  $ 1.61 (D) 
+ Ryan Borucki, Pit             49     3    0   4.224   1.306    -1.86  $ 1.57
+ Andrew Saalfrank, Ari         51     3    0   3.706   1.412    -1.86  $ 1.56
+ Keynan Middleton, StL         43     3    0   3.977   1.372    -1.86  $ 1.55
+ Michael Tonkin, NYM           42     2    0   3.857   1.286    -1.90  $ 1.46
+ Colin Holderman, Pit          56     3    2   4.339   1.393    -1.95  $ 1.32
+ Spencer Turnbull, Phi         59     3    0   4.271   1.305    -1.95  $ 1.32
+ Fernando Cruz, Cin            52     3    0   4.154   1.346    -1.96  $ 1.28
+ Tom Cosgrove, SD              58     3    0   4.190   1.328    -1.96  $ 1.28
+ Sean Reid-Foley, NYM          34     2    0   3.706   1.353    -1.98  $ 1.23
+ Mason Black, SF               77     4    0   4.442   1.325    -1.98  $ 1.22
+ Joe Mantiply, Ari             47     3    0   4.213   1.362    -2.01  $ 1.15
+ Janson Junk, Mil              28     2    0   4.179   1.286    -2.02  $ 1.10
+ Joey Lucchesi, NYM            56     3    0   4.339   1.321    -2.04  $ 1.06
+ Anthony Bender, Mia           48     3    0   4.312   1.354    -2.05  $ 1.01
+ Ryan Yarbrough, LAD           59     3    0   4.576   1.271    -2.06  $ 1.00
+ Matt Waldron, SD              79     4    0   4.671   1.291    -2.07  $ 0.97
+ Seranthony Dominguez, Phi     55     3    2   4.582   1.382    -2.07  $ 0.96
+ Anthony Maldonado, Mia        35     2    0   4.114   1.314    -2.08  $ 0.93
+ Elieser Hernandez, LAD        32     2    0   4.219   1.312    -2.11  $ 0.85
+ Landen Roupp, SF              32     2    0   4.219   1.312    -2.11  $ 0.85
+ David Peterson, NYM           67     3    0   4.299   1.328    -2.11  $ 0.83 (D) 
  J.P. Feyereisen, LAD          40     3    0   4.275   1.425    -2.14  $ 0.77
- Elieser Hernandez, LAD        32     2    0   4.219   1.344    -2.17  $ 0.66
- Michael Grove, LAD            32     2    0   4.219   1.344    -2.17  $ 0.66
- Max Meyer, Mia                89     4    0   4.449   1.337    -2.17  $ 0.66
- Darius Vines, Atl             35     2    0   4.371   1.314    -2.20  $ 0.56
- Riley O'Brien, StL            36     2    0   4.000   1.389    -2.20  $ 0.55
- AJ Smith-Shawver, Atl         60     4    0   4.650   1.383    -2.21  $ 0.51
- Dauri Moreta, Pit             56     3    0   4.339   1.375    -2.23  $ 0.47
- Jake Diekman, NYM             49     3    0   4.224   1.429    -2.24  $ 0.42
- Miguel Castro, Ari            47     3    0   4.404   1.404    -2.25  $ 0.38
- Jorge Lopez, NYM              53     3    0   4.415   1.377    -2.25  $ 0.37
- Adrian Houser, NYM           127     6    0   4.465   1.386    -2.26  $ 0.37
- Dylan Floro, Was              53     3    0   4.245   1.415    -2.26  $ 0.35
- Jordan Wicks, ChC             99     5    0   4.727   1.333    -2.26  $ 0.35
- MacKenzie Gore, Was          130     6    0   4.638   1.346    -2.27  $ 0.33
- Sam Moll, Cin                 52     3    0   4.327   1.404    -2.27  $ 0.33
- Jalen Beeks, Col              55     3    2   4.418   1.473    -2.27  $ 0.32
- Tejay Antone, Cin             35     2    0   4.114   1.400    -2.27  $ 0.31
- Alek Jacob, SD                23     1    0   3.913   1.304    -2.28  $ 0.29
- Drew Smyly, ChC               62     3    0   4.500   1.339    -2.28  $ 0.27
- Allan Winans, Atl             15     1    0   4.200   1.267    -2.29  $ 0.27
- Stephen Kolek, SD             19     1    0   3.789   1.368    -2.32  $ 0.16
- Glenn Otto, SD                35     2    0   4.629   1.314    -2.32  $ 0.15
- Kyle Nelson, Ari              36     2    0   4.250   1.389    -2.32  $ 0.14
- Packy Naughton, StL           18     1    0   4.000   1.333    -2.32  $ 0.13
- Drew Smith, NYM               42     2    0   4.286   1.357    -2.32  $ 0.13
- Matt Waldron, SD              69     3    0   4.696   1.290    -2.33  $ 0.13
- Brandon Hughes, Ari           11     1    0   4.091   1.364    -2.33  $ 0.13
- Jordan Weems, Was             57     3    0   4.421   1.386    -2.34  $ 0.09
- Cody Stashak, SF              22     1    0   4.500   1.227    -2.34  $ 0.08
- Mike Vasil, NYM               32     2    0   4.781   1.312    -2.35  $ 0.05
- Tommy Nance, SD               15     1    0   4.200   1.333    -2.35  $ 0.04
- Jackson Wolf, Pit             15     1    0   4.200   1.333    -2.35  $ 0.04
- Carlos F. Rodriguez, Mil      20     1    0   4.500   1.250    -2.36  $ 0.01
- Dylan Lee, Atl                31     2    0   4.355   1.419    -2.37  $-0.02
- Sixto Sanchez, Mia            26     1    0   4.154   1.308    -2.37  $-0.03
- Gordon Graceffo, StL          18     1    0   4.500   1.278    -2.38  $-0.06
- Pedro Avila, SD               64     3    0   4.500   1.359    -2.39  $-0.08
- Bryse Wilson, Mil             64     3    0   4.500   1.359    -2.39  $-0.08
- Yunior Marte, Phi             29     2    0   4.345   1.448    -2.39  $-0.09
- Nick Robertson, StL           28     2    0   4.500   1.429    -2.40  $-0.11
- Javier Assad, ChC             91     5    0   4.648   1.396    -2.41  $-0.17
- Yohan Ramirez, NYM            15     1    0   4.200   1.400    -2.42  $-0.18
- Taylor Clarke, Mil            45     2    0   4.400   1.356    -2.42  $-0.18
- Trevor Megill, Mil            45     2    0   4.400   1.356    -2.42  $-0.18
- Ray Kerr, Atl                 31     2    0   4.355   1.452    -2.43  $-0.24
- Jacob Misiorowski, Mil        18     1    0   5.000   1.222    -2.44  $-0.26
- Jackson Stephens, Atl         19     1    0   4.263   1.368    -2.44  $-0.26
- Luke Little, ChC              30     2    0   4.500   1.433    -2.44  $-0.26
- Connor Brogdon, Phi           29     2    0   4.655   1.414    -2.45  $-0.29
- Dylan Covey, Phi              36     2    0   4.250   1.444    -2.45  $-0.30
- Slade Cecconi, Ari            46     2    0   4.891   1.261    -2.45  $-0.30
- J.B. Bukauskas, Mil           24     1    0   4.125   1.375    -2.46  $-0.32
- Thyago Vieira, Mil            24     1    0   4.125   1.375    -2.46  $-0.32
- Daniel Palencia, ChC          34     2    0   4.500   1.412    -2.46  $-0.34
- Ethan Small, SF               34     2    0   4.500   1.412    -2.46  $-0.34
- Peter Strzelecki, Ari         22     1    0   4.500   1.318    -2.47  $-0.37
- Braxton Ashcraft, Pit         15     1    0   4.800   1.333    -2.47  $-0.38
- Erik Miller, SF               38     2    0   4.263   1.447    -2.49  $-0.44
- Sem Robberse, StL             19     1    0   4.737   1.316    -2.50  $-0.46
- Thad Ward, Was                36     2    0   4.500   1.417    -2.51  $-0.49
- Phil Bickford, NYM            42     2    0   4.500   1.381    -2.51  $-0.49
- Luis Ortiz, Phi               18     1    0   4.500   1.389    -2.51  $-0.51
- Darren McCaughan, Mia         17     1    0   4.765   1.353    -2.52  $-0.53
- Ryne Nelson, Ari             102     5    0   4.853   1.343    -2.52  $-0.54
- Ian Anderson, Atl             16     1    0   4.500   1.438    -2.53  $-0.58
- Matthew Liberatore, StL       61     3    0   4.721   1.361    -2.53  $-0.58
- Max Castillo, Phi             22     1    0   4.500   1.364    -2.54  $-0.59
- Spencer Howard, SF            22     1    0   4.500   1.364    -2.54  $-0.59
- Jose Butto, NYM               38     2    0   4.737   1.368    -2.54  $-0.61
- Andre Pallante, StL           50     3    0   4.140   1.540    -2.55  $-0.63
- Jose Ruiz, Phi                14     1    0   4.500   1.500    -2.55  $-0.65
- Brent Honeywell, Pit          19     1    0   4.737   1.368    -2.56  $-0.68
- Jose Cuas, ChC                42     2    0   4.500   1.405    -2.57  $-0.71
- Graham Ashcraft, Cin         140     7    0   4.821   1.371    -2.57  $-0.72
- Colin Selby, Pit              34     2    0   4.500   1.471    -2.59  $-0.78
- Kolby Allard, Phi             32     2    0   5.062   1.375    -2.60  $-0.80
- Josh Simpson, Mia             22     1    0   4.500   1.409    -2.60  $-0.81
- Caleb Kilian, ChC             15     1    0   4.800   1.467    -2.60  $-0.82
- Bryan Hoeing, Mia             38     2    0   4.737   1.395    -2.61  $-0.83
- Huascar Brazoban, Mia         39     2    0   4.385   1.462    -2.61  $-0.83
- Mick Abel, Phi                27     1    0   4.667   1.333    -2.61  $-0.84
- Luis D. Perdomo, Was          28     1    0   4.179   1.429    -2.61  $-0.84
- Ryan Fernandez, StL           21     1    0   4.286   1.476    -2.61  $-0.86
- Grant Hartwig, NYM            19     1    0   4.737   1.421    -2.63  $-0.90
- Robert Garcia, Was            49     2    0   4.408   1.408    -2.63  $-0.91
- Brent Suter, Cin              52     3    0   4.673   1.442    -2.63  $-0.92
- Cristian Mena, Ari            18     1    0   5.000   1.389    -2.63  $-0.92
- Adam Kloffenstein, StL        18     1    0   5.000   1.389    -2.63  $-0.92
- Drew Rom, StL                 41     2    0   4.829   1.366    -2.63  $-0.93
- Cade Cavalli, Was             40     2    0   4.950   1.350    -2.64  $-0.95
- Tylor Megill, NYM             95     4    0   4.642   1.368    -2.64  $-0.96
- Tyler Gilbert, Cin            17     1    0   4.765   1.471    -2.65  $-0.97
- Yency Almonte, ChC            34     2    0   4.765   1.441    -2.65  $-0.97
- Carl Edwards, ChC             23     1    0   4.304   1.478    -2.66  $-1.01
- J.T. Brubaker, Pit            32     2    0   5.062   1.406    -2.66  $-1.02 (D) 
- Orion Kerkering, Phi          44     2    4   5.114   1.545    -2.67  $-1.06
- Connor Phillips, Cin          37     2    0   4.865   1.405    -2.68  $-1.07
- Bryce Jarvis, Ari             30     2    0   5.100   1.433    -2.68  $-1.09
- Daysbel Hernandez, Atl        19     1    0   4.737   1.474    -2.69  $-1.12
- John King, StL                43     2    0   4.395   1.465    -2.69  $-1.12
- German Marquez, Col           35     2    0   4.886   1.429    -2.70  $-1.14
- Quinn Priester, Pit           83     4    0   4.771   1.386    -2.70  $-1.16
- Ty Blach, Col                 34     2    0   5.029   1.412    -2.70  $-1.16
- Jose Hernandez, Pit           34     2    0   4.765   1.471    -2.71  $-1.19
- Casey Legumina, Cin           17     1    0   4.765   1.529    -2.71  $-1.19
- Jeremiah Estrada, SD          23     1    0   4.696   1.435    -2.72  $-1.20
- Lyon Richardson, Cin          16     1    0   5.062   1.500    -2.72  $-1.22
- Amos Willingham, Was          16     1    0   5.062   1.500    -2.72  $-1.22
- Richard Bleier, Was           28     1    0   4.500   1.429    -2.73  $-1.26
- Cam Sanders, ChC              15     1    0   4.800   1.600    -2.73  $-1.27
- Riley Pint, Col               21     1    0   4.714   1.476    -2.74  $-1.27
- Tristan Beck, SF              85     4    0   4.871   1.365    -2.74  $-1.28
- Adrian Morejon, SD            27     1    0   4.667   1.407    -2.74  $-1.28
- Joe Rock, Col                 19     1    0   5.211   1.421    -2.75  $-1.32
- Bailey Falter, Pit           102     5    0   5.029   1.343    -2.75  $-1.32
- Justin Martinez, Ari          18     1    0   5.000   1.500    -2.76  $-1.37
- Buck Farmer, Cin              61     3    0   4.721   1.426    -2.78  $-1.44
- Tommy Henry, Ari              86     4    0   4.814   1.384    -2.79  $-1.46
- Evan Justice, Col             21     1    0   5.143   1.429    -2.79  $-1.47
- George Soriano, Mia           44     2    0   4.705   1.432    -2.80  $-1.48
- Dylan Dodd, Atl               20     1    0   5.400   1.400    -2.80  $-1.49
- Calvin Faucher, Mia           26     1    0   4.500   1.500    -2.82  $-1.55
- Luis Frias, Ari               25     1    0   4.680   1.480    -2.82  $-1.57
- Gus Varland, LAD              24     1    0   4.875   1.458    -2.83  $-1.59
- John Curtiss, Col             17     1    0   5.294   1.529    -2.84  $-1.61
- Lucas Gilbreath, Col          34     2    0   4.765   1.529    -2.84  $-1.63
- Blake Walston, Ari            27     1    0   5.000   1.407    -2.86  $-1.69
- Tanner Rainey, Was            45     2    2   5.000   1.511    -2.88  $-1.76
- Lucas Sims, Cin               56     3    0   4.982   1.429    -2.89  $-1.80
- Jose A. Ferrer, Was           24     1    0   4.875   1.500    -2.89  $-1.81
- Derek Law, Was                24     1    0   4.875   1.500    -2.89  $-1.81
- Carmen Mlodzinski, Pit        41     2    0   4.610   1.512    -2.90  $-1.82
- Jake Irvin, Was              121     5    0   4.909   1.347    -2.91  $-1.87
- Alex Young, Cin               39     2    0   4.846   1.487    -2.91  $-1.87
- Matt Carasiti, Col            21     1    0   5.143   1.524    -2.92  $-1.91
- Joan Adon, Was                71     3    0   4.690   1.423    -2.93  $-1.92
- Tyler Matzek, Atl             35     2    0   4.886   1.543    -2.95  $-2.02
- Roansy Contreras, Pit         81     4    0   5.000   1.395    -2.96  $-2.03
- Keegan Thompson, ChC          23     1    0   5.087   1.522    -2.97  $-2.06
- Nick Nelson, Phi              32     2    0   5.344   1.500    -2.98  $-2.09
- Patrick Monteverde, Mia       21     1    0   5.571   1.476    -2.98  $-2.11
- Sean Hjelle, SF               54     2    0   4.833   1.407    -3.00  $-2.18
- Shintaro Fujinami, NYM        42     2    0   4.714   1.524    -3.01  $-2.21
- Carson Spiers, Cin            33     2    0   5.455   1.485    -3.02  $-2.26
- Victor Vodnik, Col            34     2    0   5.029   1.559    -3.02  $-2.26
- Kyle Nicolas, Pit             22     1    0   5.318   1.545    -3.04  $-2.30
- Anthony Molina, Col           21     1    0   5.571   1.524    -3.04  $-2.33
- Paul Skenes, Pit              25     1    0   5.400   1.480    -3.07  $-2.40
- Amir Garrett, SF              26     1    0   4.846   1.577    -3.07  $-2.40
- Ian Gibaut, Cin               56     3    0   4.982   1.500    -3.14  $-2.66
- Gavin Hollowell, Col          46     2    0   5.087   1.457    -3.14  $-2.66
- Ryan Feltner, Col            105     5    0   4.971   1.410    -3.15  $-2.67
- Martin Perez, Pit            145     7    0   4.903   1.414    -3.15  $-2.70
- Jared Jones, Pit              70     3    0   5.143   1.386    -3.16  $-2.72
- Brandon Williamson, Cin       58     3    0   5.276   1.431    -3.17  $-2.75
- Zach Davies, Was              41     2    0   5.268   1.488    -3.19  $-2.83
- Nick Mears, Col               51     3    0   5.118   1.549    -3.26  $-3.05
- Jason Groome, SD              32     1    0   5.344   1.500    -3.31  $-3.23
- Josh Fleming, Pit             61     3    0   5.016   1.508    -3.33  $-3.31
- Zack Thompson, StL            50     2    0   5.040   1.500    -3.35  $-3.38
- Ryan Weathers, Mia            52     2    0   5.192   1.481    -3.45  $-3.71
- Marco Gonzales, Pit          132     6    0   5.182   1.386    -3.49  $-3.86
- Luis Patino, SD               56     2    0   5.143   1.482    -3.53  $-3.99
- Luis Ortiz, Pit               80     4    0   5.287   1.462    -3.57  $-4.11
- Daniel Bard, Col              51     2    2   5.294   1.627    -3.62  $-4.30
- Jackson Rutledge, Was         93     4    0   5.323   1.409    -3.65  $-4.41
- Noah Davis, Col               41     2    0   6.146   1.512    -3.74  $-4.69
- Cal Quantrill, Col           141     7    0   5.362   1.411    -3.86  $-5.10
- Josiah Gray, Was             152     6    0   5.092   1.408    -3.91  $-5.29
- --> TREVOR WILLIAMS, WAS     131     5    0   5.221   1.420    -4.13  $-6.04
- Peter Lambert, Col            89     4    0   5.663   1.472    -4.29  $-6.59
- Austin Gomber, Col           132     6    0   5.523   1.455    -4.59  $-7.59
- Patrick Corbin, Was          150     6    0   5.340   1.447    -4.67  $-7.87
- Kyle Freeland, Col           156     7    0   5.538   1.429    -4.70  $-7.98
- Dakota Hudson, Col           112     5    0   5.464   1.562    -5.01  $-9.04
+ Steven Wilson, SD             47     2    0   4.213   1.298    -2.15  $ 0.73
+ Michael Grove, LAD            32     2    0   4.219   1.344    -2.17  $ 0.67
+ Huascar Ynoa, Atl             52     3    0   4.500   1.346    -2.19  $ 0.60
+ Riley O'Brien, StL            36     2    0   4.000   1.389    -2.20  $ 0.58
+ Spencer Howard, SF            34     2    0   4.500   1.294    -2.21  $ 0.56
+ Dauri Moreta, Pit             34     2    0   4.235   1.353    -2.22  $ 0.54
+ Jake Diekman, NYM             49     3    0   4.224   1.429    -2.24  $ 0.48
+ MacKenzie Gore, Was          130     6    0   4.638   1.346    -2.25  $ 0.45
+ Jordan Wicks, ChC             99     5    0   4.727   1.333    -2.25  $ 0.45
+ Miguel Castro, Ari            47     3    0   4.404   1.404    -2.25  $ 0.44
+ Jorge Lopez, NYM              53     3    0   4.415   1.377    -2.25  $ 0.44
+ Dylan Floro, Was              53     3    0   4.245   1.415    -2.26  $ 0.42
+ Sam Moll, Cin                 52     3    0   4.327   1.404    -2.26  $ 0.40
+ J.T. Chargois, Mia            52     3    0   4.327   1.404    -2.26  $ 0.40
+ Jalen Beeks, Col              55     3    2   4.418   1.473    -2.26  $ 0.40
+ Jordan Weems, Was             57     3    0   4.421   1.368    -2.27  $ 0.38
+ Tejay Antone, Cin             39     2    0   4.154   1.385    -2.30  $ 0.31
+ Adrian Houser, NYM           127     6    0   4.465   1.394    -2.30  $ 0.31
+ Dylan Lee, Atl                32     2    0   4.219   1.406    -2.30  $ 0.30
+ Luke Little, ChC              31     2    0   4.355   1.387    -2.31  $ 0.28
+ Jackson Stephens, Atl         20     1    0   4.050   1.300    -2.31  $ 0.28
+ Glenn Otto, SD                35     2    0   4.629   1.314    -2.32  $ 0.24
+ Kyle Nelson, Ari              36     2    0   4.250   1.389    -2.32  $ 0.24
+ Drew Smith, NYM               42     2    0   4.286   1.357    -2.32  $ 0.23
+ Packy Naughton, StL           18     1    0   4.000   1.333    -2.33  $ 0.22
+ Brandon Hughes, Ari           11     1    0   4.091   1.364    -2.33  $ 0.21
+ Cody Stashak, SF              22     1    0   4.500   1.227    -2.34  $ 0.17
+ Mike Vasil, NYM               32     2    0   4.781   1.312    -2.35  $ 0.16
+ Carlos F. Rodriguez, Mil      20     1    0   4.500   1.250    -2.37  $ 0.11
+ Sixto Sanchez, Mia            26     1    0   4.154   1.308    -2.38  $ 0.08
+ Bryse Wilson, Mil             64     3    0   4.500   1.359    -2.38  $ 0.06
+ Gordon Graceffo, StL          18     1    0   4.500   1.278    -2.39  $ 0.05
+ Stephen Kolek, SD             19     1    0   3.789   1.421    -2.39  $ 0.05
+ Yunior Marte, Phi             29     2    0   4.345   1.448    -2.39  $ 0.04
+ Drew Smyly, ChC               62     3    0   4.645   1.339    -2.40  $ 0.02
+ Nick Robertson, StL           28     2    0   4.500   1.429    -2.40  $ 0.02
+ Taylor Clarke, Mil            45     2    0   4.400   1.356    -2.42  $-0.03
+ Trevor Megill, Mil            45     2    0   4.400   1.356    -2.42  $-0.03
+ Tommy Nance, SD               15     1    0   4.200   1.400    -2.42  $-0.05
+ Yohan Ramirez, NYM            15     1    0   4.200   1.400    -2.42  $-0.05
+ Phil Bickford, NYM            38     2    0   4.500   1.368    -2.42  $-0.05
+ Jacob Misiorowski, Mil        18     1    0   5.000   1.222    -2.44  $-0.11
+ Connor Brogdon, Phi           29     2    0   4.655   1.414    -2.45  $-0.13
+ Dylan Covey, Phi              36     2    0   4.250   1.444    -2.45  $-0.13
+ Slade Cecconi, Ari            46     2    0   4.891   1.261    -2.45  $-0.13
+ J.B. Bukauskas, Mil           24     1    0   4.125   1.375    -2.46  $-0.16
+ Thyago Vieira, Mil            24     1    0   4.125   1.375    -2.46  $-0.16
+ Ethan Small, SF               34     2    0   4.500   1.412    -2.46  $-0.17
+ Brent Suter, Cin              48     3    0   4.500   1.458    -2.49  $-0.24
+ Sem Robberse, StL             19     1    0   4.737   1.316    -2.50  $-0.28
+ Pedro Avila, SD               48     2    0   4.500   1.354    -2.51  $-0.30
+ Robert Garcia, Was            49     2    0   4.224   1.408    -2.51  $-0.30
+ Ryne Nelson, Ari             102     5    0   4.853   1.343    -2.51  $-0.30
+ Luis Ortiz, Phi               18     1    0   4.500   1.389    -2.51  $-0.32
+ Cade Cavalli, Was             40     2    0   4.725   1.350    -2.52  $-0.33
+ Matthew Liberatore, StL       61     3    0   4.721   1.361    -2.53  $-0.35
+ Max Castillo, Phi             22     1    0   4.500   1.364    -2.54  $-0.38
+ Jose Butto, NYM               38     2    0   4.737   1.368    -2.54  $-0.39
+ Andre Pallante, StL           50     3    0   4.140   1.540    -2.54  $-0.40
+ Graham Ashcraft, Cin         140     7    0   4.821   1.371    -2.55  $-0.42
+ Jose Ruiz, Phi                14     1    0   4.500   1.500    -2.56  $-0.44
+ Jose Cuas, ChC                42     2    0   4.500   1.405    -2.57  $-0.48
+ Daniel Palencia, ChC          34     2    0   4.765   1.412    -2.58  $-0.51
+ Kolby Allard, Phi             32     2    0   5.062   1.375    -2.60  $-0.55
+ Josh Simpson, Mia             22     1    0   4.500   1.409    -2.60  $-0.57
+ Huascar Brazoban, Mia         39     2    0   4.385   1.462    -2.60  $-0.58
+ Caleb Kilian, ChC             15     1    0   4.800   1.467    -2.61  $-0.58
+ Mick Abel, Phi                27     1    0   4.667   1.333    -2.61  $-0.59
+ Luis D. Perdomo, Was          28     1    0   4.179   1.429    -2.61  $-0.60
+ Ryan Fernandez, StL           21     1    0   4.286   1.476    -2.62  $-0.61
+ Bryan Hoeing, Mia             43     2    0   4.605   1.395    -2.62  $-0.62
+ Drew Rom, StL                 41     2    0   4.829   1.366    -2.63  $-0.66
+ Tylor Megill, NYM             95     4    0   4.642   1.368    -2.63  $-0.66
+ Yency Almonte, ChC            34     2    0   4.765   1.441    -2.65  $-0.70
+ Tyler Gilbert, Cin            17     1    0   4.765   1.471    -2.65  $-0.71
+ Carl Edwards, ChC             23     1    0   4.304   1.478    -2.66  $-0.74
+ Javier Assad, ChC             81     4    0   4.667   1.407    -2.66  $-0.74
+ J.T. Brubaker, Pit            32     2    0   5.062   1.406    -2.66  $-0.74 (D) 
+ Orion Kerkering, Phi          44     2    4   5.114   1.545    -2.67  $-0.76
+ John King, StL                43     2    0   4.395   1.465    -2.69  $-0.82
+ Quinn Priester, Pit           83     4    0   4.771   1.386    -2.69  $-0.83
+ Adrian Morejon, SD            19     1    0   4.737   1.474    -2.69  $-0.83
+ German Marquez, Col           35     2    0   4.886   1.429    -2.70  $-0.84
+ Ty Blach, Col                 34     2    0   5.029   1.412    -2.70  $-0.86
+ Derek Law, Was                24     1    0   4.500   1.458    -2.71  $-0.88
+ Tristan Beck, SF              51     2    0   4.765   1.353    -2.72  $-0.90 (D) 
+ Jeremiah Estrada, SD          23     1    0   4.696   1.435    -2.72  $-0.90
+ Colin Selby, Pit              22     1    0   4.500   1.500    -2.73  $-0.94
+ Richard Bleier, Was           28     1    0   4.500   1.429    -2.73  $-0.94
+ Cam Sanders, ChC              15     1    0   4.800   1.600    -2.74  $-0.96
+ Gus Varland, LAD              20     1    0   4.950   1.450    -2.74  $-0.98
+ Joe Rock, Col                 19     1    0   5.211   1.421    -2.75  $-1.00
+ Connor Phillips, Cin          41     2    0   4.829   1.415    -2.76  $-1.02
+ Alex Young, Cin               35     2    0   4.886   1.457    -2.76  $-1.02
+ Jose A. Ferrer, Was           24     1    0   4.500   1.500    -2.77  $-1.06
+ Buck Farmer, Cin              61     3    0   4.721   1.426    -2.78  $-1.07
+ Tommy Henry, Ari              86     4    0   4.814   1.384    -2.78  $-1.08
+ Jake Irvin, Was              121     5    0   4.835   1.347    -2.78  $-1.08
+ Evan Justice, Col             21     1    0   5.143   1.429    -2.79  $-1.12
+ Calvin Faucher, Mia           26     1    0   4.500   1.500    -2.82  $-1.19
+ Luis Frias, Ari               25     1    0   4.680   1.480    -2.82  $-1.21
+ Jose Hernandez, Pit           41     2    0   4.610   1.488    -2.83  $-1.23
+ John Curtiss, Col             17     1    0   5.294   1.529    -2.84  $-1.25
+ Blake Walston, Ari            27     1    0   5.000   1.407    -2.86  $-1.31
+ Ken Giles, Atl                20     1    0   4.950   1.550    -2.87  $-1.35
+ Tanner Rainey, Was            45     2    2   5.000   1.511    -2.87  $-1.35
+ Lucas Sims, Cin               56     3    0   4.982   1.429    -2.88  $-1.38
+ Carmen Mlodzinski, Pit        41     2    0   4.610   1.512    -2.89  $-1.41
+ Brent Honeywell, Pit          30     1    0   4.800   1.433    -2.90  $-1.41
+ Lucas Gilbreath, Col          34     2    0   4.765   1.559    -2.90  $-1.43
+ Patrick Monteverde, Mia       21     1    0   5.571   1.429    -2.92  $-1.47
+ Matt Carasiti, Col            21     1    0   5.143   1.524    -2.92  $-1.49
+ Bailey Falter, Pit            93     4    0   5.032   1.344    -2.93  $-1.51
+ George Soriano, Mia           48     2    0   4.688   1.458    -2.94  $-1.54
+ Roansy Contreras, Pit         81     4    0   5.000   1.395    -2.94  $-1.56
+ Keegan Thompson, ChC          23     1    0   5.087   1.522    -2.97  $-1.62
+ Nick Nelson, Phi              32     2    0   5.344   1.500    -2.97  $-1.63
+ Sean Hjelle, SF               33     1    0   4.909   1.424    -2.99  $-1.68
+ Ian Gibaut, Cin               52     3    0   4.846   1.519    -3.00  $-1.70
+ Shintaro Fujinami, NYM        42     2    0   4.714   1.524    -3.00  $-1.73
+ Bryce Jarvis, Ari             30     1    0   5.100   1.433    -3.02  $-1.76
+ Tyler Matzek, Atl             40     2    0   4.725   1.550    -3.03  $-1.79
+ Kyle Nicolas, Pit             22     1    0   5.318   1.545    -3.04  $-1.82
+ Anthony Molina, Col           21     1    0   5.571   1.524    -3.04  $-1.84
+ Amir Garrett, SF              26     1    0   4.846   1.577    -3.07  $-1.91
+ Ryan Feltner, Col            105     5    0   4.971   1.410    -3.13  $-2.08
+ Martin Perez, Pit            145     7    0   4.903   1.414    -3.13  $-2.09
+ Ryan Weathers, Mia            61     3    0   5.016   1.459    -3.14  $-2.11
+ Victor Vodnik, Col            34     2    0   5.294   1.559    -3.14  $-2.12
+ Jared Jones, Pit              70     3    0   5.143   1.386    -3.15  $-2.15
+ Zach Davies, Was              41     2    0   5.268   1.488    -3.19  $-2.25
+ Brandon Williamson, Cin       58     3    0   5.276   1.448    -3.22  $-2.35
+ Nick Mears, Col               51     3    0   5.118   1.549    -3.25  $-2.43
+ Josh Fleming, Pit             61     3    0   5.016   1.508    -3.32  $-2.64
+ Zack Thompson, StL            50     2    0   5.040   1.500    -3.34  $-2.71
+ Paul Skenes, Pit              33     1    0   5.455   1.485    -3.35  $-2.74
+ Jackson Rutledge, Was         93     4    0   5.226   1.398    -3.46  $-3.04
+ Marco Gonzales, Pit          132     6    0   5.182   1.386    -3.47  $-3.07
+ Luis Patino, SD               56     2    0   5.143   1.500    -3.58  $-3.40
+ Daniel Bard, Col              51     2    2   5.294   1.627    -3.61  $-3.47
+ Luis Ortiz, Pit               80     4    0   5.287   1.475    -3.61  $-3.48
+ Josiah Gray, Was             152     6    0   5.092   1.401    -3.82  $-4.09
+ Cal Quantrill, Col           141     7    0   5.426   1.411    -3.94  $-4.42
+ --> TREVOR WILLIAMS, WAS     131     5    0   5.221   1.420    -4.11  $-4.90
+ Peter Lambert, Col            89     4    0   5.663   1.472    -4.27  $-5.37
+ Austin Gomber, Col           132     6    0   5.523   1.455    -4.55  $-6.19
+ Patrick Corbin, Was          150     6    0   5.340   1.447    -4.63  $-6.42
+ Kyle Freeland, Col           156     7    0   5.538   1.436    -4.72  $-6.67
+ Dakota Hudson, Col           112     5    0   5.464   1.554    -4.92  $-7.24
+ Roddery Munoz, Mia            17     1    0   4.765   1.588    -2.78  $-1.08 (I) 
+ Thad Ward, Was                36     2    0   4.500   1.417    -2.51  $-0.29 (I) 
+ Erik Miller, SF               37     2    0   4.378   1.459    -2.56  $-0.46 (I) 
+ Landon Knack, LAD             16     1    0   3.375   1.188    -2.03  $ 1.07 (I) 
+ Cristian Mena, Ari            18     1    0   5.000   1.389    -2.64  $-0.67 (I) 
+ Gavin Hollowell, Col          46     2    0   5.087   1.435    -3.07  $-1.93 (I) 
+ Joan Adon, Was                71     3    0   4.690   1.423    -2.92  $-1.48 (I) 
+ Casey Legumina, Cin           17     1    0   4.765   1.529    -2.71  $-0.90 (I) 
+ Braxton Ashcraft, Pit         30     2    0   4.500   1.333    -2.25  $ 0.45 (I) 
+ Lyon Richardson, Cin          16     1    0   5.062   1.500    -2.72  $-0.91 (I) 
+ Max Meyer, Mia                89     4    0   4.449   1.337    -2.16  $ 0.70 (I) 
+ Alek Jacob, SD                23     1    0   3.913   1.304    -2.28  $ 0.35 (I) 
+ Cade Horton, ChC              30     2    0   4.800   1.333    -2.37  $ 0.10 (I) 
+ Carson Spiers, Cin            33     2    0   5.455   1.485    -3.02  $-1.78 (I) 
+ AJ Smith-Shawver, Atl         60     4    0   4.800   1.383    -2.32  $ 0.23 (I) 
+ Jairo Iriarte, SD             40     2    0   4.275   1.300    -2.15  $ 0.72 (I) 
+ Jackson Wolf, Pit             15     1    0   4.200   1.333    -2.36  $ 0.14 (I) 
+ Adam Kloffenstein, StL        18     1    0   5.000   1.389    -2.64  $-0.67 (I) 
+ Peter Strzelecki, Ari         22     1    0   4.500   1.318    -2.47  $-0.20 (I) 
+ Daysbel Hernandez, Atl        28     2    0   4.500   1.393    -2.33  $ 0.20 (I) 
+ Kai-Wei Teng, SF              59     3    0   4.424   1.322    -2.13  $ 0.80 (I) 
+ Ian Anderson, Atl             16     1    0   4.500   1.438    -2.54  $-0.38 (I) 
+ Justin Martinez, Ari          18     1    0   5.000   1.500    -2.77  $-1.04 (I) 
+ Noah Davis, Col               41     2    0   6.146   1.512    -3.73  $-3.81 (I) 
+ Riley Pint, Col               21     1    0   4.714   1.476    -2.74  $-0.96 (I) 
+ Amos Willingham, Was          16     1    0   5.062   1.500    -2.72  $-0.91 (I) 
+ Ben Brown, ChC                47     3    0   4.213   1.319    -1.88  $ 1.51 (I) 
+ Darius Vines, Atl             36     2    0   4.250   1.278    -2.07  $ 0.97 (I) 
+ Grant Hartwig, NYM            19     1    0   4.737   1.421    -2.63  $-0.65 (I) 
+ Ray Kerr, Atl                 32     2    0   4.500   1.438    -2.48  $-0.23 (I) 
