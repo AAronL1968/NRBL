@@ -1,7 +1,8 @@
 # Norwood Recreational Baseball League (NL Only)
 ## This is where AAron maintains his fantasy baseball database application.
-### 2025 updates:  add new OOPSY projection system 
-### To-do:  recalculate dollar values in real time during the auction as players are drafted
+### 2025 updates:  
+### - added new OOPSY projection system 
+### - recalculate dollar values in real time during the auction as players are drafted
 
 2024 updates:
 There is a lot of work to do before the 2024 draft (Saturday, March 30).  The league is contracting from 12 teams to 11, adding a pitching slot, adding a new "Switch" player that can be either a hitter or a pitcher (or Shohei Ohtani), and increasing the draft budget.
