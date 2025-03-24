@@ -4,7 +4,7 @@
 The 2025 NRBL auction draft is Saturday, March 29.
  - added new OOPSY projection system 
  - recalculate dollar values in real time during the auction as players are drafted
-   ![image](https://github.com/user-attachments/assets/fae74849-fbb7-4dad-bf74-98fea3e4b323)
+   ![image](https://github.com/user-attachments/assets/de5a7aff-85e8-4cd6-9804-7c9df0b711df)
 
  - streamline imports to be more table-driven
      - remove duplicated code where possible
