@@ -5,7 +5,11 @@
  - recalculate dollar values in real time during the auction as players are drafted
 
 ## 2024 updates:
-There is a lot of work to do before the 2024 draft (Saturday, March 30).  The league is contracting from 12 teams to 11, adding a pitching slot, adding a new "Switch" player that can be either a hitter or a pitcher (or Shohei Ohtani), and increasing the draft budget.
+There is a lot of work to do before the 2024 draft (Saturday, March 30).  
+ - the league is contracting from 12 teams to 11
+ - teams all add one additional pitching slot
+ - teams all add a new "Switch" player that can be either a hitter or a pitcher (or Shohei Ohtani)
+ - the draft budget increases from $275 to $300 per team
 
 ## This application will require Microsoft Access to be installed on the host machine.  
 By default, the database expects the `NRBL_import` folder to reside at `C:\repos\NRBL\NRBL_import`.
