@@ -3,6 +3,9 @@
 ## 2025 updates:  
  - added new OOPSY projection system 
  - recalculate dollar values in real time during the auction as players are drafted
+ - streamline imports to be more table-driven
+     - remove duplicated code where possible
+ - add gradients of green and red to roster report to indicate bargains/overpays in relation to the average of all active sources' "pure" (uninflated) auction values by player
 
 ## 2024 updates:
 There is a lot of work to do before the 2024 draft (Saturday, March 30).  
