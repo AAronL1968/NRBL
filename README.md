@@ -1,6 +1,7 @@
 # Norwood Recreational Baseball League (NL Only)
 ## This is where AAron maintains his fantasy baseball database application.
 ## 2025 updates:  
+The 2025 NRBL auction draft is Saturday, March 29.
  - added new OOPSY projection system 
  - recalculate dollar values in real time during the auction as players are drafted
  - streamline imports to be more table-driven
