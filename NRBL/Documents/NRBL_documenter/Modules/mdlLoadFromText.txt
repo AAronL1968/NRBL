@@ -1,0 +1,229 @@
+Option Compare Database
+Option Explicit
+
+' This code assumes that the files to restore were created using
+' the DocumentDatabase procedure contained elsewhere in this application.
+' That means that the files were written to a specific directory hierarchy.
+' A folder named Documents is written in the same folder as where the
+' MDB file exists. Underneath that folder are 5 other folders:
+'                 Forms
+'                 Modules
+'                 Queries
+'                 Reports
+'                 Scripts
+'
+' Hopefully it's obvious from the names what's where!
+'
+' A warning: I am NOT restoring references when I restore the objects,
+' nor am I restoring any database properties that may have been set.
+' This means that the database may not function properly!
+
+Public Sub RestoreDatabase( _
+    WhatDatabase As String, _
+    RestoreFromFolder As String _
+)
+'
+' This code was originally written by
+' Doug Steele, MVP  AccessHelp@rogers.com
+' http://I.Am/DougSteele
+' You are free to use it in any application
+' provided the copyright notice is left unchanged.
+'
+' Description:  Uses the undocumented Application.LoadFromText method
+'               to restore objects to a database.
+'               These files are assumed to have been stored in appropriately
+'               named subfolders below a folder named Documents, with 5
+'               subfolders Forms, Reports, Scripts, Modules and
+'               Queries
+'
+'               If WhatDatabase doesn't exist, this routine will create it.
+'
+' Inputs:       WhatDatabase       String   Fully-qualified path to the database to be restored
+'               RestoreFromFolder  String   Locating of Documents folder
+'
+
+On Error GoTo Err_RestoreDatabase
+Dim appAccess As Access.Application
+Dim dbCurr As DAO.Database
+Dim intTotal As Integer
+Dim strCurrFile As String
+Dim strCurrFolder As String
+Dim strCurrObject As String
+Dim strFolderRoot As String
+
+' Does RestoreFromFolder exist?
+    strFolderRoot = ValidateFolder(RestoreFromFolder)
+    If Len(strFolderRoot) > 0 Then
+
+' If no WhatDatabase doesn't exist, create it.
+' Depending on where you are, you may need to change dbLangGeneral
+' After creating it, we close it and reopen it as shared and read-only
+' to avoid contention issues.
+        If Len(Dir$(WhatDatabase)) = 0 Then
+            Set dbCurr = CreateDatabase(WhatDatabase, dbLangGeneral)
+            dbCurr.Close
+            Set dbCurr = Nothing
+            Set dbCurr = OpenDatabase(WhatDatabase, False, True)
+        End If
+        
+        Set appAccess = New Access.Application
+        appAccess.OpenCurrentDatabase WhatDatabase, False
+
+' Look for forms, which should be in a \Forms subfolder.
+' The SysCmd stuff is to ensure that there's some visual feedback
+' to the user: it shows what form it's restoring to the Status Bar.
+' Restore each text file, assuming that the name of the file is the name of the
+' object to restore.
+        strCurrFolder = strFolderRoot & "Forms\"
+        strCurrFile = Dir$(strCurrFolder & "*.txt")
+        Do While Len(strCurrFile) > 0
+' Remove the .txt from the file name to get the object name
+            strCurrObject = Left$(strCurrFile, Len(strCurrFile) - 4)
+            SysCmd acSysCmdSetStatus, "Restoring Form " & strCurrObject
+            intTotal = intTotal + 1
+            appAccess.LoadFromText acForm, strCurrObject, _
+                strCurrFolder & strCurrFile
+            strCurrFile = Dir$()
+        Loop
+
+' Look for reports, which should be in a \Reports subfolder.
+' Restore each text file, assuming that the name of the file is the name of the
+' object to restore.
+        strCurrFolder = strFolderRoot & "Reports\"
+        strCurrFile = Dir$(strCurrFolder & "*.txt")
+        Do While Len(strCurrFile) > 0
+' Remove the .txt from the file name to get the object name
+            strCurrObject = Left$(strCurrFile, Len(strCurrFile) - 4)
+            SysCmd acSysCmdSetStatus, "Restoring Report " & strCurrObject
+            intTotal = intTotal + 1
+            appAccess.LoadFromText acReport, strCurrObject, _
+                strCurrFolder & strCurrFile
+            strCurrFile = Dir$()
+        Loop
+
+' Look for macros, which should be in a \Scripts subfolder.
+' Restore each text file, assuming that the name of the file is the name of the
+' object to restore.
+        strCurrFolder = strFolderRoot & "Scripts\"
+        strCurrFile = Dir$(strCurrFolder & "*.txt")
+        Do While Len(strCurrFile) > 0
+' Remove the .txt from the file name to get the object name
+            strCurrObject = Left$(strCurrFile, Len(strCurrFile) - 4)
+            SysCmd acSysCmdSetStatus, "Restoring Macro " & strCurrObject
+            intTotal = intTotal + 1
+            appAccess.LoadFromText acMacro, strCurrObject, _
+                strCurrFolder & strCurrFile
+            strCurrFile = Dir$()
+        Loop
+
+' Look for modules, which should be in a \Modules subfolder.
+' Restore each text file, assuming that the name of the file is the name of the
+' object to restore.
+        strCurrFolder = strFolderRoot & "Modules\"
+        strCurrFile = Dir$(strCurrFolder & "*.txt")
+        Do While Len(strCurrFile) > 0
+' Remove the .txt from the file name to get the object name
+            strCurrObject = Left$(strCurrFile, Len(strCurrFile) - 4)
+            SysCmd acSysCmdSetStatus, "Restoring Module " & strCurrObject
+            intTotal = intTotal + 1
+            appAccess.LoadFromText acModule, strCurrObject, _
+                strCurrFolder & strCurrFile
+            strCurrFile = Dir$()
+        Loop
+
+' Look for queries, which should be in a \Queries subfolder.
+' Restore each text file, assuming that the name of the file is the name of the
+' object to restore.
+        strCurrFolder = strFolderRoot & "Queries\"
+        strCurrFile = Dir$(strCurrFolder & "*.txt")
+        Do While Len(strCurrFile) > 0
+' Remove the .txt from the file name to get the object name
+            strCurrObject = Left$(strCurrFile, Len(strCurrFile) - 4)
+            SysCmd acSysCmdSetStatus, "Restoring Report " & strCurrObject
+            intTotal = intTotal + 1
+            appAccess.LoadFromText acQuery, strCurrObject, _
+                strCurrFolder & strCurrFile
+            strCurrFile = Dir$()
+        Loop
+
+        msgbox "All done." & vbCrLf & "A total of " & intTotal & " objects were restored.", _
+            vbOKOnly + vbInformation
+    
+    Else
+        msgbox RestoreFromFolder & " does not exist.", vbOKOnly + vbCritical
+    End If
+
+End_RestoreDatabase:
+    On Error Resume Next
+    Set dbCurr = Nothing
+    appAccess.CloseCurrentDatabase
+    Set appAccess = Nothing
+    SysCmd acSysCmdClearStatus
+    Exit Sub
+
+Err_RestoreDatabase:
+    msgbox Err.description & " (" & Err.Number & ") in " & _
+        "RestoreDatabase", _
+        vbOKOnly + vbCritical, "NRBL Documenter"
+    Resume End_RestoreDatabase
+
+End Sub
+
+Private Function ValidateFolder(FolderRoot) As String
+'
+' This code was originally written by
+' Doug Steele, MVP  AccessHelp@rogers.com
+' http://I.Am/DougSteele
+' You are free to use it in any application
+' provided the copyright notice is left unchanged.
+'
+' Description: RestoreDatabase is expecting to see a folder hierarch with
+'              a Documents folder at top, and 5 subfolders underneath:
+'                 Forms
+'                 Modules
+'                 Queries
+'                 Reports
+'                 Scripts
+'
+'               I debated how robust I wanted this routine to be: Should I return
+'               an error if not all five subfolders existed? Should I return an error
+'               if more than those five subfolders existed? Should I return an error
+'               if the contents of any of the subfolders wasn't a .TXT file?
+'
+'               In the end, I decided to strictly return True if the folder existed,
+'               and false otherwise. RestoreDatabase is only going to be looking for
+'               .TXT files in specific subfolders, so additional ones don't matter.
+'               I'll just make sure it doesn't have a problem with one of the specific
+'               subfolders not existing.
+'
+' Inputs:       FolderRoot   String   Fully-qualified path to folder structure to use for restoration
+'
+' Returns       The function returns a fully-qualified path to the folder (including a terminating
+'               slash) if the folder appears to be valid, or a zero-length string ("") otherwise.
+
+On Error GoTo Err_ValidateFolder
+
+Dim strPath As String
+
+    If Len(Dir$(FolderRoot, vbDirectory)) > 0 Then
+        If Right$(FolderRoot, 1) <> "\" Then
+            strPath = FolderRoot & "\"
+        Else
+            strPath = FolderRoot
+        End If
+    Else
+        strPath = vbNullString
+    End If
+
+End_ValidateFolder:
+    ValidateFolder = strPath
+    Exit Function
+
+Err_ValidateFolder:
+    strPath = vbNullString
+    msgbox Err.description & " (" & Err.Number & ") in " & _
+        "ValidateFolder", _
+        vbOKOnly + vbCritical, "NRBL Documenter"
+    Resume End_ValidateFolder
+
+End Function

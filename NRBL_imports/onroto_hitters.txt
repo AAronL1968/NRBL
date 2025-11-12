@@ -1,278 +1,226 @@
- --> SHOHEI OHTANI-HITTER,  OF           552    37   86   28   0.284     8.49  $38.76  $51.00 <-- KEPT
- Ronald Acuna, Atl          OF           460    22   66   44   0.289     7.69  $36.40  $43.32 (D) 
- Corbin Carroll, Ari        OF           555    23   72   44   0.263     7.16  $34.80  $20.00 <-- KEPT
- Elly De La Cruz, Cin       SS           578    22   74   44   0.263     7.12  $34.69  $26.00 <-- KEPT
- Kyle Tucker, ChC           OF           524    27   84   21   0.275     5.39  $29.54  $35.12
- Jackson Chourio, Mil       OF           577    22   76   28   0.263     4.87  $27.99  $26.00 <-- KEPT
- CJ Abrams, Was             SS           541    18   63   38   0.255     4.75  $27.63  $32.83
- Michael Harris, Atl        OF           571    22   72   24   0.277     4.74  $27.63  $32.83
- Juan Soto, NYM             OF           509    31   84   13   0.273     4.69  $27.45  $32.62
- Fernando Tatis Jr., SD     OF           563    27   73   23   0.263     4.68  $27.45  $32.61
- Trea Turner, Phi           SS           585    20   74   26   0.272     4.62  $27.25  $32.38
- Mookie Betts, LAD          SS,OF        558    26   84   14   0.281     4.59  $27.17  $32.28
- Francisco Lindor, NYM      SS           584    24   76   25   0.259     4.48  $26.84  $32.00 <-- KEPT
- Freddie Freeman, LAD       1B           559    21   90   13   0.286     4.22  $26.06  $30.96
- Bryce Harper, Phi          1B           544    28   89    9   0.270     3.81  $24.84  $30.00 <-- KEPT
- Pete Crow-Armstrong, ChC   OF           516    16   62   35   0.246     3.56  $24.08  $28.59
- James Wood, Was            OF           535    23   74   20   0.260     3.53  $24.02  $10.00 <-- KEPT
- Jake McCarthy, Ari         OF           466    10   63   31   0.275     3.31  $23.37  $27.74
- Austin Riley, Atl          3B           579    30   95    4   0.261     3.22  $23.09  $26.00 <-- KEPT
- Christian Yelich, Mil      OF           525    16   66   25   0.265     3.11  $22.75  $26.99
- Marcell Ozuna, Atl         UT           551    31   90    2   0.265     3.02  $22.50  $10.00 <-- KEPT
- William Contreras, Mil     C            564    23   87    8   0.271     2.92  $22.21  $26.35
- Oneil Cruz, Pit            SS,OF        526    21   76   21   0.247     2.89  $22.11  $23.00 <-- KEPT
- Ozzie Albies, Atl          2B           564    21   82   14   0.262     2.86  $22.02  $26.13
- Matt Olson, Atl            1B           568    32  104    1   0.248     2.85  $21.98  $26.08
- Brice Turang, Mil          2B           529    10   59   37   0.246     2.82  $21.89  $11.00 <-- KEPT
- Ketel Marte, Ari           2B           547    26   79    7   0.267     2.62  $21.31  $23.00 <-- KEPT
- Teoscar Hernandez, LAD     OF           559    26   92    8   0.250     2.57  $21.16  $27.00 <-- KEPT
- Nico Hoerner, ChC          2B           522     8   58   31   0.266     2.53  $21.02  $ 7.00 <-- KEPT
- Manny Machado, SD          3B           543    26   86    7   0.258     2.50  $20.95  $24.85
- Luis Garcia, Was           2B           539    18   69   16   0.269     2.42  $20.70  $ 2.00 <-- KEPT
- Garrett Mitchell, Mil      OF           450    16   64   25   0.251     2.39  $20.61  $24.44
- Willy Adames, SF           SS           571    26   80   14   0.236     2.23  $20.14  $19.00 <-- KEPT
- Dylan Crews, Was           OF           522    16   70   25   0.241     2.22  $20.11  $12.00 <-- KEPT
- Peter Alonso, NYM          1B           548    30   92    4   0.243     2.20  $20.05  $23.78
- Bryan Reynolds, Pit        OF           574    23   78    9   0.261     2.19  $20.03  $23.00 <-- KEPT
- Bryson Stott, Phi          2B           534    12   53   30   0.253     2.13  $19.85  $17.00 <-- KEPT
- Brandon Marsh, Phi         OF           491    18   64   20   0.255     2.09  $19.74  $ 4.00 <-- KEPT
- Jackson Merrill, SD        OF           554    19   74   15   0.256     2.06  $19.62  $17.00 <-- KEPT
- Tyler Fitzgerald, SF       SS           536    21   67   19   0.243     1.98  $19.38  $10.00 <-- KEPT
- Josh Naylor, Ari           1B           543    23   91    6   0.254     1.97  $19.36  $22.95
- TJ Friedl, Cin             OF           492    17   63   20   0.256     1.97  $19.36  $14.00 <-- KEPT
- Seiya Suzuki, ChC          OF           483    19   72   12   0.265     1.86  $19.03  $22.55
- Alec Bohm, Phi             3B           560    18   86    6   0.270     1.77  $18.77  $22.24
- Ezequiel Tovar, Col        SS           593    19   67    8   0.273     1.59  $18.22  $21.00 <-- KEPT
- Nicholas Castellanos, Phi  OF           566    21   85    7   0.254     1.58  $18.19  $21.55
- Jacob Young, Was           OF           475     4   41   39   0.248     1.56  $18.14  $21.48
- Spencer Steer, Cin         1B,OF        499    18   69   18   0.242     1.50  $17.97  $13.00 <-- KEPT
- Willson Contreras, StL     C            514    24   76    6   0.253     1.38  $17.60  $20.85
- Lourdes Gurriel, Ari       OF           529    18   78    7   0.267     1.37  $17.57  $19.00 <-- KEPT
- Masyn Winn, StL            SS           591    15   63   20   0.249     1.35  $17.51  $15.00 <-- KEPT
- Xavier Edwards, Mia        SS           520     5   44   25   0.283     1.31  $17.41  $10.00 <-- KEPT
- Nate Lowe, Was             1B           525    19   81    4   0.269     1.29  $17.35  $20.54
- Xander Bogaerts, SD        2B,SS        546    14   62   14   0.269     1.25  $17.21  $20.37
- Brandon Nimmo, NYM         OF           540    19   83   10   0.244     1.16  $16.96  $20.08
- Tommy Edman, LAD           OF           460    13   56   23   0.246     1.08  $16.70  $ 9.00 <-- KEPT
- Brenton Doyle, Col         OF           529    16   54   23   0.236     0.97  $16.39  $15.00 <-- KEPT
- Dansby Swanson, ChC        SS           560    17   79   13   0.241     0.96  $16.36  $19.36
- Ian Happ, ChC              OF           527    20   70   12   0.243     0.95  $16.34  $16.00 <-- KEPT
- Heliot Ramos, SF           OF           568    23   69   10   0.241     0.94  $16.31  $10.00 <-- KEPT
- Mark Vientos, NYM          3B           537    27   76    1   0.248     0.84  $16.00  $15.00 <-- KEPT
- --> LUIS ARRAEZ, SD        1B,2B        588     7   57    7   0.303     0.72  $15.64  $20.00 <-- KEPT
- Nolan Arenado, StL         3B           528    18   80    3   0.263     0.71  $15.63  $18.49
- Matt Chapman, SF           3B           534    21   77    9   0.236     0.65  $15.42  $15.00 <-- KEPT
- Matt Shaw, ChC             3B           430    16   50   21   0.237     0.64  $15.41  $18.23
- Brendan Donovan, StL       2B,OF        515    13   68    8   0.274     0.64  $15.41  $ 8.00 <-- KEPT
- Jung-hoo Lee, SF           OF           558    14   60    8   0.276     0.61  $15.33  $18.12
- Jesus Sanchez, Mia         OF           534    18   67   10   0.249     0.51  $15.03  $ 4.00 <-- KEPT (D) 
- Jurickson Profar, Atl      OF           516    17   65    9   0.256     0.43  $14.79  $ 2.00 <-- KEPT
- Jake Fraley, Cin           OF           389    12   46   19   0.257     0.31  $14.43  $17.05
- Eugenio Suarez, Ari        3B           519    23   78    2   0.243     0.28  $14.32  $10.00 <-- KEPT
- Lars Nootbaar, StL         OF           461    18   59   11   0.247     0.24  $14.20  $11.00 <-- KEPT
- Michael Busch, ChC         1B           491    21   77    4   0.238     0.06  $13.67  $ 6.00 <-- KEPT
- --> ALEC BURLESON, STL     OF           434    16   59    7   0.265     0.04  $13.61  $11.00 <-- KEPT
- Joey Ortiz, Mil            3B           511    12   59   15   0.249    -0.01  $13.48  $ 2.00 <-- KEPT
- Kyle Schwarber, Phi        OF           543    29   76    3   0.215    -0.09  $13.24  $15.63
- Francisco Alvarez, NYM     C            433    21   62    4   0.247    -0.22  $12.84  $15.15 (D) 
- Sal Frelick, Mil           OF           452     5   53   20   0.250    -0.50  $12.03  $14.18
- Will Smith, LAD            C            444    17   66    3   0.252    -0.58  $11.78  $13.89
- Isiah Kiner-Falefa, Pit    2B,SS,3B     481     7   48   17   0.256    -0.63  $11.62  $13.70
- Jordan Walker, StL         OF           527    15   60    9   0.243    -0.67  $11.51  $13.56
- Tommy Pham, Pit            OF           460    12   59   13   0.239    -0.67  $11.49  $13.54
- Rhys Hoskins, Mil          1B           477    22   68    5   0.222    -0.71  $11.39  $14.00 <-- KEPT
- Ke'Bryan Hayes, Pit        3B           490    10   48   16   0.245    -0.80  $11.12  $13.10
- J.T. Realmuto, Phi         C            426    16   55    6   0.251    -0.82  $11.06  $13.03
- Christian Encarnacion-Stra 1B           429    17   58    3   0.254    -0.87  $10.91  $15.00 <-- KEPT
- Matt McLain, Cin           SS           447    14   60   11   0.233    -0.87  $10.90  $14.00 <-- KEPT
- Johan Rojas, Phi           OF           268     5   27   25   0.250    -0.92  $10.76  $ 1.00 <-- KEPT
- Max Muncy, LAD             3B           439    22   76    2   0.212    -1.11  $10.21  $12.01
- Otto Lopez, Mia            2B           414     6   36   18   0.256    -1.19  $ 9.97  $11.72
- Geraldo Perdomo, Ari       SS           439     7   44   17   0.246    -1.20  $ 9.92  $ 3.00 <-- KEPT
- Josh Bell, Was             1B           480    17   68    1   0.242    -1.22  $ 9.86  $11.60
- Jake Cronenworth, SD       1B,2B        504    14   69    6   0.232    -1.31  $ 9.59  $11.27
- Gabriel Moreno, Ari        C            402     9   51    6   0.271    -1.31  $ 9.59  $11.27
- Jose Siri, NYM             OF           363    17   42   14   0.212    -1.34  $ 9.51  $11.17
- Austin Hays, Cin           OF           417    14   46    5   0.259    -1.38  $ 9.40  $11.04 (D) 
- Keibert Ruiz, Was          C            461    14   55    5   0.247    -1.41  $ 9.29  $10.91
- Ryan McMahon, Col          3B           535    16   65    3   0.236    -1.53  $ 8.94  $16.00 <-- KEPT
- Mike Toglia, Col           1B           483    20   62    4   0.219    -1.55  $ 8.89  $10.00 <-- KEPT
- Ivan Herrera, StL          C            339    11   42    7   0.263    -1.65  $ 8.59  $10.08
- Nolan Gorman, StL          2B           367    17   54    4   0.229    -1.74  $ 8.31  $ 9.74
- Connor Norby, Mia          3B           461    13   49    7   0.241    -1.80  $ 8.15  $ 9.55 (D) 
- Victor Scott, StL          OF           271     4   23   26   0.221    -1.80  $ 8.15  $ 9.54
- Nick Gonzales, Pit         2B           451    10   46    7   0.255    -1.80  $ 8.14  $ 9.54
- Max Kepler, Phi            OF           416    13   55    3   0.245    -1.92  $ 7.78  $ 9.11
- Jeff McNeil, NYM           2B,OF        462     9   53    6   0.251    -1.93  $ 7.74  $ 9.06 (D) 
- Jeimer Candelario, Cin     1B,3B        454    15   57    4   0.231    -1.96  $ 7.66  $ 2.00 <-- KEPT
- Starling Marte, NYM        OF           282     7   35   13   0.252    -1.99  $ 7.56  $ 8.84
- LaMonte Wade, SF           1B           416    13   55    3   0.240    -2.10  $ 7.26  $ 8.48
- Spencer Horwitz, Pit       1B,2B        376    10   47    4   0.258    -2.13  $ 7.17  $ 8.37 (D) 
- Mike Yastrzemski, SF       OF           415    16   53    3   0.227    -2.26  $ 6.79  $ 2.00 <-- KEPT
- Tyler Stephenson, Cin      C            390    13   57    1   0.241    -2.26  $ 6.78  $ 5.00 <-- KEPT (D) 
- Orlando Arcia, Atl         SS           490    15   51    3   0.235    -2.29  $ 6.69  $ 7.80
- Endy Rodriguez, Pit        C            394    12   48    5   0.239    -2.31  $ 6.63  $ 7.73
- Jesse Winker, NYM          OF           333    11   49    6   0.234    -2.33  $ 6.56  $ 5.00 <-- KEPT
- Gavin Lux, Cin             2B           396     9   47    7   0.242    -2.36  $ 6.47  $ 6.00 <-- KEPT
- Jordan Beck, Col           OF           507    13   52   10   0.215    -2.39  $ 6.38  $ 7.43
- Pavin Smith, Ari           OF           335    13   49    2   0.242    -2.40  $ 6.34  $ 7.39
- Andrew McCutchen, Pit      OF           353    11   49    6   0.232    -2.42  $ 6.30  $ 7.34
- Oliver Dunn, Mil           3B           349    11   40    8   0.235    -2.44  $ 6.24  $ 7.26
- Alek Thomas, Ari           OF           282     8   39    8   0.248    -2.50  $ 6.07  $ 7.06
- Jonah Bride, Mia           1B           431    12   54    2   0.232    -2.76  $ 5.27  $ 6.10
- Randal Grichuk, Ari        OF           274    10   38    2   0.263    -2.77  $ 5.24  $ 1.00 <-- KEPT
- Sean Murphy, Atl           C            311    13   45    1   0.238    -2.82  $ 5.10  $ 5.90 (D) 
- Thairo Estrada, Col        2B           374     8   38    7   0.243    -2.87  $ 4.96  $ 5.73 (D) 
- Derek Hill, Mia            OF           271     8   28   10   0.240    -2.90  $ 4.87  $ 5.63
- Tyler Freeman, Col         OF           290     5   31   11   0.245    -2.94  $ 4.74  $ 5.47
- Patrick Bailey, SF         C            415    12   44    4   0.229    -3.01  $ 4.54  $ 5.23
- Tyrone Taylor, NYM         OF           269     8   31    9   0.234    -3.05  $ 4.43  $ 5.10
- Jason Heyward, SD          OF           326    10   40    5   0.233    -3.05  $ 4.42  $ 5.09
- Hunter Goodman, Col        C,OF         308    14   41    1   0.231    -3.06  $ 4.40  $ 5.06
- Joey Bart, Pit             C            352    13   43    2   0.227    -3.14  $ 4.15  $ 4.76
- Michael Conforto, LAD      OF           374    13   46    3   0.219    -3.17  $ 4.07  $ 5.00 <-- KEPT
- Justin Turner, ChC         1B           263     8   39    2   0.255    -3.22  $ 3.90  $ 4.47
- Jose Tena, Was             3B           241     7   28    7   0.249    -3.26  $ 3.79  $ 4.34
- Kyle Stowers, Mia          OF           421    14   55    1   0.211    -3.33  $ 3.60  $ 4.11
- Wilmer Flores, SF          1B           297    11   38    0   0.246    -3.35  $ 3.52  $ 4.01
- Brandon Lockridge, SD      OF           181     2   18   15   0.238    -3.44  $ 3.25  $ 3.69
- Sean Bouchard, Col         OF           288     9   34    6   0.226    -3.46  $ 3.21  $ 3.64
- Michael Siani, StL         OF           255     4   23   15   0.216    -3.51  $ 3.04  $ 3.44
- Paul DeJong, Was           SS,3B        303    13   35    2   0.221    -3.57  $ 2.86  $ 3.23
- Amed Rosario, Was          2B,OF        220     4   24    8   0.255    -3.62  $ 2.73  $ 3.07
- Blake Perkins, Mil         OF           183     4   25   10   0.235    -3.62  $ 2.73  $ 3.06 (D) 
- Blake Dunn, Cin            OF           181     5   20   10   0.232    -3.74  $ 2.36  $ 2.62
- Chris Taylor, LAD          2B,OF,3B     223     7   30    7   0.220    -3.76  $ 2.30  $ 2.55
- Elias Diaz, SD             C            303     9   34    0   0.248    -3.78  $ 2.25  $ 2.49
- Miguel Amaya, ChC          C            278     9   34    1   0.241    -3.79  $ 2.22  $ 2.46
- Luisangel Acuna, NYM       SS           180     3   19   11   0.239    -3.82  $ 2.13  $ 2.35
- Dane Myers, Mia            OF           209     6   24    6   0.239    -3.92  $ 1.84  $ 2.01
- Kris Bryant, Col           OF           351     9   40    0   0.234    -3.96  $ 1.72  $ 1.86
- Gavin Sheets, SD           1B,OF        284     9   34    1   0.232    -4.01  $ 1.55  $ 1.66
- Matt Mervis, Mia           UT           327    11   42    1   0.211    -4.05  $ 1.43  $ 1.52
- Jose Iglesias, SD          2B,3B        201     4   25    3   0.269    -4.06  $ 1.41  $ 1.50
- Jerar Encarnacion, SF      OF           205    10   26    2   0.220    -4.20  $ 1.01  $ 1.01 (D) 
- Edmundo Sosa, Phi          2B,SS,3B     176     5   21    5   0.244    -4.23  $ 0.91  $ 0.89
- Andy Pages, LAD            OF           208     7   25    3   0.236    -4.24  $ 0.89  $11.00 <-- KEPT
- Griffin Conine, Mia        OF           300    10   37    1   0.213    -4.27  $ 0.79  $ 0.74
- Brett Baty, NYM            3B           194     8   24    1   0.242    -4.29  $ 0.72  $ 0.66
- Jon Berti, ChC             3B           165     3   18    7   0.248    -4.29  $ 0.72  $ 0.66
- Kike Hernandez, LAD        3B,OF        225     7   28    1   0.236    -4.42  $ 0.34  $ 0.22
- Alex Call, Was             OF           177     5   22    6   0.220    -4.43  $ 0.32  $ 0.19
- Nick Fortes, Mia           C            326     7   28    2   0.230    -4.56  $-0.08  $-0.29
- Jose Trevino, Cin          C            268     7   36    1   0.216    -4.58  $-0.13  $-0.35
- Drake Baldwin, Atl         C            206     7   27    1   0.228    -4.58  $-0.13  $-0.35
- Jarred Kelenic, Atl        OF           139     5   18    4   0.237    -4.58  $-0.14  $-0.36
- Miguel Rojas, LAD          SS           207     3   22    4   0.246    -4.60  $-0.20  $-0.44
- Carson Kelly, ChC          C            269     6   28    1   0.234    -4.65  $-0.36  $-0.62
- Blaze Alexander, Ari       SS           172     5   21    3   0.233    -4.71  $-0.52  $-0.82 (D) 
- Jared Triolo, Pit          2B,3B        153     3   17    5   0.242    -4.73  $-0.57  $-0.87
- Pedro Pages, StL           C            217     7   25    1   0.226    -4.74  $-0.60  $-0.91
- Luis Matos, SF             OF           203     5   22    4   0.222    -4.77  $-0.69  $-1.02
- Santiago Espinal, Cin      2B,3B        143     3   18    3   0.252    -4.84  $-0.90  $-1.27
- Eric Haase, Mil            C            146     6   22    1   0.226    -4.86  $-0.97  $-1.35
- Bryan De La Cruz, Atl      OF           130     5   17    2   0.238    -4.90  $-1.08  $-1.49
- Adam Frazier, Pit          2B,OF        208     3   22    4   0.231    -4.90  $-1.09  $-1.49
- Kyle Farmer, Col           2B,3B        191     4   22    2   0.236    -4.93  $-1.19  $-1.62
- Javier Sanoja, Mia         OF           135     2   12    5   0.252    -4.96  $-1.26  $-1.70
- Vidal Brujan, ChC          2B,SS,OF     149     2   16    6   0.221    -5.04  $-1.52  $-2.01 (D) 
- Nick Allen, Atl            SS           129     2   13    4   0.248    -5.11  $-1.70  $-2.23
- Jacob Stallings, Col       C            260     6   24    0   0.227    -5.14  $-1.80  $-2.35
- Isaac Collins, Mil         OF            96     2   12    5   0.229    -5.16  $-1.88  $-2.44
- Tom Murphy, SF             C            182     6   18    0   0.231    -5.19  $-1.94  $-2.51 (D) 
- Weston Wilson, Phi         OF           117     4   15    3   0.214    -5.24  $-2.10  $-2.71 (D) 
- Luken Baker, StL           UT           142     6   20    0   0.211    -5.28  $-2.22  $-2.85
- Luis Torrens, NYM          C            155     5   19    0   0.226    -5.31  $-2.31  $-2.96
- Jack Suwinski, Pit         OF            90     4   12    2   0.222    -5.36  $-2.46  $-3.14
- Jake Bauers, Mil           1B            89     4   12    3   0.202    -5.38  $-2.51  $-3.19
- Gage Workman, ChC          3B            80     2   10    4   0.225    -5.40  $-2.58  $-3.28
- Rafael Marchan, Phi        C            121     3   15    1   0.240    -5.40  $-2.59  $-3.29
- Eric Wagaman, Mia          3B            93     3   10    2   0.237    -5.48  $-2.82  $-3.57
- Vinny Capra, Mil           3B           149     2   14    3   0.228    -5.48  $-2.83  $-3.58
- Riley Adams, Was           C            107     4   12    1   0.224    -5.53  $-2.97  $-3.75
- Yuli Gurriel, SD           1B            95     2   10    2   0.232    -5.67  $-3.39  $-4.25
- Graham Pauley, Mia         3B            91     3   10    1   0.220    -5.77  $-3.67  $-4.59
- Nick Martini, Col          OF            86     3   10    0   0.233    -5.80  $-3.77  $-4.70
- Eli White, Atl             OF            50     1    6    3   0.220    -5.83  $-3.85  $-4.80
- Casey Schmitt, SF          2B            62     2    8    1   0.226    -5.89  $-4.03  $-5.01
- Austin Barnes, LAD         C            123     2   14    1   0.211    -5.92  $-4.12  $-5.12
- Nacho Alvarez, Atl         2B            36     1    4    2   0.250    -5.93  $-4.14  $-5.15 (D) 
- Ji-Hwan Bae, Pit           OF            29     1    3    2   0.241    -5.99  $-4.35  $-5.39
- Andres Chaparro, Was       1B            49     2    7    0   0.224    -6.06  $-4.53  $-5.61 (D) 
- Liam Hicks, Mia            C             73     1    6    1   0.233    -6.10  $-4.66  $-5.77
- Christian Koss, SF         SS            31     1    4    1   0.226    -6.14  $-4.79  $-5.92
- Jacob Hurtubise, Cin       OF            30     0    3    2   0.233    -6.16  $-4.85  $-5.99
- Ronny Mauricio, NYM        2B            32     1    4    1   0.219    -6.17  $-4.86  $-6.01 (D) 
- Jose Herrera, Ari          C             92     1   10    0   0.217    -6.23  $-5.05  $-6.23
- Garrett Hampson, Ari       2B,OF         32     0    3    1   0.250    -6.26  $-5.15  $-6.35
- Chad Tromp, Atl            C             50     1    6    0   0.220    -6.27  $-5.17  $-6.38
- Martin Maldonado, SD       C            151     4   13    0   0.185    -6.28  $-5.19  $-6.40
- Kody Clemens, Phi          1B            37     1    4    0   0.216    -6.34  $-5.37  $-6.61
- Sam Huff, SF               C             30     1    3    0   0.200    -6.41  $-5.57  $-6.86
- Austin Wynns, Cin          C             12     0    2    0   0.250    -6.46  $-5.72  $-7.03
- Jonathon Long, ChC         1B            31     1    4    0   0.226    -6.29  $-5.23  $-6.45 (I) 
- Jimmy Crooks, StL          C             18     1    2    0   0.222    -6.36  $-5.43  $-6.68 (I) 
- Brady House, Was           SS            61     2    7    1   0.246    -5.82  $-3.82  $-4.76 (I) 
- Tyler Wade, SD             3B,OF         80     1    8    5   0.212    -5.58  $-3.12  $-3.93 (I) 
- Tyler Black, Mil           UT           167     5   20    8   0.234    -3.99  $ 1.61  $ 1.73 (I) 
- Jason Delay, Pit           C             30     0    3    0   0.233    -6.46  $-5.73  $-7.04 (I) 
- Tirso Ornelas, SD          OF           177     5   20    2   0.237    -4.83  $-0.89  $-1.26 (I) 
- Wade Meckler, SF           OF            19     0    2    0   0.263    -6.43  $-5.65  $-6.95 (I) 
- James McCann, Atl          C             31     1    4    0   0.226    -6.29  $-5.23  $-6.45 (I) 
- Alika Williams, Pit        2B            38     1    4    1   0.237    -6.12  $-4.72  $-5.84 (I) 
- Deyvison De Los Santos, Mi 3B           279    11   34    1   0.240    -3.52  $ 3.02  $ 3.42 (I) 
- Juan Yepez, Was            1B            37     1    5    0   0.243    -6.20  $-4.96  $-6.12 (I) 
- Luke Ritter, NYM           2B            12     1    2    0   0.167    -6.40  $-5.57  $-6.85 (I) 
- Andruw Monasterio, Mil     2B,3B         24     0    3    1   0.208    -6.36  $-5.43  $-6.68 (I) 
- Owen Miller, Col           1B            12     0    1    0   0.250    -6.50  $-5.86  $-7.19 (I) 
- Bryce Eldridge, SF         1B            78     3   10    1   0.231    -5.65  $-3.33  $-4.17 (I) 
- Hunter Feduccia, LAD       C             19     0    2    0   0.211    -6.53  $-5.93  $-7.29 (I) 
- Jeferson Quero, Mil        C             26     1    3    0   0.231    -6.31  $-5.29  $-6.52 (I) 
- Trey Mancini, Ari          1B            13     0    2    0   0.231    -6.48  $-5.79  $-7.12 (I) 
- Sam Hilliard, Col          OF            31     1    3    1   0.226    -6.19  $-4.92  $-6.08 (I) 
- Jakson Reetz, NYM          C             18     1    2    0   0.222    -6.36  $-5.43  $-6.68 (I) 
- Zac Veen, Col              OF           268     6   26   15   0.205    -3.38  $ 3.44  $ 3.92 (I) 
- Kevin Alcantara, ChC       OF            62     2    8    2   0.242    -5.65  $-3.31  $-4.16 (I) 
- Garrett Stubbs, Phi        C             60     1    7    1   0.217    -6.13  $-4.74  $-5.86 (I) 
- Thomas Saggese, StL        2B           215     7   28    4   0.242    -3.84  $ 2.07  $ 2.28 (I) 
- Luke Williams, Atl         2B            45     1    6    3   0.222    -5.81  $-3.78  $-4.72 (I) 
- Drew Millas, Was           C             42     1    5    1   0.238    -6.08  $-4.59  $-5.68 (I) 
- Robert Hassell, Was        OF            80     2    8    2   0.212    -5.88  $-4.01  $-4.98 (I) 
- Dalton Rushing, LAD        C             30     1    4    0   0.200    -6.36  $-5.44  $-6.70 (I) 
- Adael Amador, Col          2B            41     1    4    1   0.220    -6.19  $-4.93  $-6.09 (I) 
- Moises Ballesteros, ChC    C             18     1    2    0   0.278    -6.26  $-5.15  $-6.35 (I) 
- Max Acosta, Mia            SS           149     2   13    8   0.235    -4.70  $-0.49  $-0.78 (I) 
- Drew Romo, Col             C            228     5   20    2   0.228    -5.08  $-1.63  $-2.14 (I) 
- Nick Yorke, Pit            2B            89     3    9    3   0.247    -5.29  $-2.24  $-2.87 (I) 
- Brett Wisely, SF           2B,SS        153     3   18    4   0.229    -5.01  $-1.42  $-1.89 (I) 
- Jordan Lawlar, Ari         SS           215     7   24   12   0.237    -2.93  $ 4.78  $ 5.51 (I) 
- Alex Verdugo, Atl          OF            95     2   12    1   0.253    -5.55  $-3.01  $-3.80 (I) 
- Marco Luciano, SF          2B,SS         18     1    2    0   0.222    -6.36  $-5.43  $-6.68 (I) 
- Garrett Cooper, Atl        1B            19     1    3    0   0.211    -6.34  $-5.36  $-6.61 (I) 
- Reese McGuire, ChC         C             30     0    3    0   0.233    -6.46  $-5.73  $-7.04 (I) 
- Caleb Durbin, Mil          SS           159     3   17   11   0.233    -3.98  $ 1.66  $ 1.79 (I) 
- Henry Davis, Pit           C             58     2    8    1   0.224    -5.89  $-4.03  $-5.01 (I) 
- Grae Kessinger, Ari        3B            12     0    1    0   0.167    -6.60  $-6.14  $-7.53 (I) 
- Buddy Kennedy, Phi         2B            18     0    2    0   0.222    -6.50  $-5.86  $-7.20 (I) 
- Agustin Ramirez, Mia       C            264     8   28    5   0.227    -3.93  $ 1.80  $ 1.96 (I) 
- Billy Cook, Pit            OF           111     3   14    3   0.216    -5.39  $-2.53  $-3.22 (I) 
- Adrian Del Castillo, Ari   C            110     4   13    1   0.227    -5.46  $-2.77  $-3.50 (I) 
- Josh Palacios, Pit         OF           142     4   18    4   0.239    -4.70  $-0.51  $-0.80 (I) 
- Victor Mesa Jr., Mia       OF            91     2    9    1   0.220    -5.96  $-4.24  $-5.27 (I) 
- Darren Baker, Was          2B            38     0    4    2   0.237    -6.12  $-4.72  $-5.83 (I) 
- Jose Fermin, StL           3B            85     2   10    4   0.224    -5.43  $-2.65  $-3.37 (I) 
- Eguy Rosario, SD           3B           134     5   16    4   0.216    -4.92  $-1.16  $-1.58 (I) 
- Noelvi Marte, Cin          3B           124     3   14    3   0.234    -5.22  $-2.05  $-2.65 (I) 
- Owen Caissie, ChC          OF            81     3   11    1   0.247    -5.49  $-2.85  $-3.60 (I) 
- Nasim Nunez, Was           SS            25     0    2    3   0.200    -6.13  $-4.75  $-5.88 (I) 
- Jared Young, NYM           1B            12     0    2    0   0.250    -6.46  $-5.72  $-7.03 (I) 
- Stone Garrett, Was         UT            31     1    4    0   0.226    -6.29  $-5.23  $-6.45 (I) 
- Joe Mack, Mia              C             12     0    1    0   0.250    -6.50  $-5.86  $-7.19 (I) 
- Cal Stevenson, Phi         OF            48     1    6    2   0.229    -5.93  $-4.15  $-5.16 (I) 
- Grant McCray, SF           OF           115     3   12    5   0.200    -5.37  $-2.47  $-3.15 (I) 
- Hye-Seong Kim, LAD         2B           398     5   37   20   0.259    -0.90  $10.81  $12.73 (I) 
- Will Benson, Cin           OF           203     7   24    7   0.217    -4.03  $ 1.49  $ 1.59 (I) 
- James Outman, LAD          OF           127     5   18    4   0.220    -4.77  $-0.69  $-1.02 (I) 
- Liover Peguero, Pit        SS            45     1    5    2   0.222    -6.00  $-4.36  $-5.40 (I) 
- Connor Joe, SD             1B,OF        105     3   12    1   0.238    -5.54  $-2.99  $-3.77 (I) 
- Luis Campusano, SD         C            188     6   22    0   0.250    -4.69  $-0.45  $-0.73 (I) 
+ --> SHOHEI OHTANI-HITTER,  OF           605    52  100   21   0.278    10.81  $46.25 (on OOPSY Daisies 420)
+ Pete Crow-Armstrong, ChC   OF           606    32   98   37   0.254     8.80  $40.36 (on Galapagos Lava Lizards)
+ Elly De La Cruz, Cin       SS           628    23   91   39   0.272     8.55  $39.62 (on Cannon Fodder)
+ Juan Soto, NYM             OF           564    39   97   26   0.252     8.03  $38.10 (on Phil's Harmonic Orchestra)
+ Trea Turner, Phi           SS           660    17   74   37   0.294     8.01  $38.05 (on Phil's Harmonic Orchestra)
+ Francisco Lindor, NYM      SS           645    30   89   30   0.268     7.93  $37.81 (on Diamondcutters)
+ Geraldo Perdomo, Ari       SS           587    17  100   28   0.284     7.08  $35.30 (on Phil's Harmonic Orchestra)
+ Christian Yelich, Mil      OF           576    30  104   18   0.269     6.80  $34.50 (on The Shitbags)
+ Corbin Carroll, Ari        OF           569    31   78   27   0.253     6.23  $32.81 (on Cannon Fodder)
+ James Wood, Was            OF           592    31   98   18   0.260     6.19  $32.71 (on Phil's Harmonic Orchestra)
+ Manny Machado, SD          3B           626    26   95   14   0.283     6.10  $32.44 (on Phil's Harmonic Orchestra)
+ Brice Turang, Mil          2B           580    17   77   27   0.284     5.88  $31.79 (on Who Zahn Firsts)
+ Fernando Tatis Jr., SD     OF           603    22   69   32   0.264     5.85  $31.71 (on Diamondcutters)
+ CJ Abrams, Was             SS           577    20   64   32   0.269     5.59  $30.93 (on Jobu Needs a Refill)
+ Andy Pages, LAD            OF           578    27   87   15   0.273     5.40  $30.38 (on Jobu Needs a Refill)
+ Jackson Chourio, Mil       OF           534    20   78   22   0.273     4.93  $29.02 (on Galapagos Lava Lizards)
+ Freddie Freeman, LAD       1B           554    22   92    6   0.300     4.92  $28.99 (on El Sancho Enterprises Inc)
+ Brandon Nimmo, NYM         OF           571    26   89   14   0.261     4.50  $27.76 (on Proud Pigeons of Pain)
+ Bryce Harper, Phi          1B           506    27   79   13   0.271     4.49  $27.73 (on Cannon Fodder)
+ Rafael Devers, SF          1B,3B        598    32  105    2   0.259     4.24  $27.00 (on Diamondcutters)
+ Ramon Laureano, SD         OF           449    25   79    7   0.290     4.06  $26.45 (on Who Zahn Firsts)
+ Nico Hoerner, ChC          SS,2B        586     6   63   28   0.288     4.02  $26.35 (on El Sancho Enterprises Inc)
+ Ketel Marte, Ari           2B           473    28   73    5   0.285     3.82  $25.75 (on Cannon Fodder)
+ Oneil Cruz, Pit            SS,OF        483    21   63   40   0.205     3.76  $25.58
+ Sal Frelick, Mil           OF           529    11   61   22   0.291     3.75  $25.55 (on El Sancho Enterprises Inc)
+ Hunter Goodman, Col        C,OF         529    30   88    1   0.272     3.67  $25.33 (on The Shitbags)
+ --> KYLE STOWERS, MIA      OF           430    26   78    5   0.286     3.65  $25.28 (on OOPSY Daisies 420)
+ Michael Busch, ChC         1B           515    30   87    5   0.260     3.60  $25.11 (on Proud Pigeons of Pain)
+ Seiya Suzuki, ChC          OF           585    31  102    5   0.244     3.57  $25.04 (on Who Zahn Firsts)
+ Michael Harris, Atl        OF           598    20   83   18   0.251     3.38  $24.48 (on IN ROD WE TRUST)
+ Lourdes Gurriel, Ari       OF           585    22   94   12   0.250     3.22  $24.00 (on El Sancho Enterprises Inc)
+ Matt Olson, Atl            1B           615    26   89    1   0.268     3.04  $23.47 (on Jobu Needs a Refill)
+ Teoscar Hernandez, LAD     OF           520    26   94    6   0.248     2.87  $22.98 (on Jobu Needs a Refill)
+ Dansby Swanson, ChC        SS           596    24   77   12   0.250     2.77  $22.68 (on Cannon Fodder)
+ Alec Burleson, StL         1B,OF        495    18   69    6   0.285     2.36  $21.48 (on Jobu Needs a Refill)
+ Bryson Stott, Phi          SS,2B        501    11   63   28   0.244     2.32  $21.37 (on Phil's Harmonic Orchestra)
+ Xavier Edwards, Mia        2B,SS        574     3   42   28   0.282     2.27  $21.21 (on IN ROD WE TRUST)
+ Will Smith, LAD            C            432    20   73    2   0.289     2.26  $21.18 (on Diamondcutters)
+ --> RONALD ACUNA, ATL      OF           330    20   43   12   0.294     2.20  $21.03 (on OOPSY Daisies 420)
+ Willson Contreras, StL     1B,C         544    23   86    5   0.254     2.20  $21.03 (on Proud Pigeons of Pain)
+ Willy Adames, SF           SS           591    28   84   10   0.228     2.16  $20.88 (on The Shitbags)
+ William Contreras, Mil     C            584    20   79    7   0.259     2.02  $20.48 (on Jobu Needs a Refill)
+ Jordan Beck, Col           OF           529    16   54   16   0.265     1.93  $20.22 (on Jobu Needs a Refill)
+ Isaac Collins, Mil         OF           387    10   57   20   0.271     1.90  $20.13 (on Cannon Fodder)
+ Brenton Doyle, Col         OF           498    17   60   19   0.245     1.81  $19.87 (on Cannon Fodder)
+ Heliot Ramos, SF           OF           595    19   66    7   0.264     1.59  $19.23 (on Who Zahn Firsts)
+ Otto Lopez, Mia            SS,2B        529    14   76   15   0.244     1.41  $18.72 (on Jobu Needs a Refill)
+ Luis Garcia Jr., Was       2B           494    14   67   12   0.259     1.33  $18.47 (on Cannon Fodder)
+ Ivan Herrera, StL          C            376    14   60    8   0.285     1.32  $18.45 (on Cannon Fodder)
+ Xander Bogaerts, SD        2B,SS        480    10   50   20   0.263     1.32  $18.42 (on The Shitbags)
+ Mickey Moniak, Col         OF           422    21   61    7   0.258     1.28  $18.33 (on Diamondcutters)
+ Max Muncy, LAD             3B           338    20   74    5   0.254     1.26  $18.27 (on Phil's Harmonic Orchestra)
+ Mookie Betts, LAD          SS,OF        585    18   71   10   0.248     1.21  $18.12
+ Nicholas Castellanos, Phi  OF           589    19   76    5   0.253     1.13  $17.88 (on Galapagos Lava Lizards)
+ Noelvi Marte, Cin          OF,3B        316    14   51    9   0.288     1.00  $17.51 (on IN ROD WE TRUST)
+ Matt Chapman, SF           3B           455    22   63   11   0.231     0.90  $17.20 (on The Shitbags)
+ Agustin Ramirez, Mia       C            523    21   69   12   0.228     0.86  $17.09 (on Cannon Fodder)
+ Gavin Sheets, SD           1B,OF        444    20   66    2   0.264     0.86  $17.08 (on The Shitbags)
+ TJ Friedl, Cin             OF           567    12   51   14   0.263     0.85  $17.05 (on The Shitbags)
+ Victor Scott, StL          OF           396     6   39   35   0.222     0.81  $16.96 (on Phil's Harmonic Orchestra)
+ Ozzie Albies, Atl          2B           610    16   72   14   0.234     0.76  $16.79 (on IN ROD WE TRUST)
+ Spencer Steer, Cin         1B,OF        534    20   75    8   0.234     0.71  $16.64 (on Diamondcutters)
+ Caleb Durbin, Mil          SS,2B,3B     437    11   56   15   0.256     0.70  $16.61 (on El Sancho Enterprises Inc)
+ Alec Bohm, Phi             1B,3B        497    12   64    3   0.280     0.57  $16.24 (on Jobu Needs a Refill)
+ Jurickson Profar, Atl      OF           312    16   49   10   0.263     0.55  $16.20 (on IN ROD WE TRUST)
+ Masyn Winn, StL            SS           560    11   60   12   0.257     0.50  $16.04 (on Proud Pigeons of Pain)
+ Bryan Reynolds, Pit        OF           600    17   79    4   0.245     0.37  $15.64 (on Jobu Needs a Refill)
+ Drake Baldwin, Atl         C            369    16   68    0   0.271     0.28  $15.38 (on El Sancho Enterprises Inc)
+ Jung-hoo Lee, SF           OF           573     9   57   12   0.260     0.24  $15.26 (on Phil's Harmonic Orchestra)
+ Tyler Freeman, Col         2B,OF        371     3   33   20   0.283     0.20  $15.16 (on Diamondcutters)
+ Matt Shaw, ChC             3B           397    14   44   19   0.229     0.12  $14.92 (on Proud Pigeons of Pain)
+ Ian Happ, ChC              OF           553    20   71    6   0.230    -0.04  $14.46 (on Galapagos Lava Lizards)
+ Brett Baty, NYM            2B,3B        379    17   48    7   0.251    -0.19  $14.02 (on Jobu Needs a Refill)
+ Brendan Donovan, StL       SS,2B,OF     479    10   51    4   0.278    -0.29  $13.71 (on El Sancho Enterprises Inc)
+ Matt McLain, Cin           2B,SS        505    13   49   19   0.222    -0.41  $13.36 (on Proud Pigeons of Pain)
+ Austin Riley, Atl          3B           416    16   54    2   0.260    -0.45  $13.25
+ Jackson Merrill, SD        OF           437    12   64    2   0.259    -0.62  $12.76 (on IN ROD WE TRUST)
+ Jeff McNeil, NYM           2B,OF        398    14   58    3   0.251    -0.75  $12.37 (on El Sancho Enterprises Inc)
+ Jakob Marsee, Mia          OF           173     6   32   13   0.295    -0.78  $12.30 (on The Shitbags)
+ Andrew Vaughn, Mil         1B           407    17   69    0   0.238    -0.78  $12.28 (on Galapagos Lava Lizards)
+ Mark Vientos, NYM          3B           416    17   61    0   0.245    -0.87  $12.01 (on Proud Pigeons of Pain)
+ Carson Kelly, ChC          C            360    15   51    1   0.256    -1.05  $11.49 (on Who Zahn Firsts)
+ Jake Cronenworth, SD       1B,SS,2B     424    13   57    3   0.248    -1.10  $11.35 (on The Shitbags)
+ Dane Myers, Mia            OF           337     7   32   19   0.234    -1.13  $11.26
+ Joey Ortiz, Mil            SS,3B        475     9   51   13   0.234    -1.16  $11.19 (on Who Zahn Firsts)
+ Lars Nootbaar, StL         OF           489    16   53    5   0.235    -1.18  $11.12 (on Cannon Fodder)
+ Gavin Lux, Cin             2B,OF,3B     435     6   56    2   0.274    -1.22  $11.01 (on Diamondcutters)
+ Alek Thomas, Ari           OF           451    10   43    8   0.253    -1.22  $11.00 (on Phil's Harmonic Orchestra)
+ Brandon Marsh, Phi         OF           374     9   38    7   0.265    -1.29  $10.80 (on Who Zahn Firsts)
+ Ke'Bryan Hayes, Cin        3B           543     6   51   15   0.236    -1.32  $10.72 (on Diamondcutters)
+ Hye-Seong Kim, LAD         2B,SS,OF     186     3   20   15   0.290    -1.49  $10.20 (on Who Zahn Firsts)
+ Tommy Edman, LAD           2B,OF,3B     371    14   52    5   0.229    -1.53  $10.08 (on Proud Pigeons of Pain)
+ Ezequiel Tovar, Col        SS           363    11   34    5   0.259    -1.69  $ 9.63 (on Who Zahn Firsts)
+ Dylan Crews, Was           OF           291    10   29   18   0.206    -1.71  $ 9.56 (on Proud Pigeons of Pain)
+ Gabriel Moreno, Ari        C            261     9   35    2   0.280    -1.87  $ 9.08 (on Cannon Fodder)
+ Nolan Gorman, StL          1B,2B,3B     340    16   51    2   0.221    -1.94  $ 8.88 (on Galapagos Lava Lizards)
+ Sean Murphy, Atl           C            334    19   53    0   0.210    -2.06  $ 8.54 (on El Sancho Enterprises Inc)
+ Daylen Lile, Was           OF           294     4   30   10   0.262    -2.09  $ 8.44 (on Cannon Fodder)
+ Nolan Arenado, StL         3B           410    12   49    2   0.237    -2.19  $ 8.15 (on Who Zahn Firsts)
+ Connor Norby, Mia          3B           336     8   34    8   0.244    -2.19  $ 8.15 (on Proud Pigeons of Pain)
+ Spencer Horwitz, Pit       1B,2B        364     9   46    0   0.255    -2.30  $ 7.83 (on The Shitbags)
+ Heriberto Hernandez, Mia   C,OF         248    10   40    1   0.254    -2.33  $ 7.75 (on Jobu Needs a Refill)
+ Eric Wagaman, Mia          1B,OF,3B     454    10   47    4   0.236    -2.39  $ 7.57
+ Eli White, Atl             OF           252     7   32    9   0.234    -2.45  $ 7.39
+ --> EDMUNDO SOSA, PHI      2B,SS,3B     225     8   35    1   0.271    -2.45  $ 7.38 (on OOPSY Daisies 420)
+ Nick Gonzales, Pit         SS,2B        371     7   30    1   0.272    -2.55  $ 7.10 (on Galapagos Lava Lizards)
+ Pavin Smith, Ari           1B,OF        277     9   33    2   0.256    -2.58  $ 7.02 (on El Sancho Enterprises Inc)
+ Jordan Walker, StL         OF           358     7   41    8   0.229    -2.58  $ 7.02 (on El Sancho Enterprises Inc)
+ --> ALEX CALL, LAD         OF           274     5   34    3   0.270    -2.59  $ 6.98 (on OOPSY Daisies 420)
+ Liam Hicks, Mia            1B,C         343     6   46    0   0.259    -2.61  $ 6.94
+ Jacob Young, Was           OF           345     1   29   17   0.229    -2.64  $ 6.84 (on IN ROD WE TRUST)
+ Pedro Pages, StL           C            368    12   50    0   0.226    -2.78  $ 6.44
+ Jared Triolo, Pit          1B,2B,SS,3   302     7   25   12   0.222    -2.79  $ 6.39 (on Jobu Needs a Refill)
+ Casey Schmitt, SF          1B,2B,3B     314    11   39    1   0.236    -2.80  $ 6.36 (on IN ROD WE TRUST)
+ Javier Sanoja, Mia         2B,OF,SS,3   302     6   33    5   0.245    -2.91  $ 6.05 (on IN ROD WE TRUST)
+ Will Benson, Cin           OF           223    10   36    3   0.220    -2.99  $ 5.82
+ Luis Matos, SF             OF           201    10   25    5   0.219    -3.13  $ 5.40
+ Francisco Alvarez, NYM     C            211     8   27    0   0.261    -3.21  $ 5.17 (on IN ROD WE TRUST)
+ Tyler Stephenson, Cin      C            281    10   40    0   0.228    -3.22  $ 5.14 (on Diamondcutters)
+ Tyrone Taylor, NYM         OF           332     3   29   12   0.220    -3.35  $ 4.75
+ Blaze Alexander, Ari       2B,OF,SS,3   191     8   25    3   0.236    -3.36  $ 4.74 (on Who Zahn Firsts)
+ Brady House, Was           SS,3B        271     4   30    5   0.240    -3.45  $ 4.46 (on Galapagos Lava Lizards)
+ Johan Rojas, Phi           OF           156     1   18   12   0.224    -3.48  $ 4.37 (on The Shitbags)
+ Andruw Monasterio, Mil     1B,2B,SS,3   119     5   18    2   0.277    -3.61  $ 4.00
+ Freddy Fermin, SD          C            328     6   25    1   0.253    -3.62  $ 3.97
+ Miguel Amaya, ChC          C            108     4   27    0   0.278    -3.67  $ 3.83 (on Phil's Harmonic Orchestra)
+ Christian Koss, SF         2B,SS,3B     166     4   21    4   0.247    -3.73  $ 3.64
+ --> RONNY MAURICIO, NYM    SS,2B,3B     189     7   14    5   0.233    -3.75  $ 3.58 (on OOPSY Daisies 420)
+ Jake McCarthy, Ari         OF           193     4   17    9   0.218    -3.77  $ 3.52 (on Who Zahn Firsts)
+ Warming Bernabel, Col      1B,SS        195     6   23    1   0.246    -3.83  $ 3.35 (on Who Zahn Firsts)
+ Reese McGuire, ChC         C            130     8   25    0   0.223    -3.85  $ 3.28
+ Mike Toglia, Col           1B           317    12   34    3   0.196    -3.86  $ 3.25
+ Luisangel Acuna, NYM       2B,SS,3B     162     0    7   12   0.241    -3.87  $ 3.24 (on IN ROD WE TRUST)
+ Riley Adams, Was           C            261    10   28    1   0.211    -4.01  $ 2.83
+ Thomas Saggese, StL        SS,2B,3B     223     2   21    3   0.256    -4.02  $ 2.80 (on El Sancho Enterprises Inc)
+ Tyler Fitzgerald, SF       2B,SS        231     4   15    9   0.216    -4.03  $ 2.77
+ --> JOSE TREVINO, CIN      C            311     6   27    0   0.241    -4.05  $ 2.72 (on OOPSY Daisies 420)
+ Ryan Ritter, Col           2B,SS        195     3   24    2   0.246    -4.08  $ 2.63 (on Who Zahn Firsts)
+ Jake Bauers, Mil           1B,OF        145     6   21    5   0.193    -4.08  $ 2.61
+ Brandon Lockridge, Mil     OF           140     0   12   10   0.229    -4.08  $ 2.61
+ Tim Tawa, Ari              1B,2B,OF     162     6   15    7   0.198    -4.09  $ 2.60 (on Cannon Fodder)
+ Yohel Pozo, StL            1B,C         183     6   22    0   0.240    -4.12  $ 2.50
+ Robert Hassell, Was        OF           196     4   21    3   0.235    -4.15  $ 2.42
+ Nick Allen, Atl            2B,SS        438     1   28   10   0.224    -4.16  $ 2.39
+ Blake Perkins, Mil         OF           130     4   13    6   0.215    -4.20  $ 2.28
+ Keibert Ruiz, Was          C            283     3   28    0   0.247    -4.23  $ 2.19
+ Troy Johnston, Col         1B,OF        103     2   12    3   0.272    -4.27  $ 2.08
+ Christian Encarnacion-Stra 1B,3B        147     7   21    0   0.211    -4.42  $ 1.63 (on Diamondcutters)
+ Kyle Karros, Col           3B           138     3   14    1   0.261    -4.42  $ 1.63 (on Cannon Fodder)
+ Yanquiel Fernandez, Col    OF           139     5   13    0   0.252    -4.45  $ 1.54 (on Who Zahn Firsts)
+ Joey Bart, Pit             C            286     3   25    1   0.238    -4.49  $ 1.41 (on Phil's Harmonic Orchestra)
+ Tyler Locklear, Ari        1B           153     5   15    4   0.203    -4.55  $ 1.26 (on Proud Pigeons of Pain)
+ Adrian Del Castillo, Ari   C            142     4   18    0   0.239    -4.55  $ 1.24
+ Otto Kemp, Phi             1B,3B,OF     152     4   18    1   0.230    -4.56  $ 1.21
+ Alexander Canario, Pit     OF           214     5   19    4   0.206    -4.61  $ 1.06
+ Luis Torrens, NYM          C            289     5   30    0   0.218    -4.70  $ 0.80
+ Graham Pauley, Mia         1B,2B,3B     154     4   12    2   0.227    -4.74  $ 0.70
+ Jose Tena, Was             2B,3B        158     0   17    3   0.241    -4.74  $ 0.67
+ Nasim Nunez, Was           2B,SS         46     0    5    7   0.196    -4.75  $ 0.65
+ --> PATRICK BAILEY, SF     C            415     4   47    0   0.212    -4.76  $ 0.64 (on OOPSY Daisies 420)
+ Braxton Fulford, Col       C            109     2   18    1   0.229    -4.76  $ 0.63
+ Bryce Johnson, SD          OF            58     0    5    3   0.293    -4.82  $ 0.44
+ Dalton Rushing, LAD        1B,C         132     4   24    0   0.197    -4.85  $ 0.38 (on Phil's Harmonic Orchestra)
+ Drew Millas, Was           C             49     0    7    2   0.306    -4.85  $ 0.36
+ Nathan Church, StL         OF            69     2    9    3   0.203    -4.96  $ 0.05
+ Nacho Alvarez, Atl         2B,3B        180     1   15    2   0.233    -5.00  $-0.07
+ Esteury Ruiz, LAD          OF            21     1    2    4   0.190    -5.04  $-0.20
+ Griffin Conine, Mia        OF            75     1    8    0   0.267    -5.13  $-0.44
+ Anthony Seigler, Mil       C,3B          84     1    8    3   0.214    -5.13  $-0.45
+ Henry Davis, Pit           C            259     8   25    2   0.178    -5.15  $-0.50
+ Jose Fermin, StL           2B,OF,3B      25     1    2    1   0.320    -5.17  $-0.57 (on El Sancho Enterprises Inc)
+ Jordan Lawlar, Ari         SS,2B,3B      93     2    8    4   0.183    -5.18  $-0.59 (on Diamondcutters)
+ Alex Freeland, LAD         SS,2B,3B      97     3    9    2   0.196    -5.18  $-0.60
+ Vidal Brujan, Atl          2B,OF,SS,3   102     0    9    3   0.225    -5.19  $-0.62
+ Brett Wisely, Atl          2B,SS         53     1   11    1   0.208    -5.20  $-0.66
+ Jack Suwinski, Pit         OF           147     4   11    7   0.150    -5.20  $-0.66 (on Phil's Harmonic Orchestra)
+ Drew Gilbert, SF           OF            92     3    9    2   0.185    -5.25  $-0.82 (on El Sancho Enterprises Inc)
+ Weston Wilson, Phi         1B,2B,OF      71     2   10    0   0.211    -5.30  $-0.97
+ Enmanuel Valdez, Pit       1B,2B         91     2   12    0   0.209    -5.33  $-1.03
+ Max Acosta, Mia            2B,SS,3B      33     3    4    0   0.182    -5.36  $-1.13
+ Jerar Encarnacion, SF      OF            41     3    3    1   0.171    -5.37  $-1.15
+ Andres Chaparro, Was       1B            56     2    6    0   0.214    -5.40  $-1.25
+ Owen Caissie, ChC          OF            36     1    6    0   0.222    -5.43  $-1.34 (on Phil's Harmonic Orchestra)
+ Will Wagner, SD            1B,2B,3B     130     0    8    1   0.238    -5.43  $-1.34
+ Ronny Simon, Pit           2B,OF         83     0    8    1   0.229    -5.44  $-1.36
+ Jared Young, NYM           1B            42     3    5    0   0.167    -5.45  $-1.39
+ Moises Ballesteros, ChC    C             20     0    6    0   0.250    -5.47  $-1.44
+ Garrett Mitchell, Mil      OF            68     0    3    3   0.206    -5.49  $-1.52
+ Deyvison De Los Santos, Mi 3B            31     1    4    0   0.226    -5.49  $-1.52
+ Mason McCoy, SD            SS            32     1    3    1   0.188    -5.52  $-1.61
+ Joey Wiemer, Mia           OF            44     1    5    1   0.182    -5.54  $-1.67
+ Rafael Marchan, Phi        C            106     2   12    0   0.189    -5.62  $-1.88
+ Zac Veen, Col              OF            55     1    4    2   0.164    -5.63  $-1.92 (on El Sancho Enterprises Inc)
+ Justin Dean, SF            OF             8     0    1    1   0.125    -5.64  $-1.96
+ Cam Devanney, Pit          SS,3B          7     0    1    0   0.286    -5.66  $-2.01
+ Jimmy Crooks, StL          C             11     0    1    0   0.273    -5.66  $-2.01
+ Ji-Hwan Bae, NYM           OF            13     0    0    2   0.077    -5.68  $-2.05 (on IN ROD WE TRUST)
+ Billy Cook, Pit            OF             6     0    0    0   0.333    -5.68  $-2.06
+ Nick Yorke, Pit            1B,2B          8     0    1    0   0.250    -5.69  $-2.08
+ Marco Luciano, SF          2B,SS          5     0    1    0   0.200    -5.71  $-2.16
+ Drew Romo, Col             C              5     0    1    0   0.200    -5.71  $-2.16
+ Tyler Black, Mil           UT             9     0    1    0   0.222    -5.71  $-2.16
+ Steward Berroa, Mil        OF             5     0    0    1   0.000    -5.71  $-2.17
+ Tyler Callihan, Cin        3B             6     0    1    0   0.167    -5.74  $-2.24
+ Kevin Alcantara, ChC       OF             1     0    0    0   0.000    -5.75  $-2.28
+ Michael Siani, Atl         OF            17     0    0    0   0.235    -5.76  $-2.30
+ Victor Mesa Jr., Mia       OF             7     0    1    0   0.143    -5.76  $-2.31
+ Will Banfield, Cin         C             15     0    1    0   0.200    -5.77  $-2.32
+ Cesar Prieto, StL          2B            15     0    1    0   0.200    -5.77  $-2.32
+ Blake Dunn, Cin            OF            60     1    7    1   0.150    -5.77  $-2.34
+ Jesus Rodriguez, SF        C              2     0    0    0   0.000    -5.78  $-2.36
+ Garrett Stubbs, Phi        C              2     0    0    0   0.000    -5.78  $-2.36
+ Andrew Knizner, SF         C             80     1    5    0   0.200    -5.81  $-2.44
+ Will Robertson, Pit        OF            47     1    4    0   0.170    -5.82  $-2.46
+ Adael Amador, Col          2B           122     1   11    1   0.180    -5.87  $-2.63
+ Tsung-Che Cheng, Pit       SS             7     0    0    0   0.000    -5.92  $-2.76
+ Rece Hinds, Cin            OF            43     2    3    0   0.116    -5.92  $-2.78
+ Tirso Ornelas, SD          OF            14     0    1    0   0.071    -5.95  $-2.86
+ Blaine Crim, Col           1B            16     0    1    0   0.062    -6.01  $-3.02
+ Grant McCray, SF           OF            24     0    1    0   0.125    -6.01  $-3.03
+ Jorge Barrosa, Ari         OF            41     0    5    0   0.122    -6.07  $-3.22
+ Endy Rodriguez, Pit        1B,C          52     0    2    0   0.173    -6.08  $-3.24
+ Kris Bryant, Col           OF            39     0    1    0   0.154    -6.09  $-3.28 (on Diamondcutters)
+ Hayden Senger, NYM         C             83     0    6    0   0.169    -6.20  $-3.58
+ Luis Campusano, SD         C             22     0    0    0   0.000    -6.32  $-3.93
+ Ben Rortvedt, LAD          C             64     0    6    0   0.094    -6.53  $-4.56

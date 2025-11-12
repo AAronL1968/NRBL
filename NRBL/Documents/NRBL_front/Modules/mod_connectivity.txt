@@ -1,0 +1,204 @@
+Option Compare Database
+Option Explicit
+Public Const DB_NAME_FRONT As String = "NRBL_front.accdb"
+Public Const DB_NAME_CODE As String = "NRBL_code.accdb"
+Public Const DB_NAME_DATA As String = "NRBL_data.accdb"
+Public Const DB_NAME_DATA_MOCK As String = "NRBL_data_MOCK.accdb"
+Public Const DB_NAME_DATA_HIST As String = "NRBL_data_historical.accdb"
+Public Const CONNECT_STRING_EXCEL_TEMPLATE As String = "Excel 12.0 Xml;HDR=YES;IMEX=2;ACCDB=YES;DATABASE={{EXCEL_FILENAME_WITH_PATH}}"
+Public Function fn_is_mock() As Boolean
+    fn_is_mock = False
+    Dim db As DAO.Database
+    Dim rst As DAO.Recordset
+    Set db = CurrentDb
+    Set rst = db.OpenRecordset("mock_selector")
+    If Not rst.EOF Then
+        fn_is_mock = IIf(IsNull(rst!is_mock), False, rst!is_mock)
+    End If
+    db.Close
+    Set db = Nothing
+End Function
+Public Function fn_get_this_database_name() As String
+    fn_get_this_database_name = Application.CurrentProject.Name
+End Function
+Public Function fn_get_this_database_path() As String
+    fn_get_this_database_path = Application.CurrentProject.Path
+End Function
+Public Function fn_get_import_path() As String
+    fn_get_import_path = Replace(Left(fn_get_this_database_path(), InStrRev(fn_get_this_database_path(), "\") - 1) & "\NRBL_imports", "\\", "\")
+End Function
+Public Function fn_get_data_path() As String
+    fn_get_data_path = Replace(Left(fn_get_this_database_path(), InStrRev(fn_get_this_database_path(), "\") - 1) & "\NRBL_data", "\\", "\")
+End Function
+Public Sub sub_relink()
+    Call link_excel_files
+    Call link_access_tables
+    Call link_csv_files
+End Sub
+Public Sub link_access_tables()
+    Dim db As DAO.Database
+    Dim strSQL As String
+    Dim strLocalTableName As String
+    Dim strRemoteTableName As String
+    Dim strFileNameWithPath As String
+    Dim strExtension As String
+    Dim strImportSpecification As String
+    Dim strSourceDB As String
+    Dim strConnect As String
+    Dim rst As DAO.Recordset
+    Dim tdf As DAO.TableDef
+    Dim boolTDFExists As Boolean
+    Dim strMsg As String
+    strSQL = "select * from tdf_links where link_type = ""Access"" order by local_table_name;"
+    Set db = CurrentDb
+    Set rst = db.OpenRecordset(strSQL)
+    Do While Not rst.EOF
+        strLocalTableName = IIf(IsNull(rst!local_table_name), "", rst!local_table_name)
+        strRemoteTableName = IIf(IsNull(rst!remote_table_name), "", rst!remote_table_name)
+        strSourceDB = IIf(IsNull(rst!source_db), "", rst!source_db)
+        strExtension = IIf(IsNull(rst!extension), "", rst!extension)
+        strImportSpecification = IIf(IsNull(rst!import_specification), "", rst!import_specification)
+        strFileNameWithPath = Replace(fn_get_data_path() & "\" & strSourceDB & strExtension, "\\", "\")
+        strConnect = ";DATABASE=" & strFileNameWithPath
+        boolTDFExists = False
+        For Each tdf In db.TableDefs
+            If tdf.Name = strLocalTableName Then
+                boolTDFExists = True
+            End If
+        Next tdf
+        Set tdf = Nothing
+        If boolTDFExists = True Then
+            db.TableDefs.Delete strLocalTableName
+            boolTDFExists = False
+        End If
+        Set tdf = db.CreateTableDef(strLocalTableName)
+        tdf.SourceTableName = strRemoteTableName
+        tdf.Connect = strConnect
+        db.TableDefs.Append tdf
+        Set tdf = Nothing
+        db.TableDefs.Refresh
+        rst.MoveNext
+    Loop
+    rst.Close
+    Set rst = Nothing
+    db.Close
+    Set db = Nothing
+End Sub
+Public Sub link_excel_files()
+    Dim db As DAO.Database
+    Dim strSQL As String
+    Dim strLocalTableName As String
+    Dim strRemoteTableName As String
+    Dim strFileNameWithPath As String
+    Dim strExtension As String
+    Dim strImportSpecification As String
+    Dim strSourceDB As String
+    Dim strConnect As String
+    Dim rst As DAO.Recordset
+    Dim tdf As DAO.TableDef
+    Dim boolTDFExists As Boolean
+    Dim strMsg As String
+    strSQL = "select * from tdf_links where link_type = ""Excel"" order by local_table_name;"
+    Set db = CurrentDb
+    Set rst = db.OpenRecordset(strSQL)
+    Do While Not rst.EOF
+        strLocalTableName = IIf(IsNull(rst!local_table_name), "", rst!local_table_name)
+        strRemoteTableName = IIf(IsNull(rst!remote_table_name), "", rst!remote_table_name)
+        strSourceDB = IIf(IsNull(rst!source_db), "", rst!source_db)
+        strExtension = IIf(IsNull(rst!extension), "", rst!extension)
+        strImportSpecification = IIf(IsNull(rst!import_specification), "", rst!import_specification)
+        strFileNameWithPath = Replace(fn_get_import_path() & "\" & strSourceDB & strExtension, "\\", "\")
+        strConnect = Replace(CONNECT_STRING_EXCEL_TEMPLATE, "{{EXCEL_FILENAME_WITH_PATH}}", strFileNameWithPath)
+        boolTDFExists = False
+        For Each tdf In db.TableDefs
+            If tdf.Name = strLocalTableName Then
+                boolTDFExists = True
+            End If
+        Next tdf
+        Set tdf = Nothing
+        If boolTDFExists = True Then
+            db.TableDefs.Delete strLocalTableName
+            boolTDFExists = False
+        End If
+        DoCmd.TransferSpreadsheet acLink, acSpreadsheetTypeExcel12, strLocalTableName, strFileNameWithPath, True, strRemoteTableName & "$"
+        db.TableDefs.Refresh
+        rst.MoveNext
+    Loop
+    rst.Close
+    Set rst = Nothing
+    db.Close
+    Set db = Nothing
+End Sub
+Public Sub link_csv_files()
+    Dim db As DAO.Database
+    Dim strSQL As String
+    Dim strLocalTableName As String
+    Dim strRemoteTableName As String
+    Dim strFileNameWithPath As String
+    Dim strExtension As String
+    Dim strImportSpecification As String
+    Dim strSourceDB As String
+    Dim rst As DAO.Recordset
+    Dim tdf As DAO.TableDef
+    Dim boolTDFExists As Boolean
+    Dim strMsg As String
+    strSQL = "select * from tdf_links where link_type = ""Text"" order by local_table_name;"
+    Set db = CurrentDb
+    Set rst = db.OpenRecordset(strSQL)
+    Do While Not rst.EOF
+        strLocalTableName = IIf(IsNull(rst!local_table_name), "", rst!local_table_name)
+        strRemoteTableName = IIf(IsNull(rst!remote_table_name), "", rst!remote_table_name)
+        strSourceDB = IIf(IsNull(rst!source_db), "", rst!source_db)
+        strExtension = IIf(IsNull(rst!extension), "", rst!extension)
+        strImportSpecification = IIf(IsNull(rst!import_specification), "", rst!import_specification)
+        strFileNameWithPath = Replace(fn_get_import_path() & "\" & strSourceDB & strExtension, "\\", "\")
+        boolTDFExists = False
+        For Each tdf In db.TableDefs
+            If tdf.Name = strLocalTableName Then
+                boolTDFExists = True
+            End If
+        Next tdf
+        Set tdf = Nothing
+        If boolTDFExists = True Then
+            db.TableDefs.Delete strLocalTableName
+            boolTDFExists = False
+        End If
+        If strImportSpecification = "" Then
+            DoCmd.TransferText acLinkDelim, , strLocalTableName, strFileNameWithPath, True
+        Else
+            DoCmd.TransferText acLinkDelim, strImportSpecification, strLocalTableName, strFileNameWithPath, True
+        End If
+        db.TableDefs.Refresh
+        'Debug.Print "dir " & strFileNameWithPath
+        rst.MoveNext
+    Loop
+    rst.Close
+    Set rst = Nothing
+    db.Close
+    Set db = Nothing
+End Sub
+Public Sub sub_delete_project_reference(strReferenceName As String)
+    Dim ref As Access.Reference
+    For Each ref In Access.Application.References
+        If ref.Name Like strReferenceName Then
+            Access.Application.References.Remove ref
+        End If
+    Next ref
+    Set ref = Nothing
+End Sub
+Public Sub sub_add_db_project_reference(strReferenceName As String, Optional strPath = "working_directory")
+    Dim strPathWithFileName As String
+    Dim ref As Access.Reference
+    If strPath = "working_directory" Then
+        strPath = fn_get_this_database_path
+    End If
+    strPathWithFileName = Replace(strPath & "\" & strReferenceName & ".accdb", "\\", "\")
+    Call sub_delete_project_reference(strReferenceName)
+    For Each ref In Access.Application.References
+        If ref.Name Like strReferenceName Then
+            Access.Application.References.Remove ref
+        End If
+    Next ref
+    Set ref = Nothing
+    Access.Application.References.AddFromFile strPathWithFileName
+End Sub
