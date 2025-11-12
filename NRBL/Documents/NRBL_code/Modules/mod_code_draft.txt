@@ -1,0 +1,221 @@
+Option Compare Database
+Option Explicit
+Public Function fun_draft()
+    Dim strPositionCategory As String
+    Dim iOpeningBid As Integer
+    Dim iWinningBid As Integer
+    Dim iMaxBid As Integer
+    Dim strBidder As String
+    Dim iPlayerId As Long
+    Dim iMinPosSlot As Long
+    Dim iBid As Long
+    Dim iInitialBid As Long
+    Dim strNominator As String
+    
+    iBid = IIf(IsNull([Forms]![frm]![txt_bid].Value), 0, [Forms]![frm]![txt_bid].Value)
+    iInitialBid = IIf(IsNull([Forms]![frm]![txt_initial_bid].Value), 0, [Forms]![frm]![txt_initial_bid].Value)
+    iMinPosSlot = IIf(IsNull([Forms]![frm]![txt_min_pos_slot].Value), 0, [Forms]![frm]![txt_min_pos_slot].Value)
+    iOpeningBid = IIf(IsNull([Forms]![frm]![txt_initial_bid].Value), -88, [Forms]![frm]![txt_initial_bid].Value)
+    iWinningBid = IIf(IsNull([Forms]![frm]![txt_bid].Value), -99, [Forms]![frm]![txt_bid].Value)
+    iMaxBid = IIf(IsNull([Forms]![frm]![txt_max_bid].Value), 0, [Forms]![frm]![txt_max_bid].Value)
+    iPlayerId = Forms!frm!cbo_player.Value
+    strBidder = Forms!frm!cbo_bidders.Value
+    strNominator = IIf(IsNull(Forms!frm!txt_nominator.Value), "", Forms!frm!txt_nominator.Value)
+    If iOpeningBid = iWinningBid Then
+        If iMaxBid > 1 Then
+            DoCmd.OpenForm "frm_cricket"
+        End If
+    End If
+    strPositionCategory = Forms!frm!txt_position_category.Value
+    If strPositionCategory = "Pitcher" Then
+        Forms!frm![League Projections, Budgets, Max Bids].Form.RecordSource = "tbl_team_projections_placeholder"
+        Forms!frm![League Projections, Budgets, Max Bids].Requery
+        DoCmd.OpenQuery "qry_append_draft_pick_pitcher"
+        DoCmd.OpenQuery "qry_upd_drafted_statuses"
+        DoCmd.OpenQuery "qry_team_position_slot_update_for_pitcher"
+        Call fun_fix_autonumbers
+        DoCmd.Close acForm, "frm"
+        DoCmd.OpenForm "frm"
+        Dim db As DAO.Database
+        Dim rst As DAO.Recordset
+        Dim strRS As String
+        Set db = CurrentDb
+        Set rst = db.OpenRecordset("tbl_subform_recordsource")
+        strRS = rst!rs
+        rst.Close
+        Set rst = Nothing
+        Set db = Nothing
+        Forms!frm![League Projections, Budgets, Max Bids].Form.RecordSource = strRS
+        Forms!frm![League Projections, Budgets, Max Bids].Requery
+        Call sub_in_draft_value_recalculation
+    Else
+        If Not CurrentProject.AllForms("frm").IsLoaded Then
+            DoCmd.OpenForm "frm"
+            iPlayerId = Forms!frm!cbo_player.Value
+            strBidder = Forms!frm!cbo_bidders.Value
+            iMinPosSlot = IIf(IsNull([Forms]![frm]![txt_min_pos_slot].Value), 0, [Forms]![frm]![txt_min_pos_slot].Value)
+            If iBid = 0 Then
+                iBid = IIf(IsNull([Forms]![frm]![txt_bid].Value), 0, [Forms]![frm]![txt_bid].Value)
+            End If
+            If iInitialBid = 0 Then
+                iInitialBid = IIf(IsNull([Forms]![frm]![txt_initial_bid].Value), 0, [Forms]![frm]![txt_initial_bid].Value)
+            End If
+            If strNominator = "" Then
+                strNominator = IIf(IsNull(Forms!frm!txt_nominator.Value), "", Forms!frm!txt_nominator.Value)
+            End If
+        End If
+        If CurrentProject.AllForms("frm").IsLoaded Then
+            DoCmd.Close acForm, "frm"
+        End If
+        DoCmd.OpenForm "frm_select_position"
+        Forms!frm_select_position!txt_player_id.Value = iPlayerId
+        Forms!frm_select_position!txt_bidder.Value = strBidder
+        Forms!frm_select_position!txt_nominator.Value = strNominator
+        Forms!frm_select_position!txt_bid.Value = iBid
+        Forms!frm_select_position!txt_initial_bid.Value = iInitialBid
+        Forms!frm_select_position!txt_min_pos_slot.Value = iMinPosSlot
+    End If
+End Function
+Public Function fun_after_player_update()
+    Forms!frm!btn_draft.Enabled = True
+    Dim db As DAO.Database
+    Dim rst As DAO.Recordset
+    Dim strPositionCategory As String
+    Dim curInitialBid As Currency
+    Dim curMaxBid As Currency
+    Dim strOwner As String
+    Dim strBRLink As String
+    Dim strESPNLink As String
+    Dim strRRLink As String
+    Dim strOnRotoLink As String
+    Dim iCt As Long
+    
+    strOwner = Forms!frm!txt_nominator.Value
+    Set db = CurrentDb
+    DoCmd.OpenQuery "qry_selected_position_category_delete"
+    DoCmd.OpenQuery "qry_selected_position_category_append"
+    DoCmd.OpenQuery "qry_tbl_position_check_ct_delete"
+    DoCmd.OpenQuery "qry_tbl_position_check_ct_append"
+    DoCmd.OpenQuery "qry_tbl_selected_player_position_category_delete"
+    DoCmd.OpenQuery "qry_tbl_selected_player_position_category_append"
+    Set rst = db.OpenRecordset("tbl_selected_player_position_category")
+    strPositionCategory = IIf(IsNull(rst!position_category), "", rst!position_category)
+    rst.Close
+    Set rst = db.OpenRecordset("tbl_position_check_ct")
+    iCt = rst!ct
+    rst.Close
+    Set rst = Nothing
+    If iCt = 0 Then
+        Forms!frm!btn_draft.Enabled = False
+        DoCmd.Beep
+        MsgBox "The current nominator (" & Trim(strOwner) & ") cannot nominate a player in the '" & strPositionCategory & "' category."
+        Forms!frm!cbo_player.SetFocus
+        Exit Function
+    End If
+    
+    'Set rst = db.OpenRecordset("tbl_selected_position_category")
+    'strPositionCategory = IIf(IsNull(rst!position_category), "", rst!position_category)
+    'rst.Close
+    'Set rst = Nothing
+    Forms!frm!txt_position_category.Value = strPositionCategory
+    DoCmd.OpenQuery "qry_min_selected_position_slot_delete"
+    DoCmd.OpenQuery "qry_min_selected_position_slot_append"
+    Dim iPosSlot As Long
+    Set rst = db.OpenRecordset("tbl_min_selected_position_slot")
+    iPosSlot = rst!team_position_slot_id
+    rst.Close
+    Set rst = Nothing
+    Forms!frm!txt_min_pos_slot.Value = iPosSlot
+    DoCmd.OpenQuery "qry_max_bid_delete"
+    DoCmd.OpenQuery "qry_nominator_max_bid_append"
+    Set rst = db.OpenRecordset("tbl_max_bid")
+    curMaxBid = rst!max_bid_amt
+    rst.Close
+    Set rst = Nothing
+'''''
+' curMaxBid = 99999.99
+'''''
+    Forms!frm!txt_max_bid.Value = curMaxBid
+    curInitialBid = Forms!frm!txt_initial_bid.Value
+    
+    If curInitialBid > curMaxBid Then
+        Forms!frm!btn_draft.Enabled = False
+        DoCmd.Beep
+        MsgBox "The current nominator (" & Trim(strOwner) & ") has exceeded their maximum bid of " & FormatCurrency(curMaxBid, 0) & "."
+        Forms!frm!cbo_player.SetFocus
+    Else
+        DoCmd.OpenQuery "qry_selected_player_links_delete"
+        DoCmd.OpenQuery "qry_selected_player_links_append"
+        
+        Set rst = db.OpenRecordset("tbl_selected_player_links")
+        strBRLink = rst!br_link
+        strESPNLink = rst!fangraphs_link
+        strRRLink = rst!rr_link
+        strOnRotoLink = rst!onroto_link
+        
+        rst.Close
+        Set rst = Nothing
+        Forms!frm!br_link.HyperlinkAddress = strBRLink
+        Forms!frm!espn_link.HyperlinkAddress = strESPNLink
+        Forms!frm!lab_roster_resource.HyperlinkAddress = strRRLink
+        Forms!frm!lab_OnRoto.HyperlinkAddress = strOnRotoLink
+        Forms!frm!txt_initial_bid.SetFocus
+    End If
+    'If IsNull(Forms!frm!cbo_player) Then
+    '    Forms!frm!btn_selected_player_projections.Enabled = False
+    'Else
+        Forms!frm!btn_selected_player_projections.Enabled = True
+    'End If
+    Set rst = Nothing
+    Set db = Nothing
+    DoCmd.OpenQuery "qry_tbl_selected_player_delete"
+    DoCmd.OpenQuery "qry_tbl_selected_player_append"
+End Function
+Public Function fun_validate_add_new_player()
+    Dim strNominator As String
+    Dim strOwner As String
+    Dim strPos As String
+    Dim strContract As String
+    Dim fSalary As Double
+    Dim fInitialBid As Double
+    Dim strNL As String
+    Dim strFirstName As String
+    Dim strLastName As String
+    Dim strFullName As String
+    Dim iReadyToAddFlag As Long
+
+    iReadyToAddFlag = 0
+    strPos = IIf(IsNull(Forms!frm_add_missing_player!cbo_pos.Value), "", Forms!frm_add_missing_player!cbo_pos.Value)
+    strNominator = IIf(IsNull(Forms!frm_add_missing_player!cbo_nominator.Value), "", Forms!frm_add_missing_player!cbo_nominator.Value)
+    strOwner = IIf(IsNull(Forms!frm_add_missing_player!cbo_owner.Value), "", Forms!frm_add_missing_player!cbo_owner.Value)
+    strContract = IIf(IsNull(Forms!frm_add_missing_player!txt_contract.Value), "", Forms!frm_add_missing_player!txt_contract.Value)
+    fSalary = IIf(IsNull(Forms!frm_add_missing_player!txt_salary.Value), 0, Forms!frm_add_missing_player!txt_salary.Value)
+    fInitialBid = IIf(IsNull(Forms!frm_add_missing_player!txt_initial_bid.Value), 0, Forms!frm_add_missing_player!txt_initial_bid.Value)
+    strNL = IIf(IsNull(Forms!frm_add_missing_player!cbo_NL.Value), "", Forms!frm_add_missing_player!cbo_NL.Value)
+    strFirstName = IIf(IsNull(Forms!frm_add_missing_player!txt_first_name.Value), "", Forms!frm_add_missing_player!txt_first_name.Value)
+    strLastName = IIf(IsNull(Forms!frm_add_missing_player!txt_last_name.Value), "", Forms!frm_add_missing_player!txt_last_name.Value)
+    strFullName = Trim(strFirstName) & " " & Trim(strLastName)
+    Forms!frm_add_missing_player!txt_full_name.Value = strFullName
+    
+    If strOwner <> "" And strFirstName <> "" And strLastName <> "" And strNL <> "" And strContract <> "" And strPos <> "" Then
+        If strOwner = "FA" Then
+            iReadyToAddFlag = 1
+        Else
+            If strNominator <> "" And strPos <> "" And fSalary <> 0# And fInitialBid <> 0# And fInitialBid <= fSalary Then
+                If strNominator = strOwner Then
+                    iReadyToAddFlag = 1
+                Else
+                    If fSalary > fInitialBid Then
+                        iReadyToAddFlag = 1
+                    End If
+                End If
+            End If
+        End If
+    End If
+    If iReadyToAddFlag = 0 Then
+        Forms!frm_add_missing_player!btn_add_player.Enabled = False
+    Else
+        Forms!frm_add_missing_player!btn_add_player.Enabled = True
+        Forms!frm_add_missing_player!btn_add_player.SetFocus
+    End If
+End Function
