@@ -31,8 +31,15 @@ Public Function fn_get_data_path() As String
     fn_get_data_path = Replace(Left(fn_get_this_database_path(), InStrRev(fn_get_this_database_path(), "\") - 1) & "\NRBL_data", "\\", "\")
 End Function
 Public Sub sub_relink()
+    Dim strStatus As String
+    strStatus = CStr(Now()) & " - Call link_excel_files"
+    Call set_status_bar(strStatus)
     Call link_excel_files
+    strStatus = CStr(Now()) & " - Call link_access_tables"
+    Call set_status_bar(strStatus)
     Call link_access_tables
+    strStatus = CStr(Now()) & " - Call link_csv_files"
+    Call set_status_bar(strStatus)
     Call link_csv_files
 End Sub
 Public Sub link_access_tables()
@@ -41,6 +48,7 @@ Public Sub link_access_tables()
     Dim strLocalTableName As String
     Dim strRemoteTableName As String
     Dim strFileNameWithPath As String
+    Dim strStatus As String
     Dim strExtension As String
     Dim strImportSpecification As String
     Dim strSourceDB As String
@@ -60,6 +68,8 @@ Public Sub link_access_tables()
         strImportSpecification = IIf(IsNull(rst!import_specification), "", rst!import_specification)
         strFileNameWithPath = Replace(fn_get_data_path() & "\" & strSourceDB & strExtension, "\\", "\")
         strConnect = ";DATABASE=" & strFileNameWithPath
+        strStatus = CStr(Now()) & " - link_access_tables: " & strLocalTableName
+        Call set_status_bar(strStatus)
         boolTDFExists = False
         For Each tdf In db.TableDefs
             If tdf.Name = strLocalTableName Then
@@ -87,6 +97,7 @@ End Sub
 Public Sub link_excel_files()
     Dim db As DAO.Database
     Dim strSQL As String
+    Dim strStatus As String
     Dim strLocalTableName As String
     Dim strRemoteTableName As String
     Dim strFileNameWithPath As String
@@ -109,6 +120,10 @@ Public Sub link_excel_files()
         strImportSpecification = IIf(IsNull(rst!import_specification), "", rst!import_specification)
         strFileNameWithPath = Replace(fn_get_import_path() & "\" & strSourceDB & strExtension, "\\", "\")
         strConnect = Replace(CONNECT_STRING_EXCEL_TEMPLATE, "{{EXCEL_FILENAME_WITH_PATH}}", strFileNameWithPath)
+        
+        strStatus = CStr(Now()) & " - link_excel_files: " & strLocalTableName
+        Call set_status_bar(strStatus)
+        
         boolTDFExists = False
         For Each tdf In db.TableDefs
             If tdf.Name = strLocalTableName Then
@@ -137,6 +152,7 @@ Public Sub link_csv_files()
     Dim strFileNameWithPath As String
     Dim strExtension As String
     Dim strImportSpecification As String
+    Dim strStatus As String
     Dim strSourceDB As String
     Dim rst As DAO.Recordset
     Dim tdf As DAO.TableDef
@@ -152,6 +168,8 @@ Public Sub link_csv_files()
         strExtension = IIf(IsNull(rst!extension), "", rst!extension)
         strImportSpecification = IIf(IsNull(rst!import_specification), "", rst!import_specification)
         strFileNameWithPath = Replace(fn_get_import_path() & "\" & strSourceDB & strExtension, "\\", "\")
+        strStatus = CStr(Now()) & " - link_csv_files: " & strLocalTableName
+        Call set_status_bar(strStatus)
         boolTDFExists = False
         For Each tdf In db.TableDefs
             If tdf.Name = strLocalTableName Then
