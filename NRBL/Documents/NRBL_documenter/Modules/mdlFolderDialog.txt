@@ -1,0 +1,64 @@
+Option Compare Database
+Option Explicit
+
+Private Type BROWSEINFO
+    hOwner As Long
+    pidlRoot As Long
+    pszDisplayName As String
+    lpszTitle As String
+    ulFlags As Long
+    lpfn As Long
+    lParam As Long
+    iImage As Long
+End Type
+
+Private Declare PtrSafe Function SHGetPathFromIDList _
+    Lib "shell32.dll" Alias "SHGetPathFromIDListA" ( _
+    ByVal pidl As Long, _
+    ByVal pszPath As String _
+) As Long
+            
+Private Declare PtrSafe Function SHBrowseForFolder _
+    Lib "shell32.dll" Alias "SHBrowseForFolderA" ( _
+    lpBrowseInfo As BROWSEINFO _
+) As Long
+            
+Private Const BIF_RETURNONLYFSDIRS = &H1
+
+Public Function BrowseForFolder(DialogTitle As String) As String
+Dim intPos As Integer
+Dim lngPIDL As Long
+Dim lngReturn As Long
+Dim strPath As String
+Dim objBI As BROWSEINFO
+  
+    With objBI
+        .hOwner = hWndAccessApp
+        .lpszTitle = DialogTitle
+        .ulFlags = BIF_RETURNONLYFSDIRS
+    End With
+    
+' The call to SHBrowseForFolder returns a PIDL (a pointer to an item identifier list)
+' that specifies the location of the selected folder relative
+' to the root of the name space. If the user chooses the Cancel
+' button in the dialog box, the return value is NULL.
+    lngPIDL = SHBrowseForFolder(objBI)
+
+' Determine the folder selected from the PIDL returned
+    strPath = Space$(512)
+    lngReturn = SHGetPathFromIDList(ByVal lngPIDL, ByVal strPath)
+
+' The folder will be a null-terminated string.
+' Only return what's in front of the Null.
+    If lngReturn Then
+        intPos = InStr(strPath, Chr$(0))
+        If intPos > 0 Then
+            BrowseForFolder = Left$(strPath, intPos - 1)
+        Else
+            BrowseForFolder = strPath
+        End If
+    Else
+        BrowseForFolder = vbNullString
+    End If
+
+End Function

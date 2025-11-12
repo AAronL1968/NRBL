@@ -1,0 +1,199 @@
+Option Compare Database
+Option Explicit
+
+' This code is a little different than what was presented in the column.
+' The files are actually written to a specific directory hierarchy.
+' A folder named Documents is written in the same folder as where the
+' MDB file exists. Underneath that folder are 5 other folders:
+'                 Forms
+'                 Modules
+'                 Queries
+'                 Reports
+'                 Scripts
+'
+' Hopefully it's obvious from the names what goes where!
+'
+' Note that this module contains a function EnsureFolderStructure which is responsible
+' for ensuring that the appropriate directory structure exists. EnsureFolderStructure is
+' passed the fully-qualified path to the database being documented. If the various
+' folders don't exist, the function creates them and returns the path to the Documents
+' folder. If they do exist, the function simply returns the path to the Documents folder.
+' (If anything goes wrong in EnsureFolderStructure, it returns a zero-length string, so that
+' further processing can be terminated)
+
+Public Sub DocumentDatabase(Optional WhatDatabase As String)
+'
+' This code was originally written by
+' Doug Steele, MVP  AccessHelp@rogers.com
+' http://I.Am/DougSteele
+' You are free to use it in any application
+' provided the copyright notice is left unchanged.
+'
+' Description:  Uses the undocumented Application.SaveAsText method
+'               to document the database to a series of text files.
+'               These files are stored in appropriately named subfolders
+'               below the folder in which the database exists.
+'               The high level folder is Documents, with 5
+'               subfolders Forms, Reports, Scripts, Modules and
+'               Queries
+'
+
+On Error GoTo Err_DocumentDatabase
+Dim appAccess As Access.Application
+Dim dbsCurr As Object ' used as CurrentProject and CurrentData
+Dim objAccess As AccessObject
+Dim intCount As Integer
+Dim intLoop As Integer
+Dim strFile As String
+Dim strFolderToUse As String
+
+    If Len(Trim(WhatDatabase & "")) = 0 Then
+        Set appAccess = Access.Application
+    Else
+        Set appAccess = New Access.Application
+        appAccess.OpenCurrentDatabase WhatDatabase, False
+    End If
+
+    strFolderToUse = EnsureFolderStructure(appAccess.CurrentProject.FullName, appAccess.CurrentProject.Name)
+    
+    If Len(strFolderToUse) > 0 Then
+
+        Set dbsCurr = appAccess.CurrentProject
+
+        intCount = dbsCurr.AllForms.Count
+        intLoop = 1
+        For Each objAccess In dbsCurr.AllForms
+            SysCmd acSysCmdSetStatus, "Form " & intLoop & " of " & intCount
+            intLoop = intLoop + 1
+            appAccess.SaveAsText acForm, objAccess.Name, _
+                strFolderToUse & "Forms\" & objAccess.Name & ".txt"
+        Next objAccess
+
+        intCount = dbsCurr.AllReports.Count
+        intLoop = 1
+        For Each objAccess In dbsCurr.AllReports
+            SysCmd acSysCmdSetStatus, "Report " & intLoop & " of " & intCount
+            intLoop = intLoop + 1
+            appAccess.SaveAsText acReport, objAccess.Name, _
+                strFolderToUse & "Reports\" & objAccess.Name & ".txt"
+        Next objAccess
+
+        intCount = dbsCurr.AllMacros.Count
+        intLoop = 1
+        For Each objAccess In dbsCurr.AllMacros
+            SysCmd acSysCmdSetStatus, "Macros " & intLoop & " of " & intCount
+            intLoop = intLoop + 1
+            appAccess.SaveAsText acMacro, objAccess.Name, _
+                strFolderToUse & "Scripts\" & objAccess.Name & ".txt"
+        Next objAccess
+
+        intCount = dbsCurr.AllModules.Count
+        intLoop = 1
+        For Each objAccess In dbsCurr.AllModules
+            SysCmd acSysCmdSetStatus, "Module " & intLoop & " of " & intCount
+            intLoop = intLoop + 1
+            appAccess.SaveAsText acModule, objAccess.Name, _
+                strFolderToUse & "Modules\" & objAccess.Name & ".txt"
+        Next objAccess
+
+        Set dbsCurr = Nothing
+        Set dbsCurr = appAccess.CurrentData
+        
+        intCount = dbsCurr.AllQueries.Count
+        intLoop = 1
+        For Each objAccess In dbsCurr.AllQueries
+            SysCmd acSysCmdSetStatus, "Query " & intLoop & " of " & intCount
+            intLoop = intLoop + 1
+            appAccess.SaveAsText acQuery, objAccess.Name, _
+                strFolderToUse & "Queries\" & objAccess.Name & ".txt"
+        Next objAccess
+        msgbox "All done.", vbOKOnly + vbInformation
+        DoCmd.Quit
+    Else
+        msgbox "Something went wrong trying to prepare the subfolders.", vbOKOnly + vbCritical
+    End If
+
+End_DocumentDatabase:
+    On Error Resume Next
+    Set dbsCurr = Nothing
+' You only close if you opened it
+    If Len(Trim(WhatDatabase & "")) > 0 Then
+        appAccess.CloseCurrentDatabase
+    End If
+    Set appAccess = Nothing
+    SysCmd acSysCmdClearStatus
+    Exit Sub
+
+Err_DocumentDatabase:
+    msgbox Err.description & " (" & Err.Number & ") in " & _
+        "DocumentDatabase", _
+        vbOKOnly + vbCritical, "NRBL Documenter"
+    Resume End_DocumentDatabase
+
+End Sub
+Private Function EnsureFolderStructure(WhatDatabase As String, strDatabaseName As String) As String
+'
+' This code was originally written by
+' Doug Steele, MVP  AccessHelp@rogers.com
+' http://I.Am/DougSteele
+' You are free to use it in any application
+' provided the copyright notice is left unchanged.
+'
+' Description: Ensures that there's a folder Documents as a subfolder
+'              underneath whatever folder the database itself is in,
+'              with 5 subfolders underneath that:
+'                 Forms
+'                 Modules
+'                 Queries
+'                 Reports
+'                 Scripts
+'
+' Inputs:       WhatDatabase   String   Fully-qualified path to database being documented
+'
+' Returns       The function returns the fully-qualifed path (including
+'               terminating slash) to the Documents folder, unless there's
+'               some problem, in which case it returns a zero-length string ("")
+
+On Error GoTo Err_EnsureFolderStructure
+
+Dim intLoop As Integer
+Dim strPath As String
+Dim strTempPath As String
+Dim varSubfolders As Variant
+
+    varSubfolders = Array("Forms", "Modules", "Queries", "Reports", "Scripts")
+
+    If Len(Dir$(WhatDatabase)) > 0 Then
+        strPath = Left$(WhatDatabase, Len(WhatDatabase) - Len(Dir$(WhatDatabase)))
+
+        If Right$(strPath, 1) <> "\" Then
+            strPath = strPath & "\"
+        End If
+        ' Does the Documents subfolder exist? If not, create it
+        strPath = strPath & "Documents\"
+        If Len(Dir$(strPath, vbDirectory)) = 0 Then
+            MkDir strPath
+        End If
+        strPath = strPath & Replace(Replace(strDatabaseName, ".accdb", ""), " ", "_") & "\"
+        If Len(Dir$(strPath, vbDirectory)) = 0 Then
+            MkDir strPath
+        End If
+' Create any of the subfolders under the Documents\<Database_Name> subfolder which don't already exist.
+        For intLoop = LBound(varSubfolders) To UBound(varSubfolders)
+            strTempPath = strPath & varSubfolders(intLoop) & "\"
+            If Len(Dir$(strTempPath, vbDirectory)) = 0 Then
+                MkDir strTempPath
+            End If
+        Next intLoop
+    End If
+    
+End_EnsureFolderStructure:
+    EnsureFolderStructure = strPath
+    Exit Function
+
+Err_EnsureFolderStructure:
+    strPath = vbNullString
+    Err.Raise Err.Number, "EnsureFolderStructure", Err.description
+    Resume End_EnsureFolderStructure
+
+End Function
