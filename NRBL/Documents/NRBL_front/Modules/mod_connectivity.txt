@@ -1,0 +1,36 @@
+Option Compare Database
+Option Explicit
+Public Const DB_NAME_FRONT As String = "NRBL_front.accdb"
+Public Const DB_NAME_DATA As String = "NRBL_data.accdb"
+Public Const DB_NAME_CODE As String = "NRBL_code.accdb"
+Public Function fn_get_this_database_name() As String
+    fn_get_this_database_name = Application.CurrentProject.Name
+End Function
+Public Function fn_get_this_database_path() As String
+    fn_get_this_database_path = Application.CurrentProject.Path
+End Function
+Public Sub sub_delete_project_reference(strReferenceName As String)
+    Dim ref As Access.Reference
+    For Each ref In Access.Application.References
+        If ref.Name Like strReferenceName Then
+            Access.Application.References.Remove ref
+        End If
+    Next ref
+    Set ref = Nothing
+End Sub
+Public Sub sub_add_db_project_reference(strReferenceName As String, Optional strPath = "working_directory")
+    Dim strPathWithFileName As String
+    Dim ref As Access.Reference
+    If strPath = "working_directory" Then
+        strPath = fn_get_this_database_path
+    End If
+    strPathWithFileName = Replace(strPath & "\" & strReferenceName & ".accdb", "\\", "\")
+    Call sub_delete_project_reference(strReferenceName)
+    For Each ref In Access.Application.References
+        If ref.Name Like strReferenceName Then
+            Access.Application.References.Remove ref
+        End If
+    Next ref
+    Set ref = Nothing
+    Access.Application.References.AddFromFile strPathWithFileName
+End Sub
