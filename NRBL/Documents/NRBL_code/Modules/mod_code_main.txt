@@ -14,6 +14,18 @@ Public Const CLR_GREEN_BTN As Long = 5167783
 Public Const CLR_PALE_GREEN As String = "&H66cdaa"
 Public Const CLR_SILVER As String = "&Hc0c0c0"
 Public Const CLR_ORANGE As Long = 13311
+Public Function fn_db_is_mock() As Boolean
+    fn_db_is_mock = False
+    Dim db As DAO.Database
+    Dim rst As DAO.Recordset
+    Set db = CurrentDb
+    Set rst = db.OpenRecordset("mock_selector")
+    If Not rst.EOF Then
+        fn_db_is_mock = IIf(IsNull(rst!is_mock), False, rst!is_mock)
+    End If
+    db.Close
+    Set db = Nothing
+End Function
 Public Function fn_code_test() As String
     fn_code_test = "Success"
 End Function
@@ -100,7 +112,7 @@ Public Function fun_load_frm()
     strCaption = strHeader & " (NL-Only, " & iTeamCt & " Teams) | Draft Cap: $" & CStr(CLng(fDraftCap)) & " | In-Season Cap: $" & CStr(CLng(fInSeasonCap)) & " | FAAB $" & CStr(CLng(fFAAB))
     strCaption = strCaption & " | Slots - H: " & iHitterSlots & "  P: " & iPitcherSlots & "  SW: " & iSwingmanSlots
     strFooter = strCaption & " | Floors - IP: " & iIPFloor & "  AB: " & iABFloor
-    If InStr(1, strDBFile, "MOCK") > 0 Then
+    If fn_db_is_mock = True Then
         strHeader = strHeader & " *** MOCK ***"
         If CurrentProject.AllForms("frm").IsLoaded Then
             Forms!frm!lab_merry_christmas.Visible = False
