@@ -1,0 +1,76 @@
+Option Compare Database
+Option Explicit
+Public Const DB_FRONT As String = "NRBL_front.accdb"
+Public Const DB_CODE As String = "NRBL_code.accdb"
+Public Const DB_DATA As String = "NRBL_data.accdb"
+Public Const DB_DATA_MOCK As String = "NRBL_data_MOCK.accdb"
+Public Const DB_DATA_HIST As String = "NRBL_data_historical.accdb"
+Public Const CONNECT_STRING_EXCEL As String = "Excel 12.0 Xml;HDR=YES;IMEX=2;ACCDB=YES;DATABASE={{EXCEL_FILENAME_WITH_PATH}}"
+Public Function fn_get_this_db_name() As String
+    fn_get_this_db_name = Application.CurrentProject.Name
+End Function
+Public Function fn_get_this_db_path() As String
+    fn_get_this_db_path = Application.CurrentProject.Path
+End Function
+Public Function fn_get_db_import_path() As String
+    fn_get_db_import_path = Replace(Left(fn_get_this_db_path(), InStrRev(fn_get_this_db_path(), "\") - 1) & "\NRBL_imports", "\\", "\")
+End Function
+Public Function fn_get_db_data_path() As String
+    fn_get_db_data_path = Replace(Left(fn_get_this_db_path(), InStrRev(fn_get_this_db_path(), "\") - 1) & "\NRBL_data", "\\", "\")
+End Function
+Public Sub link_access_table(strLocalTableName As String, strRemoteTableName As String, strFileNameWithPath As String)
+    Dim db As DAO.Database
+    Dim strSQL As String
+    'Dim strLocalTableName As String
+    'Dim strRemoteTableName As String
+    'Dim strFileNameWithPath As String
+    Dim strStatus As String
+    Dim strExtension As String
+    Dim strImportSpecification As String
+    Dim strSourceDB As String
+    Dim strConnect As String
+    Dim rst As DAO.Recordset
+    Dim tdf As DAO.TableDef
+    Dim boolTDFExists As Boolean
+    Dim strMsg As String
+    strSQL = "select * from tdf_links where link_type = ""Access"""
+    strSQL = strSQL & " and local_table_name = " & """" & Replace(strLocalTableName, """", """""") & """"
+    strSQL = strSQL & " and remote_table_name = " & """" & Replace(strRemoteTableName, """", """""") & """"
+    strSQL = strSQL & " order by local_table_name;"
+    Set db = CurrentDb
+    Set rst = db.OpenRecordset(strSQL)
+    Do While Not rst.EOF
+        'strLocalTableName = IIf(IsNull(rst!local_table_name), "", rst!local_table_name)
+        'strRemoteTableName = IIf(IsNull(rst!remote_table_name), "", rst!remote_table_name)
+        strSourceDB = IIf(IsNull(rst!source_db), "", rst!source_db)
+        strExtension = IIf(IsNull(rst!extension), "", rst!extension)
+        strImportSpecification = IIf(IsNull(rst!import_specification), "", rst!import_specification)
+        'strFileNameWithPath = Replace(fn_get_data_path() & "\" & strSourceDB & strExtension, "\\", "\")
+        strConnect = ";DATABASE=" & strFileNameWithPath
+        strStatus = CStr(Now()) & " - link_access_table: " & strLocalTableName
+        Call set_status_bar(strStatus)
+        boolTDFExists = False
+        For Each tdf In db.TableDefs
+            If tdf.Name = strLocalTableName Then
+                boolTDFExists = True
+            End If
+        Next tdf
+        Set tdf = Nothing
+        If boolTDFExists = True Then
+            db.TableDefs.Delete strLocalTableName
+            boolTDFExists = False
+        End If
+        Set tdf = db.CreateTableDef(strLocalTableName)
+        tdf.SourceTableName = strRemoteTableName
+        tdf.Connect = strConnect
+        db.TableDefs.Append tdf
+        Set tdf = Nothing
+        db.TableDefs.Refresh
+        rst.MoveNext
+    Loop
+    rst.Close
+    Set rst = Nothing
+    db.Close
+    Set db = Nothing
+    Call set_status_bar("")
+End Sub

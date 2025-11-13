@@ -1,0 +1,70 @@
+Option Compare Database
+Option Explicit
+Public Function fn_code_test() As String
+    fn_code_test = "Success"
+End Function
+Public Sub sub_table_rowct_study()
+    Call sub_drop_table("___table_rowct_study")
+    Dim db As DAO.Database
+    Dim tdf As DAO.TableDef
+    Dim strSQL As String
+    Dim strFrontFileNameWithPath As String
+    strFrontFileNameWithPath = Replace(fn_get_this_db_path() & "\" & DB_FRONT, "\\", "\")
+    strSQL = "create table ___table_rowct_study ( table_name varchar primary key, row_ct long );"
+    Call sub_build_table_from_sql(strSQL, strFrontFileNameWithPath)
+    Set db = CurrentDb
+    For Each tdf In db.TableDefs
+        strSQL = "insert into [___table_rowct_study] ( table_name, row_ct )"
+        strSQL = strSQL & " select " & """" & tdf.Name & """" & " as table_name, count(*) as row_ct from [" & tdf.Name & "];"
+        db.Execute strSQL, dbFailOnError
+    Next tdf
+    Set tdf = Nothing
+    db.Close
+    Set db = Nothing
+End Sub
+Public Sub sub_connect_string_study()
+    Call sub_drop_table("___qpt_connect_string_study")
+    Dim db As DAO.Database
+    Dim tdf As DAO.TableDef
+    Dim strSQL As String
+    Dim strFrontFileNameWithPath As String
+    strFrontFileNameWithPath = Replace(fn_get_this_db_path() & "\" & DB_FRONT, "\\", "\")
+    strSQL = "create table ___qpt_connect_string_study ( qpt_name varchar primary key, connect_string varchar );"
+    Call sub_build_table_from_sql(strSQL, strFrontFileNameWithPath)
+    Set db = CurrentDb
+    Debug.Print "db.TableDefs.Count: " & db.TableDefs.Count
+    For Each tdf In db.TableDefs
+        If tdf.Connect > "" Then
+            Debug.Print tdf.Name & " - " & tdf.Connect
+            strSQL = "INSERT INTO [___qpt_connect_string_study] ( qpt_name, connect_string ) values ( '"
+            strSQL = strSQL & Replace(tdf.Name, "'", "''") & "', '" & Replace(tdf.Connect, "'", "''") & "' );"
+            db.Execute strSQL, dbFailOnError
+        End If
+    Next tdf
+    Set tdf = Nothing
+    db.Close
+    Set db = Nothing
+End Sub
+Public Sub sub_rebuild_REGAL_MainDataSet()
+    Dim strSQL As String
+    Dim boolIsMock As Boolean
+    Dim strDataPath As String
+    Dim strFileNameWithPath As String
+    Dim strTableName As String
+    strTableName = "REGAL_MainDataSet"
+    boolIsMock = fn_db_is_mock()
+    strDataPath = fn_get_db_data_path()
+    If boolIsMock = True Then
+        strFileNameWithPath = Replace(strDataPath & "\" & DB_DATA_MOCK, "\\", "\")
+    Else
+        strFileNameWithPath = Replace(strDataPath & "\" & DB_DATA, "\\", "\")
+    End If
+    Call sub_drop_table(strTableName)
+    strSQL = "create table REGAL_MainDataSet ( ID counter(1,1) primary key,"
+    strSQL = strSQL & " FilmKey varchar, LocationCode varchar, BusinessDate varchar, TicketClass varchar,"
+    strSQL = strSQL & " TicketType_Short varchar, TicketType varchar, ShowtimeLocal datetime, Auditorium varchar,"
+    strSQL = strSQL & " PrintId long, Attendance long, QtyVoid long, QtyRefund long, QtySwap long, BoxGross currency, BoxNet currency )"
+    Call sub_build_table_from_sql(strSQL, strFileNameWithPath)
+    Call link_access_table(strTableName, strTableName, strFileNameWithPath)
+    set_status_bar ("")
+End Sub
