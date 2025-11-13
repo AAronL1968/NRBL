@@ -1,29 +1,107 @@
 Option Compare Database
 Option Explicit
-Public Function fun_fix_autonumbers()
+Public Sub sub_rebuild_and_relink_table(strSQL As String, strTableName As String)
+    Dim boolIsMock As Boolean
+    Dim strDataPath As String
+    Dim strFileNameWithPath As String
+    boolIsMock = fn_db_is_mock()
+    strDataPath = fn_get_db_data_path()
+    If boolIsMock = True Then
+        strFileNameWithPath = Replace(strDataPath & "\" & DB_DATA_MOCK, "\\", "\")
+    Else
+        strFileNameWithPath = Replace(strDataPath & "\" & DB_DATA, "\\", "\")
+    End If
+    Call sub_drop_table(strTableName)
+    Call sub_build_table_from_sql(strSQL, strFileNameWithPath)
+    Call link_access_table(strTableName, strTableName, strFileNameWithPath)
+    set_status_bar ("")
+End Sub
+Public Sub sub_drop_table(strTableName As String)
+    Dim strWorkTableName As String
     Dim db As DAO.Database
-    Dim tdf As TableDef
-    Dim fld As DAO.Field
-    Dim strTableName As String
+    Dim tdf As DAO.TableDef
+    Dim strDataPath As String
+    Dim strFrontFileNameWithPath As String
+    Dim strBackFileNameWithPath As String
+    Dim strSQL As String
     Dim boolIsMock As Boolean
     boolIsMock = fn_db_is_mock()
-    
+    strDataPath = fn_get_db_data_path()
+    strFrontFileNameWithPath = Replace(fn_get_this_db_path() & "\" & DB_FRONT, "\\", "\")
+    If boolIsMock = True Then
+        strBackFileNameWithPath = Replace(strDataPath & "\" & DB_DATA_MOCK, "\\", "\")
+    Else
+        strBackFileNameWithPath = Replace(strDataPath & "\" & DB_DATA, "\\", "\")
+    End If
+    Set db = OpenDatabase(strBackFileNameWithPath)
+    For Each tdf In db.TableDefs
+        strWorkTableName = tdf.Name
+        If strWorkTableName = strTableName Then
+            strSQL = "drop table " & strWorkTableName
+            db.Execute strSQL, dbFailOnError
+        End If
+    Next tdf
+    Set tdf = Nothing
+    db.Close
+    Set db = Nothing
+    Set db = OpenDatabase(strFrontFileNameWithPath)
+    For Each tdf In db.TableDefs
+        strWorkTableName = tdf.Name
+        If strWorkTableName = strTableName Then
+            strSQL = "drop table " & strWorkTableName
+            db.Execute strSQL, dbFailOnError
+        End If
+    Next tdf
+    db.Close
+    Set tdf = Nothing
+    Set db = Nothing
+End Sub
+Public Sub sub_build_table_from_sql(strSQL As String, strFileNameWithPath As String)
+    Dim db As DAO.Database
+    Set db = OpenDatabase(strFileNameWithPath)
+    db.Execute strSQL, dbFailOnError
+    db.Close
+    Set db = Nothing
+End Sub
+Public Function fun_fix_autonumbers()
+    Dim db As DAO.Database
+    Dim tdf As DAO.TableDef
+    Dim fld As DAO.Field
+    Dim strTableName As String
+    Dim strDataPath As String
+    Dim boolIsMock As Boolean
+    Dim strFileNameWithPath As String
+    Dim strSQL As String
+    boolIsMock = fn_db_is_mock()
+    strDataPath = fn_get_db_data_path()
+    If boolIsMock = True Then
+        strFileNameWithPath = Replace(strDataPath & "\" & DB_DATA_MOCK, "\\", "\")
+    Else
+        strFileNameWithPath = Replace(strDataPath & "\" & DB_DATA, "\\", "\")
+    End If
     Set db = CurrentDb
-    
     For Each tdf In db.TableDefs
         strTableName = tdf.Name
         If strTableName = "HR_points" Or strTableName = "RBI_points" Or strTableName = "SB_points" Or strTableName = "AVG_points" Or strTableName = "W_points" Or strTableName = "SV_points" Or strTableName = "ERA_points" Or strTableName = "WHIP_points" Then
-            db.Execute "drop table " & strTableName
+            Call sub_drop_table(strTableName)
         End If
     Next
-    db.Execute "CREATE TABLE HR_points (HR_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), HR int)"
-    db.Execute "CREATE TABLE RBI_points (RBI_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), RBI int)"
-    db.Execute "CREATE TABLE SB_points (SB_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), SB int)"
-    db.Execute "CREATE TABLE AVG_points (AVG_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), AVG double)"
-    db.Execute "CREATE TABLE W_points (W_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), W int)"
-    db.Execute "CREATE TABLE SV_points (SV_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), SV int)"
-    db.Execute "CREATE TABLE ERA_points (ERA_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), ERA double)"
-    db.Execute "CREATE TABLE WHIP_points (WHIP_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), WHIP double)"
+    strSQL = "CREATE TABLE HR_points (HR_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), HR int)"
+    Call sub_rebuild_and_relink_table(strSQL, "HR_points")
+    strSQL = "CREATE TABLE RBI_points (RBI_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), RBI int)"
+    Call sub_rebuild_and_relink_table(strSQL, "RBI_points")
+    strSQL = "CREATE TABLE SB_points (SB_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), SB int)"
+    Call sub_rebuild_and_relink_table(strSQL, "SB_points")
+    strSQL = "CREATE TABLE AVG_points (AVG_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), AVG double)"
+    Call sub_rebuild_and_relink_table(strSQL, "AVG_points")
+    strSQL = "CREATE TABLE W_points (W_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), W int)"
+    Call sub_rebuild_and_relink_table(strSQL, "W_points")
+    strSQL = "CREATE TABLE SV_points (SV_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), SV int)"
+    Call sub_rebuild_and_relink_table(strSQL, "SV_points")
+    strSQL = "CREATE TABLE ERA_points (ERA_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), ERA double)"
+    Call sub_rebuild_and_relink_table(strSQL, "ERA_points")
+    strSQL = "CREATE TABLE WHIP_points (WHIP_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), WHIP double)"
+    Call sub_rebuild_and_relink_table(strSQL, "WHIP_points")
     
     db.TableDefs.Refresh
     DoCmd.OpenQuery "qry_HR_points_append"
@@ -45,16 +123,18 @@ Public Function fun_reset_pre_draft_conditions()
     Dim tdf As DAO.TableDef
     Dim fld As DAO.Field
     Dim strTableName As String
+    Dim strSQL As String
     Set db = CurrentDb
     DoCmd.OpenQuery "qry_reset_nrbl_players_to_pre_draft_status"
     DoCmd.OpenQuery "qry_reset_team_position_slots_to_pre_draft_status"
     For Each tdf In db.TableDefs
         strTableName = tdf.Name
         If strTableName = "draft_picks" Then
-            db.Execute "drop table " & strTableName
+            Call sub_drop_table(strTableName)
         End If
     Next
-    db.Execute "CREATE TABLE draft_picks (draft_pick_seq COUNTER(1, 1) PRIMARY KEY, player_id int, last_name VARCHAR(255), first_name VARCHAR(255), opening_bidder VARCHAR(255), opening_bid currency, Owner VARCHAR(255), cont VARCHAR(255), Sal currency )"
+    strSQL = "CREATE TABLE draft_picks (draft_pick_seq COUNTER(1, 1) PRIMARY KEY, player_id int, last_name VARCHAR(255), first_name VARCHAR(255), opening_bidder VARCHAR(255), opening_bid currency, Owner VARCHAR(255), cont VARCHAR(255), Sal currency )"
+    Call sub_rebuild_and_relink_table(strSQL, "HR_points")
     db.TableDefs.Refresh
     Set fld = Nothing
     Set tdf = Nothing
@@ -105,6 +185,7 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
         strStatus = "Create table " & strPitchingProjectionsTableName & "."
         Call fun_upd_import_status(strStatus)
         strSQL = ""
+        
         strSQL = strSQL & "create table " & strPitchingProjectionsTableName & " ( seq counter(1, 1), PlayerId char not null primary key, Onroto_ID long, MLBAMID long, stat_source varchar, Name varchar, "
         strSQL = strSQL & "Team varchar, NameASCII varchar, W long, L long, QS long, ERA double, G long, GS long, SV long, HLD long, BS varchar, IP long, TBF long, H long )"
         'Debug.Print strSQL

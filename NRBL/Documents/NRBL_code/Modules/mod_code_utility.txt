@@ -1,35 +1,5 @@
 Option Compare Database
 Option Explicit
-Public Sub sub_drop_table(strTableName As String)
-    Dim strWorkTableName As String
-    Dim db As DAO.Database
-    Dim tdf As DAO.TableDef
-    Set db = CurrentDb
-    For Each tdf In db.TableDefs
-        strWorkTableName = tdf.Name
-        If strWorkTableName = strTableName Then
-            db.Execute "drop table " & strWorkTableName, dbFailOnError
-        End If
-        Next
-    db.Close
-    Set db = Nothing
-End Sub
-Public Sub sub_build_table_from_sql(strSQL As String)
-    Dim db As DAO.Database
-    Set db = CurrentDb
-    db.Execute strSQL, dbFailOnError
-    db.Close
-    Set db = Nothing
-End Sub
-Public Sub sub_rebuild_REGAL_MainDataSet()
-    Dim strSQL As String
-    Call sub_drop_table("REGAL_MainDataSet")
-    strSQL = "create table REGAL_MainDataSet ( ID counter(1,1) primary key,"
-    strSQL = strSQL & " FilmKey varchar, LocationCode varchar, BusinessDate varchar, TicketClass varchar,"
-    strSQL = strSQL & " TicketType_Short varchar, TicketType varchar, ShowtimeLocal datetime, Auditorium varchar,"
-    strSQL = strSQL & " PrintId long, Attendance long, QtyVoid long, QtyRefund long, QtySwap long, BoxGross currency, BoxNet currency )"
-    Call sub_build_table_from_sql(strSQL)
-End Sub
 Public Sub set_status_bar(strStatus As String)
     Dim varStatus As Variant
     If IIf(IsNull(strStatus), "", strStatus) = "" Then
@@ -155,43 +125,3 @@ Public Function fn_get_date_as_string(ByVal dtDate As Date) As String
     strDate = strYear & "-" & strMonth & "-" & strDay
     fn_get_date_as_string = strDate
 End Function
-Public Sub sub_table_rowct_study()
-    Call sub_drop_table("___table_rowct_study")
-    Dim db As DAO.Database
-    'Dim qdf As DAO.QueryDef
-    Dim tdf As DAO.TableDef
-    Dim strSQL As String
-    strSQL = "create table ___table_rowct_study ( table_name varchar primary key, row_ct long );"
-    Call sub_build_table_from_sql(strSQL)
-    Set db = CurrentDb
-    For Each tdf In db.TableDefs
-        strSQL = "insert into [___table_rowct_study] ( table_name, row_ct )"
-        strSQL = strSQL & " select " & """" & tdf.Name & """" & " as table_name, count(*) as row_ct from [" & tdf.Name & "];"
-        db.Execute strSQL, dbFailOnError
-    Next tdf
-    Set tdf = Nothing
-    db.Close
-    Set db = Nothing
-End Sub
-Public Sub sub_connect_string_study()
-    Call sub_drop_table("___qpt_connect_string_study")
-    Dim db As DAO.Database
-    'Dim qdf As DAO.QueryDef
-    Dim tdf As DAO.TableDef
-    Dim strSQL As String
-    strSQL = "create table ___qpt_connect_string_study ( qpt_name varchar primary key, connect_string varchar );"
-    Call sub_build_table_from_sql(strSQL)
-    Set db = CurrentDb
-    Debug.Print "db.TableDefs.Count: " & db.TableDefs.Count
-    For Each tdf In db.TableDefs
-        If tdf.Connect > "" Then
-            Debug.Print tdf.Name & " - " & tdf.Connect
-            strSQL = "INSERT INTO [___qpt_connect_string_study] ( qpt_name, connect_string ) values ( '"
-            strSQL = strSQL & Replace(tdf.Name, "'", "''") & "', '" & Replace(tdf.Connect, "'", "''") & "' );"
-            db.Execute strSQL, dbFailOnError
-        End If
-    Next tdf
-    Set tdf = Nothing
-    db.Close
-    Set db = Nothing
-End Sub
