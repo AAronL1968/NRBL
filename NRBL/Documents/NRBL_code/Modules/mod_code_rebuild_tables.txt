@@ -86,21 +86,21 @@ Public Function fun_fix_autonumbers()
             Call sub_drop_table(strTableName)
         End If
     Next
-    strSQL = "CREATE TABLE HR_points (HR_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), HR int)"
+    strSQL = "create table HR_points (HR_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), HR int)"
     Call sub_rebuild_and_relink_table(strSQL, "HR_points")
-    strSQL = "CREATE TABLE RBI_points (RBI_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), RBI int)"
+    strSQL = "create table RBI_points (RBI_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), RBI int)"
     Call sub_rebuild_and_relink_table(strSQL, "RBI_points")
-    strSQL = "CREATE TABLE SB_points (SB_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), SB int)"
+    strSQL = "create table SB_points (SB_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), SB int)"
     Call sub_rebuild_and_relink_table(strSQL, "SB_points")
-    strSQL = "CREATE TABLE AVG_points (AVG_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), AVG double)"
+    strSQL = "create table AVG_points (AVG_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), AVG double)"
     Call sub_rebuild_and_relink_table(strSQL, "AVG_points")
-    strSQL = "CREATE TABLE W_points (W_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), W int)"
+    strSQL = "create table W_points (W_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), W int)"
     Call sub_rebuild_and_relink_table(strSQL, "W_points")
-    strSQL = "CREATE TABLE SV_points (SV_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), SV int)"
+    strSQL = "create table SV_points (SV_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), SV int)"
     Call sub_rebuild_and_relink_table(strSQL, "SV_points")
-    strSQL = "CREATE TABLE ERA_points (ERA_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), ERA double)"
+    strSQL = "create table ERA_points (ERA_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), ERA double)"
     Call sub_rebuild_and_relink_table(strSQL, "ERA_points")
-    strSQL = "CREATE TABLE WHIP_points (WHIP_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), WHIP double)"
+    strSQL = "create table WHIP_points (WHIP_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), WHIP double)"
     Call sub_rebuild_and_relink_table(strSQL, "WHIP_points")
     
     db.TableDefs.Refresh
@@ -133,7 +133,7 @@ Public Function fun_reset_pre_draft_conditions()
             Call sub_drop_table(strTableName)
         End If
     Next
-    strSQL = "CREATE TABLE draft_picks (draft_pick_seq COUNTER(1, 1) PRIMARY KEY, player_id int, last_name VARCHAR(255), first_name VARCHAR(255), opening_bidder VARCHAR(255), opening_bid currency, Owner VARCHAR(255), cont VARCHAR(255), Sal currency )"
+    strSQL = "create table draft_picks (draft_pick_seq COUNTER(1, 1) PRIMARY KEY, player_id int, last_name VARCHAR(255), first_name VARCHAR(255), opening_bidder VARCHAR(255), opening_bid currency, Owner VARCHAR(255), cont VARCHAR(255), Sal currency )"
     Call sub_rebuild_and_relink_table(strSQL, "HR_points")
     db.TableDefs.Refresh
     Set fld = Nothing
@@ -182,7 +182,7 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
             End If
         Next
         Set tdf = Nothing
-        strStatus = "Create table " & strPitchingProjectionsTableName & "."
+        strStatus = "create table " & strPitchingProjectionsTableName & "."
         Call fun_upd_import_status(strStatus)
         strSQL = ""
         
@@ -273,7 +273,7 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
         End If
     Next
     Set tdf = Nothing
-    strStatus = "Create table " & strStatsCopyTableName & "."
+    strStatus = "create table " & strStatsCopyTableName & "."
     Call fun_upd_import_status(strStatus)
     strSQL = ""
     strSQL = strSQL & "create table " & strStatsCopyTableName & " ( player_id long not null primary key, Owner varchar, "
@@ -415,7 +415,7 @@ Public Function fun_import_fangraphs_hitters_build_objects(strStatSource As Stri
                 db.Execute "drop table " & strWorkTableName
             End If
         Next
-        strStatus = "Create table " & strBattingProjectionsTableName & "."
+        strStatus = "create table " & strBattingProjectionsTableName & "."
         Call fun_upd_import_status(strStatus)
         strSQL = ""
         strSQL = strSQL & "create table " & strBattingProjectionsTableName & " ( seq counter(1, 1), PlayerId char not null primary key, stat_source varchar, Name varchar, "
@@ -529,7 +529,7 @@ Public Function fun_import_fangraphs_hitters_build_objects(strStatSource As Stri
             db.Execute "drop table " & strWorkTableName
         End If
     Next
-    strStatus = "Create table " & strStatsCopyTableName & "."
+    strStatus = "create table " & strStatsCopyTableName & "."
     Call fun_upd_import_status(strStatus)
     strSQL = ""
     strSQL = strSQL & "create table " & strStatsCopyTableName & " ( player_id long not null primary key, Owner varchar, "

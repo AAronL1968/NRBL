@@ -453,19 +453,29 @@ Public Function fun_import_fangraphs_pitchers_calculate_values(strStatSource As 
         End If
     Next
     ws.BeginTrans
-    db.Execute "create table tbl_rank_pitchers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    strSQL = "create table tbl_rank_pitchers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_pitchers")
+    db.TableDefs.Refresh
     ws.CommitTrans
     ws.BeginTrans
-    db.Execute "create table tbl_rank_pitchers_after_keepers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    strSQL = "create table tbl_rank_pitchers_after_keepers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_pitchers_after_keepers")
+    db.TableDefs.Refresh
     ws.CommitTrans
     ws.BeginTrans
-    db.Execute "create table tbl_league_pitcher_units ( stat_source char primary key, vPitcherUnits double )"
+    strSQL = "create table tbl_league_pitcher_units ( stat_source char primary key, vPitcherUnits double )"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_pitcher_units")
+    db.TableDefs.Refresh
     ws.CommitTrans
     ws.BeginTrans
-    db.Execute "create table tbl_league_pitcher_units_after_keepers ( stat_source char primary key, vPitcherUnits double )"
+    strSQL = "create table tbl_league_pitcher_units_after_keepers ( stat_source char primary key, vPitcherUnits double )"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_pitcher_units_after_keepers")
+    db.TableDefs.Refresh
     ws.CommitTrans
     ws.BeginTrans
-    db.Execute "create table tbl_keeper_pitcher_counts_and_sums ( stat_source char primary key, Keepers long, KeeperPool double, KeeperUnits double )"
+    strSQL = "create table tbl_keeper_pitcher_counts_and_sums ( stat_source char primary key, Keepers long, KeeperPool double, KeeperUnits double )"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_keeper_pitcher_counts_and_sums")
+    db.TableDefs.Refresh
     ws.CommitTrans
     '
     ' Populate tbl_rank_pitchers from "stats copy" table
@@ -1224,14 +1234,24 @@ Public Function fun_import_fangraphs_hitters_calculate_values(strStatSource As S
             db.Execute "drop table " & strTableName
         End If
     Next
-    db.Execute "CREATE TABLE tbl_rank_hitters (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
-    db.Execute "CREATE TABLE tbl_rank_hitters_after_keepers (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    strSQL = "create table tbl_rank_hitters (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_hitters")
+    db.TableDefs.Refresh
+    strSQL = "create table tbl_rank_hitters_after_keepers (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_hitters_after_keepers")
+    db.TableDefs.Refresh
     strSQL = "insert into tbl_rank_hitters (stat_source, vTotal, player_id ) select " & """" & strStatSource & """" & " as stat_source, [" & strStatsCopyTableName & "].vTotal, [" & strStatsCopyTableName & "].player_id from [" & strStatsCopyTableName & "] order by vTotal desc, player_id;"
 'Debug.Print strSQL
     db.Execute strSQL, dbFailOnError
-    db.Execute "create table tbl_league_hitter_units ( stat_source char primary key, vHitterUnits double )"
-    db.Execute "create table tbl_league_hitter_units_after_keepers ( stat_source char primary key, vHitterUnits double )"
-    db.Execute "create table tbl_keeper_hitter_counts_and_sums ( stat_source char primary key, Keepers long, KeeperPool double, KeeperUnits double )"
+    strSQL = "create table tbl_league_hitter_units ( stat_source char primary key, vHitterUnits double )"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_hitter_units")
+    db.TableDefs.Refresh
+    strSQL = "create table tbl_league_hitter_units_after_keepers ( stat_source char primary key, vHitterUnits double )"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_hitter_units_after_keepers")
+    db.TableDefs.Refresh
+    strSQL = "create table tbl_keeper_hitter_counts_and_sums ( stat_source char primary key, Keepers long, KeeperPool double, KeeperUnits double )"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_keeper_hitter_counts_and_sums")
+    db.TableDefs.Refresh
     '
     ' Update [adjustment] in "stats copy" table to [hitter_rank] hitter #156's [vTotal] * (-1) -- 156 is the last hitter in the pool (assuming SW is a hitter)
     '
@@ -1747,12 +1767,22 @@ Public Function fun_import_onroto_hitters()
             db.Execute "drop table " & strTableName
         End If
     Next
-    db.Execute "CREATE TABLE tbl_rank_hitters (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
-    db.Execute "CREATE TABLE tbl_rank_hitters_after_keepers (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    strSQL = "create table tbl_rank_hitters (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_hitters")
+    db.TableDefs.Refresh
+    strSQL = "create table tbl_rank_hitters_after_keepers (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_hitters_after_keepers")
+    db.TableDefs.Refresh
     db.Execute "insert into tbl_rank_hitters (stat_source, vTotal, player_id ) select ""OnRoto"" as stat_source, onroto_stats_copy_hitters.vTotal, onroto_stats_copy_hitters.player_id from onroto_stats_copy_hitters order by vTotal desc, player_id;"
-    db.Execute "create table tbl_league_hitter_units ( stat_source char primary key, vHitterUnits double )"
-    db.Execute "create table tbl_league_hitter_units_after_keepers ( stat_source char primary key, vHitterUnits double )"
-    db.Execute "create table tbl_keeper_hitter_counts_and_sums ( stat_source char primary key, Keepers long, KeeperPool double, KeeperUnits double )"
+    strSQL = "create table tbl_league_hitter_units ( stat_source char primary key, vHitterUnits double )"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_hitter_units")
+    db.TableDefs.Refresh
+    strSQL = "create table tbl_league_hitter_units_after_keepers ( stat_source char primary key, vHitterUnits double )"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_hitter_units_after_keepers")
+    db.TableDefs.Refresh
+    strSQL = "create table tbl_keeper_hitter_counts_and_sums ( stat_source char primary key, Keepers long, KeeperPool double, KeeperUnits double )"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_keeper_hitter_counts_and_sums")
+    db.TableDefs.Refresh
     'Update [onroto_stats_copy_hitters].[adjustment] to [hitter_rank] hitter #156's [vTotal] * (-1) -- 156 is the last hitter in the pool
     Call fun_upd_import_status("Query:  qry_upd_hitter_vTotal_adjustment_onroto")
     DoCmd.OpenQuery "qry_upd_hitter_vTotal_adjustment_onroto"
@@ -2033,12 +2063,22 @@ Public Function fun_import_onroto_pitchers()
             db.Execute "drop table " & strTableName
         End If
     Next
-    db.Execute "CREATE TABLE tbl_rank_pitchers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
-    db.Execute "CREATE TABLE tbl_rank_pitchers_after_keepers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    strSQL = "create table tbl_rank_pitchers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_pitchers")
+    db.TableDefs.Refresh
+    strSQL = "create table tbl_rank_pitchers_after_keepers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_pitchers_after_keepers")
+    db.TableDefs.Refresh
     db.Execute "insert into tbl_rank_pitchers (stat_source, vTotal, player_id ) select ""OnRoto"" as stat_source, onroto_stats_copy_pitchers.vTotal, onroto_stats_copy_pitchers.player_id from onroto_stats_copy_pitchers order by vTotal desc, player_id;"
-    db.Execute "create table tbl_league_pitcher_units ( stat_source char primary key, vPitcherUnits double )"
-    db.Execute "create table tbl_league_pitcher_units_after_keepers ( stat_source char primary key, vPitcherUnits double )"
-    db.Execute "create table tbl_keeper_pitcher_counts_and_sums ( stat_source char primary key, Keepers long, KeeperPool double, KeeperUnits double )"
+    strSQL = "create table tbl_league_pitcher_units ( stat_source char primary key, vPitcherUnits double )"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_pitcher_units")
+    db.TableDefs.Refresh
+    strSQL = "create table tbl_league_pitcher_units_after_keepers ( stat_source char primary key, vPitcherUnits double )"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_pitcher_units_after_keepers")
+    db.TableDefs.Refresh
+    strSQL = "create table tbl_keeper_pitcher_counts_and_sums ( stat_source char primary key, Keepers long, KeeperPool double, KeeperUnits double )"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_keeper_pitcher_counts_and_sums")
+    db.TableDefs.Refresh
     'Update [onroto_stats_copy_pitchers].[adjustment] to [pitcher_rank] pitcher #144's [vTotal] * (-1) -- 144 is the last pitcher in the pool
     Call fun_upd_import_status("Query:  qry_upd_pitcher_vTotal_adjustment_onroto")
     DoCmd.OpenQuery "qry_upd_pitcher_vTotal_adjustment_onroto"
@@ -2138,6 +2178,7 @@ Public Function fun_update_hitters_ESPN_values()
     Dim db As DAO.Database
     Dim tdf As DAO.TableDef
     Dim strTableName As String
+    Dim strSQL As String
     Dim vTotal As Double
     Dim fHitterPool As Double
     
@@ -2198,12 +2239,22 @@ Public Function fun_update_hitters_ESPN_values()
             db.Execute "drop table " & strTableName
         End If
     Next
-    db.Execute "CREATE TABLE tbl_rank_hitters (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
-    db.Execute "CREATE TABLE tbl_rank_hitters_after_keepers (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    strSQL = "create table tbl_rank_hitters (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_hitters")
+    db.TableDefs.Refresh
+    db.Execute "create table tbl_rank_hitters_after_keepers (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_hitters_after_keepers")
+    db.TableDefs.Refresh
     db.Execute "insert into tbl_rank_hitters (stat_source, vTotal, player_id ) select ""ESPN"" as stat_source, espn_stats_copy_hitters.vTotal, espn_stats_copy_hitters.player_id from espn_stats_copy_hitters order by vTotal desc, player_id;"
-    db.Execute "create table tbl_league_hitter_units ( stat_source char primary key, vHitterUnits double )"
-    db.Execute "create table tbl_league_hitter_units_after_keepers ( stat_source char primary key, vHitterUnits double )"
-    db.Execute "create table tbl_keeper_hitter_counts_and_sums ( stat_source char primary key, Keepers long, KeeperPool double, KeeperUnits double )"
+    strSQL = "create table tbl_league_hitter_units ( stat_source char primary key, vHitterUnits double )"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_hitter_units")
+    db.TableDefs.Refresh
+    strSQL = "create table tbl_league_hitter_units_after_keepers ( stat_source char primary key, vHitterUnits double )"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_hitter_units_after_keepers")
+    db.TableDefs.Refresh
+    strSQL = "create table tbl_keeper_hitter_counts_and_sums ( stat_source char primary key, Keepers long, KeeperPool double, KeeperUnits double )"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_keeper_hitter_counts_and_sums")
+    db.TableDefs.Refresh
     'Update [espn_stats_copy_hitters].[adjustment] to [hitter_rank] hitter #156's [vTotal] * (-1) -- 156 is the last hitter in the pool
     Call fun_upd_import_status("Query:  qry_upd_hitter_vTotal_adjustment_espn")
     DoCmd.OpenQuery "qry_upd_hitter_vTotal_adjustment_espn"
@@ -2293,6 +2344,7 @@ Public Function fun_update_pitchers_ESPN_values()
     Dim db As DAO.Database
     Dim tdf As DAO.TableDef
     Dim strTableName As String
+    Dim strSQL As String
     Dim vTotal As Double
     Dim fPitcherPool As Double
     
@@ -2352,12 +2404,22 @@ Public Function fun_update_pitchers_ESPN_values()
             db.Execute "drop table " & strTableName
         End If
     Next
-    db.Execute "CREATE TABLE tbl_rank_pitchers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
-    db.Execute "CREATE TABLE tbl_rank_pitchers_after_keepers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    strSQL = "create table tbl_rank_pitchers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_pitchers")
+    db.TableDefs.Refresh
+    db.Execute "create table tbl_rank_pitchers_after_keepers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_pitchers_after_keepers")
+    db.TableDefs.Refresh
     db.Execute "insert into tbl_rank_pitchers (stat_source, vTotal, player_id ) select ""ESPN"" as stat_source, espn_stats_copy_pitchers.vTotal, espn_stats_copy_pitchers.player_id from espn_stats_copy_pitchers order by vTotal desc, player_id;"
-    db.Execute "create table tbl_league_pitcher_units ( stat_source char primary key, vPitcherUnits double )"
-    db.Execute "create table tbl_league_pitcher_units_after_keepers ( stat_source char primary key, vPitcherUnits double )"
-    db.Execute "create table tbl_keeper_pitcher_counts_and_sums ( stat_source char primary key, Keepers long, KeeperPool double, KeeperUnits double )"
+    strSQL = "create table tbl_league_pitcher_units ( stat_source char primary key, vPitcherUnits double )"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_pitcher_units")
+    db.TableDefs.Refresh
+    strSQL = "create table tbl_league_pitcher_units_after_keepers ( stat_source char primary key, vPitcherUnits double )"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_pitcher_units_after_keepers")
+    db.TableDefs.Refresh
+    strSQL = "create table tbl_keeper_pitcher_counts_and_sums ( stat_source char primary key, Keepers long, KeeperPool double, KeeperUnits double )"
+    Call sub_rebuild_and_relink_table(strSQL, "tbl_keeper_pitcher_counts_and_sums")
+    db.TableDefs.Refresh
     'Update [espn_stats_copy_pitchers].[adjustment] to [pitcher_rank] pitcher #144's [vTotal] * (-1) -- 144 is the last pitcher in the pool
     Call fun_upd_import_status("Query:  qry_upd_pitcher_vTotal_adjustment_espn")
     DoCmd.OpenQuery "qry_upd_pitcher_vTotal_adjustment_espn"
