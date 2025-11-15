@@ -1,0 +1,49 @@
+Option Compare Database
+Option Explicit
+Public Function fn_get_this_db_path() As String
+    fn_get_this_db_path = Application.CurrentProject.Path
+End Function
+Public Sub get_all_dbs_in_this_path()
+    Dim strDBName As String
+    Dim strDir As String
+    Dim strSQL As String
+    Dim db As DAO.Database
+    Set db = CurrentDb
+    Call sub_drop_table("tbl_db_list")
+    strSQL = "create table tbl_db_list ( db_name varchar primary key )"
+    Call sub_build_table_from_sql(strSQL)
+    strDir = Replace(fn_get_this_db_path() & "\*.accdb", "\\", "\")
+    strDBName = Dir(strDir)
+    Do While strDBName <> ""
+        Debug.Print strDBName
+        strSQL = "insert into tbl_db_list ( db_name ) values ( " & """" & Replace(fn_get_this_db_path() & "\" & Replace(strDBName, """", """"""), "\\", "\") & """" & " );"
+        db.Execute strSQL, dbFailOnError
+        strDBName = Dir
+    Loop
+    db.Close
+    Set db = Nothing
+End Sub
+Public Sub sub_drop_table(strTableName As String)
+    Dim strWorkTableName As String
+    Dim db As DAO.Database
+    Dim tdf As DAO.TableDef
+    Dim strSQL As String
+    Set db = CurrentDb
+    For Each tdf In db.TableDefs
+        strWorkTableName = tdf.Name
+        If strWorkTableName = strTableName Then
+            strSQL = "drop table " & strWorkTableName
+            db.Execute strSQL, dbFailOnError
+        End If
+    Next tdf
+    Set tdf = Nothing
+    db.Close
+    Set db = Nothing
+End Sub
+Public Sub sub_build_table_from_sql(strSQL As String)
+    Dim db As DAO.Database
+    Set db = CurrentDb
+    db.Execute strSQL, dbFailOnError
+    db.Close
+    Set db = Nothing
+End Sub

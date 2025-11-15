@@ -21,9 +21,6 @@ End Function
 Public Sub link_access_table(strLocalTableName As String, strRemoteTableName As String, strFileNameWithPath As String)
     Dim db As DAO.Database
     Dim strSQL As String
-    'Dim strLocalTableName As String
-    'Dim strRemoteTableName As String
-    'Dim strFileNameWithPath As String
     Dim strStatus As String
     Dim strExtension As String
     Dim strImportSpecification As String
@@ -40,12 +37,9 @@ Public Sub link_access_table(strLocalTableName As String, strRemoteTableName As 
     Set db = CurrentDb
     Set rst = db.OpenRecordset(strSQL)
     Do While Not rst.EOF
-        'strLocalTableName = IIf(IsNull(rst!local_table_name), "", rst!local_table_name)
-        'strRemoteTableName = IIf(IsNull(rst!remote_table_name), "", rst!remote_table_name)
         strSourceDB = IIf(IsNull(rst!source_db), "", rst!source_db)
         strExtension = IIf(IsNull(rst!extension), "", rst!extension)
         strImportSpecification = IIf(IsNull(rst!import_specification), "", rst!import_specification)
-        'strFileNameWithPath = Replace(fn_get_data_path() & "\" & strSourceDB & strExtension, "\\", "\")
         strConnect = ";DATABASE=" & strFileNameWithPath
         strStatus = CStr(Now()) & " - link_access_table: " & strLocalTableName
         Call set_status_bar(strStatus)
@@ -70,6 +64,7 @@ Public Sub link_access_table(strLocalTableName As String, strRemoteTableName As 
     Loop
     rst.Close
     Set rst = Nothing
+    db.TableDefs.Refresh
     db.Close
     Set db = Nothing
     Call set_status_bar("")
