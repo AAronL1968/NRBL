@@ -269,6 +269,8 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
         db.Execute strSQL, dbFailOnError
         strSQL = "alter table " & strPitchingProjectionsTableName & " add column PlayerAbbrv varchar"
         db.Execute strSQL, dbFailOnError
+        strSQL = "alter table " & strPitchingProjectionsTableName & " add column player_id long"
+        db.Execute strSQL, dbFailOnError
         Call link_access_table(strPitchingProjectionsTableName, strPitchingProjectionsTableName, strDBLocation)
     End If
     '
@@ -518,6 +520,8 @@ Public Function fun_import_fangraphs_hitters_build_objects(strStatSource As Stri
         strSQL = "alter table " & strBattingProjectionsTableName & " add column OnRoto_ID long"
         db.Execute strSQL, dbFailOnError
         strSQL = "alter table " & strBattingProjectionsTableName & " add column PlayerAbbrv varchar"
+        db.Execute strSQL, dbFailOnError
+        strSQL = "alter table " & strBattingProjectionsTableName & " add column player_id long"
         db.Execute strSQL, dbFailOnError
         Call link_access_table(strBattingProjectionsTableName, strBattingProjectionsTableName, strDBLocation)
     End If
