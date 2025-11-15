@@ -116,6 +116,7 @@ Public Function fun_fix_autonumbers()
     
     Set fld = Nothing
     Set tdf = Nothing
+    db.Close
     Set db = Nothing
 End Function
 Public Function fun_reset_pre_draft_conditions()
@@ -138,6 +139,7 @@ Public Function fun_reset_pre_draft_conditions()
     db.TableDefs.Refresh
     Set fld = Nothing
     Set tdf = Nothing
+    db.Close
     Set db = Nothing
     Forms!frm![League Projections, Budgets, Max Bids].Form.RecordSource = "tbl_team_projections_placeholder"
     Forms!frm![League Projections, Budgets, Max Bids].Requery
@@ -149,7 +151,6 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
     DoCmd.SetWarnings True
     Dim strTableName As String
     Dim db As DAO.Database
-    Dim tdf As DAO.TableDef
     Dim rst As DAO.Recordset
     Dim strSQL As String
     Dim strStatus As String
@@ -159,11 +160,24 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
     Dim strStatsCopyTableName As String
     Dim strWorkTableName As String
     Dim fPitcherPool As Double
+    Dim boolIsMock As Boolean
+    Dim strDBLocation As String
     Set db = CurrentDb
     Set rst = db.OpenRecordset("fg_selected_external_stat_source")
     strAbbrev = IIf(IsNull(rst!stat_source_abbreviation), "", rst!stat_source_abbreviation)
     strSourceTable = IIf(IsNull(rst!csv_source_table_pitchers), "", rst!csv_source_table_pitchers)
     rst.Close
+    Set rst = Nothing
+    db.Close
+    Set db = Nothing
+    boolIsMock = fn_db_is_mock()
+    strDBLocation = fn_get_db_data_path() & "\"
+    If boolIsMock = True Then
+        strDBLocation = Replace(strDBLocation & DB_DATA_MOCK, "\\", "\")
+    Else
+        strDBLocation = Replace(strDBLocation & DB_DATA, "\\", "\")
+    End If
+    Set db = OpenDatabase(strDBLocation)
     strPitchingProjectionsTableName = "fg_pitching_projections_" & strAbbrev
     strStatsCopyTableName = "fg_stats_copy_pitchers_" & strAbbrev
     If boolTreatDrafteesAsKeepers = True Then
@@ -173,15 +187,10 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
         '
         ' Drop/create pitching projections table
         '
-        strStatus = "Drop tables " & strPitchingProjectionsTableName & " and " & strStatsCopyTableName & " if they exist."
+        strStatus = "Drop table " & strPitchingProjectionsTableName & " if it exists."
         Call fun_upd_import_status(strStatus)
-        For Each tdf In db.TableDefs
-            strWorkTableName = tdf.Name
-            If strWorkTableName = strPitchingProjectionsTableName Then
-                db.Execute "drop table " & strWorkTableName
-            End If
-        Next
-        Set tdf = Nothing
+        Call sub_drop_table(strPitchingProjectionsTableName)
+        
         strStatus = "create table " & strPitchingProjectionsTableName & "."
         Call fun_upd_import_status(strStatus)
         strSQL = ""
@@ -260,19 +269,14 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
         db.Execute strSQL, dbFailOnError
         strSQL = "alter table " & strPitchingProjectionsTableName & " add column PlayerAbbrv varchar"
         db.Execute strSQL, dbFailOnError
+        Call link_access_table(strPitchingProjectionsTableName, strPitchingProjectionsTableName, strDBLocation)
     End If
     '
     ' Drop/create "stats copy" table
     '
-    strStatus = "Drop tables " & strPitchingProjectionsTableName & " and " & strStatsCopyTableName & " if they exist."
+    strStatus = "Drop table " & strStatsCopyTableName & " if it exists."
     Call fun_upd_import_status(strStatus)
-    For Each tdf In db.TableDefs
-        strWorkTableName = tdf.Name
-        If strWorkTableName = strStatsCopyTableName Then
-            db.Execute "drop table " & strWorkTableName
-        End If
-    Next
-    Set tdf = Nothing
+    Call sub_drop_table(strStatsCopyTableName)
     strStatus = "create table " & strStatsCopyTableName & "."
     Call fun_upd_import_status(strStatus)
     strSQL = ""
@@ -375,14 +379,14 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column ER long"
     db.Execute strSQL, dbFailOnError
-    
+    Call link_access_table(strStatsCopyTableName, strStatsCopyTableName, strDBLocation)
     Set rst = Nothing
+    db.Close
     Set db = Nothing
 End Function
 Public Function fun_import_fangraphs_hitters_build_objects(strStatSource As String, boolTreatDrafteesAsKeepers As Boolean)
     Dim strTableName As String
     Dim db As DAO.Database
-    Dim tdf As DAO.TableDef
     Dim rst As DAO.Recordset
     Dim qdf As DAO.QueryDef
     Dim strSQL As String
@@ -393,11 +397,23 @@ Public Function fun_import_fangraphs_hitters_build_objects(strStatSource As Stri
     Dim strStatsCopyTableName As String
     Dim strWorkTableName As String
     Dim fHitterPool As Double
+    Dim boolIsMock As Boolean
+    Dim strDBLocation As String
     Set db = CurrentDb
     Set rst = db.OpenRecordset("fg_selected_external_stat_source")
     strAbbrev = IIf(IsNull(rst!stat_source_abbreviation), "", rst!stat_source_abbreviation)
     strSourceTable = IIf(IsNull(rst!csv_source_table_hitters), "", rst!csv_source_table_hitters)
     rst.Close
+    db.Close
+    Set db = Nothing
+    boolIsMock = fn_db_is_mock()
+    strDBLocation = fn_get_db_data_path() & "\"
+    If boolIsMock = True Then
+        strDBLocation = Replace(strDBLocation & DB_DATA_MOCK, "\\", "\")
+    Else
+        strDBLocation = Replace(strDBLocation & DB_DATA, "\\", "\")
+    End If
+    Set db = OpenDatabase(strDBLocation)
     strBattingProjectionsTableName = "fg_batting_projections_" & strAbbrev
     strStatsCopyTableName = "fg_stats_copy_hitters_" & strAbbrev
     If boolTreatDrafteesAsKeepers = True Then
@@ -409,12 +425,7 @@ Public Function fun_import_fangraphs_hitters_build_objects(strStatSource As Stri
         '
         strStatus = "Drop table " & strBattingProjectionsTableName & " if it exists."
         Call fun_upd_import_status(strStatus)
-        For Each tdf In db.TableDefs
-            strWorkTableName = tdf.Name
-            If strWorkTableName = strBattingProjectionsTableName Then
-                db.Execute "drop table " & strWorkTableName
-            End If
-        Next
+        Call sub_drop_table(strBattingProjectionsTableName)
         strStatus = "create table " & strBattingProjectionsTableName & "."
         Call fun_upd_import_status(strStatus)
         strSQL = ""
@@ -508,6 +519,7 @@ Public Function fun_import_fangraphs_hitters_build_objects(strStatSource As Stri
         db.Execute strSQL, dbFailOnError
         strSQL = "alter table " & strBattingProjectionsTableName & " add column PlayerAbbrv varchar"
         db.Execute strSQL, dbFailOnError
+        Call link_access_table(strBattingProjectionsTableName, strBattingProjectionsTableName, strDBLocation)
     End If
     '
     ' Drop/recreate "stats copy" table
@@ -523,12 +535,7 @@ Public Function fun_import_fangraphs_hitters_build_objects(strStatSource As Stri
     End If
     strStatus = "Drop " & strStatsCopyTableName & " if it exists."
     Call fun_upd_import_status(strStatus)
-    For Each tdf In db.TableDefs
-        strWorkTableName = tdf.Name
-        If strWorkTableName = strStatsCopyTableName Then
-            db.Execute "drop table " & strWorkTableName
-        End If
-    Next
+    Call sub_drop_table(strStatsCopyTableName)
     strStatus = "create table " & strStatsCopyTableName & "."
     Call fun_upd_import_status(strStatus)
     strSQL = ""
@@ -623,9 +630,9 @@ Public Function fun_import_fangraphs_hitters_build_objects(strStatSource As Stri
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column aKadjDollarValue currency"
     db.Execute strSQL, dbFailOnError
-    
-    Set tdf = Nothing
+    Call link_access_table(strStatsCopyTableName, strStatsCopyTableName, strDBLocation)
     Set rst = Nothing
     Set qdf = Nothing
+    db.Close
     Set db = Nothing
 End Function

@@ -107,8 +107,6 @@ Dim strFolderToUse As String
             appAccess.SaveAsText acQuery, objAccess.Name, _
                 strFolderToUse & "Queries\" & objAccess.Name & ".txt"
         Next objAccess
-        msgbox "All done.", vbOKOnly + vbInformation
-        DoCmd.Quit
     Else
         msgbox "Something went wrong trying to prepare the subfolders.", vbOKOnly + vbCritical
     End If

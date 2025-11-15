@@ -44,6 +44,7 @@ Public Function fun_draft()
         strRS = rst!rs
         rst.Close
         Set rst = Nothing
+        db.Close
         Set db = Nothing
         Forms!frm![League Projections, Budgets, Max Bids].Form.RecordSource = strRS
         Forms!frm![League Projections, Budgets, Max Bids].Requery
@@ -167,6 +168,7 @@ Public Function fun_after_player_update()
         Forms!frm!btn_selected_player_projections.Enabled = True
     'End If
     Set rst = Nothing
+    db.Close
     Set db = Nothing
     DoCmd.OpenQuery "qry_tbl_selected_player_delete"
     DoCmd.OpenQuery "qry_tbl_selected_player_append"

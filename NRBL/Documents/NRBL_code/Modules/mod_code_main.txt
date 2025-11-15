@@ -45,6 +45,7 @@ Public Function fun_set_sources()
     strPitcherSource = IIf(IsNull(rst!src), "", rst!src)
     rst.Close
     Set rst = Nothing
+    db.Close
     Set db = Nothing
     strSrc = "Hitter Source:  " & strHitterSource & "          Pitcher Source:  " & strPitcherSource
     If CurrentProject.AllForms("frm").IsLoaded Then
@@ -335,6 +336,7 @@ Public Function fun_set_status()
         End If
     End If
     Set rst = Nothing
+    db.Close
     Set db = Nothing
     If iPlayersNeeded = 0 Then
         strStatus = "The auction has ended."

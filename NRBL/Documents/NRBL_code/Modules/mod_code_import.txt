@@ -169,6 +169,7 @@ Public Function fun_import_fangraphs_pitchers(strStatSource As String, boolTreat
     Call fun_upd_import_status("Done (" & Now() & ").  Ready.")
     'MsgBox "strAbbrev: " & strAbbrev & vbCrLf & "strSourceTable: " & strSourceTable
     Set rst = Nothing
+    db.Close
     Set db = Nothing
 End Function
 Public Function fun_import_fangraphs_pitchers_populate_objects(strStatSource As String, boolTreatDrafteesAsKeepers As Boolean)
@@ -285,6 +286,7 @@ Public Function fun_import_fangraphs_pitchers_populate_objects(strStatSource As 
     db.Execute strSQL, dbFailOnError
     
     Set rst = Nothing
+    db.Close
     Set db = Nothing
 End Function
 Public Function fun_import_fangraphs_pitchers_calculate_values(strStatSource As String, boolTreatDrafteesAsKeepers As Boolean)
@@ -882,6 +884,7 @@ Public Function fun_import_fangraphs_pitchers_calculate_values(strStatSource As 
     Set tdf = Nothing
     Set rst = Nothing
     Set qdf = Nothing
+    db.Close
     Set db = Nothing
 End Function
 Public Function fun_import_fangraphs_hitters(strStatSource As String, boolTreatDrafteesAsKeepers As Boolean)
@@ -967,6 +970,7 @@ Public Function fun_import_fangraphs_hitters(strStatSource As String, boolTreatD
     Call fun_upd_import_status("Done (" & Now() & ").  Ready.")
     'MsgBox "strAbbrev: " & strAbbrev & vbCrLf & "strSourceTable: " & strSourceTable
     Set rst = Nothing
+    db.Close
     Set db = Nothing
 End Function
 Public Function fun_import_fangraphs_hitters_populate_objects(strStatSource As String, boolTreatDrafteesAsKeepers As Boolean)
@@ -1097,6 +1101,7 @@ Public Function fun_import_fangraphs_hitters_populate_objects(strStatSource As S
     db.Execute strSQL, dbFailOnError
     
     Set rst = Nothing
+    db.Close
     Set db = Nothing
 End Function
 Public Function fun_import_fangraphs_hitters_calculate_values(strStatSource As String, boolTreatDrafteesAsKeepers As Boolean)
@@ -1589,6 +1594,7 @@ Public Function fun_import_fangraphs_hitters_calculate_values(strStatSource As S
     Set tdf = Nothing
     Set rst = Nothing
     Set qdf = Nothing
+    db.Close
     Set db = Nothing
 End Function
 Public Function fun_import_onroto_hitters()
@@ -1868,7 +1874,7 @@ Public Function fun_import_onroto_hitters()
     If bExcludeOnRotoProjections = True Then
         db.Execute "delete from onroto_stats_copy_hitters where 1 = 1;"
     End If
-    
+    db.Close
     Set db = Nothing
     Call fun_load_stat_copy_aggs
     Forms!frm_imports!btn_import_onroto_hitter_data.BackColor = CLR_GREEN_BTN
@@ -2169,6 +2175,7 @@ Public Function fun_import_onroto_pitchers()
 
     Set rst = Nothing
     Set tdf = Nothing
+    db.Close
     Set db = Nothing
     Call fun_load_stat_copy_aggs
     Forms!frm_imports!btn_import_onroto_pitcher_data.BackColor = CLR_GREEN_BTN
@@ -2335,6 +2342,7 @@ Public Function fun_update_hitters_ESPN_values()
     db.Execute "update espn_stats_copy_hitters set InfDollarValue = aKadjDollarValue where InfDollarValue = 0;"
     
     Set tdf = Nothing
+    db.Close
     Set db = Nothing
     Call fun_load_stat_copy_aggs
     Forms!frm_imports!btn_hitters_espn.BackColor = CLR_GREEN_BTN
@@ -2502,6 +2510,7 @@ Public Function fun_update_pitchers_ESPN_values()
     db.Execute "update espn_stats_copy_pitchers set InfDollarValue = aKadjDollarValue where InfDollarValue = 0;"
 
     Set tdf = Nothing
+    db.Close
     Set db = Nothing
     Call fun_load_stat_copy_aggs
     Forms!frm_imports!btn_pitchers_espn.BackColor = CLR_GREEN_BTN
@@ -2538,6 +2547,7 @@ Public Function fun_hitter_pool() As Currency
     iTeamCt = rst!active_team_count.Value
     rst.Close
     Set rst = Nothing
+    db.Close
     Set db = Nothing
     iValidSlots = iHitterSlots + iSwingmanSlots
     fPoolAmount = (fDraftCap * iValidSlots * fHitterPct) - (iTeamCt * iValidSlots)  ' 65% (or whatever hitter percentage value is set) of total money available, minus $1 min bid per hitter
@@ -2577,6 +2587,7 @@ Public Function fun_pitcher_pool() As Currency
     iTeamCt = rst!active_team_count.Value
     rst.Close
     Set rst = Nothing
+    db.Close
     Set db = Nothing
     iValidSlots = iPitcherSlots + iSwingmanSlots
     fPoolAmount = (fDraftCap * iValidSlots * fPitcherPct) - (iTeamCt * iValidSlots)  ' 35% (or whatever hitter percentage value is set) of total money available, minus $1 min bid per pitcher
@@ -2666,6 +2677,7 @@ Public Sub refresh_selected_player_hitter_stats()
     
     rst.Close
     Set rst = Nothing
+    db.Close
     Set db = Nothing
     Dim captionAllHitters As String
     Dim captionAllHittersNow As String
@@ -2677,8 +2689,6 @@ Public Sub refresh_selected_player_hitter_stats()
     captionAllHittersNow = captionAllHittersNow & " | Inf Now:  Min $" & FormatNumber(curMinInfNow, 2) & ", Avg $" & FormatNumber(curAvgInfNow, 2) & ", Max $" & FormatNumber(curMaxInfNow, 2)
     Forms![frm_selected_player_hitter_stats]!lab_all_hitters_in_game.Caption = captionAllHittersNow
     Forms![frm_selected_player_hitter_stats]!lab_all_hitters_in_game.BackColor = CLR_YELLOW
-    
-    Set db = Nothing
     
     Forms![frm_selected_player_hitter_stats]!lab_player_name.Caption = strPlayer
     Forms![frm_selected_player_hitter_stats]!lab_team_and_pos.Caption = strTeamAndPos
@@ -2728,6 +2738,7 @@ Public Sub refresh_selected_player_pitcher_stats()
     
     rst.Close
     Set rst = Nothing
+    db.Close
     Set db = Nothing
     
     Forms![frm_selected_player_pitcher_stats]!lab_player_name.Caption = strPlayer
