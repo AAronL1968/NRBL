@@ -1002,6 +1002,7 @@ Public Function fun_import_fangraphs_hitters_populate_objects(strStatSource As S
     Dim strTableName As String
     Dim db As DAO.Database
     Dim rst As DAO.Recordset
+    Dim qdf As DAO.QueryDef
     Dim strSQL As String
     Dim strStatus As String
     Dim strAbbrev As String
@@ -1010,6 +1011,7 @@ Public Function fun_import_fangraphs_hitters_populate_objects(strStatSource As S
     Dim strStatsCopyTableName As String
     Dim strWorkTableName As String
     Dim fHitterPool As Double
+    Dim boolFreezeRosters As Boolean
     Set db = CurrentDb
     Set rst = db.OpenRecordset("fg_selected_external_stat_source")
     strAbbrev = IIf(IsNull(rst!stat_source_abbreviation), "", rst!stat_source_abbreviation)
@@ -1095,6 +1097,27 @@ Public Function fun_import_fangraphs_hitters_populate_objects(strStatSource As S
         strSQL = strSQL & "update NRBL_players inner join [" & strBattingProjectionsTableName & "] ON NRBL_players.Player = ["
         strSQL = strSQL & strBattingProjectionsTableName & "].Name set NRBL_players.steamer_id = [[" & strBattingProjectionsTableName
         strSQL = strSQL & "]].[playerid] where NRBL_players.position_category=""Hitter"" or NRBL_players.position_category=""Swingman"";"
+        boolFreezeRosters = Forms!frm_imports!chk_freeze_rosters.Value
+        If boolFreezeRosters = False Then
+            '
+            ' Insert hitters into NRBL_players where player_id is null
+            '
+            Set qdf = db.QueryDefs("qry_ins_hitters_into_NRBL_players_from_fg_TEMPLATE")
+            strSQL = qdf.SQL
+            qdf.Close
+            Set qdf = Nothing
+            strSQL = Replace(strSQL, "FG_BATTING_PROJECTIONS_TABLENAME", strBattingProjectionsTableName)
+            db.Execute strSQL, dbFailOnError
+        
+            strStatus = "Set player_id after inserting hitters into " & strBattingProjectionsTableName & "..."
+            Call fun_upd_import_status(strStatus)
+            strSQL = ""
+            strSQL = strSQL & "update NRBL_players inner join [" & strBattingProjectionsTableName & "] on (NRBL_players.steamer_id = [" & strBattingProjectionsTableName & "].PlayerId) "
+            strSQL = strSQL & " set [" & strBattingProjectionsTableName & "].player_id = [NRBL_players].player_id"
+            strSQL = strSQL & " where [" & strBattingProjectionsTableName & "].player_id is null;"
+        'Debug.Print strSQL
+            db.Execute strSQL, dbFailOnError
+        End If
     End If
     '
     ' Update NRBL stats
@@ -1713,6 +1736,9 @@ Public Function fun_import_onroto_hitters()
     DoCmd.OpenQuery "_onroto_hitters_stage_03_upd_dl"
     Call fun_upd_import_status("Query:  _onroto_hitters_stage_04_remove_arrows_from_keepers")
     DoCmd.OpenQuery "_onroto_hitters_stage_04_remove_arrows_from_keepers"
+    Call fun_upd_import_status("Update onroto_hitters_stage.position_category...")
+    strSQL = "update onroto_hitters_stage set position_category = " & """" & "Hitter" & """" & " where position_category is null;"
+    db.Execute strSQL, dbFailOnError
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -1903,6 +1929,10 @@ Public Function fun_import_onroto_hitters()
     End If
     db.Close
     Set db = Nothing
+    Call fun_upd_import_status("Query: qry_upd_hitters_NRBL_players_onroto_id_and_abbrev")
+    DoCmd.SetWarnings False
+    DoCmd.OpenQuery "qry_upd_hitters_NRBL_players_onroto_id_and_abbrev"
+    DoCmd.SetWarnings True
     Call fun_load_stat_copy_aggs
     Forms!frm_imports!btn_import_onroto_hitter_data.BackColor = CLR_GREEN_BTN
     Call fun_upd_import_status("Done (" & Now() & ").  Ready.")
@@ -2027,9 +2057,10 @@ Public Function fun_import_onroto_pitchers()
     Call fun_upd_import_status("Query: _onroto_pitchers_stage_05_upd_NL_and_player_name")
     DoCmd.OpenQuery "_onroto_pitchers_stage_05_upd_NL_and_player_name"
     
-    Call fun_upd_import_status("Query: qry_upd_NRBL_players_onroto_id_and_abbrev")
-    DoCmd.OpenQuery "qry_upd_NRBL_players_onroto_id_and_abbrev"
-    
+    Call fun_upd_import_status("Query: qry_upd_pitchers_NRBL_players_onroto_id_and_abbrev")
+    DoCmd.SetWarnings False
+    DoCmd.OpenQuery "qry_upd_pitchers_NRBL_players_onroto_id_and_abbrev"
+    DoCmd.SetWarnings True
     Call fun_upd_import_status("Query: _onroto_pitchers_stage_06_upd_onroto_and_player_ids_01")
     DoCmd.OpenQuery "_onroto_pitchers_stage_06_upd_onroto_and_player_ids_01"
     
@@ -2056,7 +2087,9 @@ Public Function fun_import_onroto_pitchers()
     Call fun_upd_import_status("Query: _onroto_pitchers_stage_12_upd_player_ids")
     DoCmd.OpenQuery "_onroto_pitchers_stage_12_upd_player_ids"
     Call fun_upd_import_status("Query: _onroto_pitchers_13_calc_WHIP_and_ERA_from_RAW")
+    DoCmd.SetWarnings False
     DoCmd.OpenQuery "_onroto_pitchers_13_calc_WHIP_and_ERA_from_RAW"
+    DoCmd.SetWarnings True
     Call fun_upd_import_status("Query: _onroto_pitchers_14_upd_W_SV_ERA_WHIP_IP_SAL")
     DoCmd.OpenQuery "_onroto_pitchers_14_upd_W_SV_ERA_WHIP_IP_SAL"
     Call fun_upd_import_status("Query:  qry_NRBL_players_upd_first_and_last_name")
@@ -2203,8 +2236,10 @@ Public Function fun_import_onroto_pitchers()
     If bExcludeOnRotoProjections = True Then
         db.Execute "delete from onroto_stats_copy_pitchers where 1 = 1;"
     End If
-    Call fun_upd_import_status("Query: qry_upd_NRBL_players_onroto_id_and_abbrev")
-    DoCmd.OpenQuery "qry_upd_NRBL_players_onroto_id_and_abbrev"
+    Call fun_upd_import_status("Query: qry_upd_pitchers_NRBL_players_onroto_id_and_abbrev")
+    DoCmd.SetWarnings False
+    DoCmd.OpenQuery "qry_upd_pitchers_NRBL_players_onroto_id_and_abbrev"
+    DoCmd.SetWarnings True
     Set rst = Nothing
     Set tdf = Nothing
     db.Close
