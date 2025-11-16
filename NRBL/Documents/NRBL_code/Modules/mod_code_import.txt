@@ -1774,7 +1774,9 @@ Public Function fun_import_onroto_hitters()
     Call fun_upd_import_status("Query:  _onroto_hitters_stage_09_guess_new_PlayerAbbr_values")
     DoCmd.OpenQuery "_onroto_hitters_stage_09_guess_new_PlayerAbbr_values"
     Call fun_upd_import_status("Query:  _onroto_hitters_stage_10_upd_onroto_id_from_raw_matching_abbrev")
+    DoCmd.SetWarnings False
     DoCmd.OpenQuery "_onroto_hitters_stage_10_upd_onroto_id_from_raw_matching_abbrev"
+    DoCmd.SetWarnings True
     Call fun_upd_import_status("Query:  _onroto_hitters_stage_10b_upd_stage_player_id")
     DoCmd.OpenQuery "_onroto_hitters_stage_10b_upd_stage_player_id"
     Call fun_upd_import_status("Query:  _onroto_hitters_stage_11_ins_missing_hitters")
