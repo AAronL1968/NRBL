@@ -208,7 +208,13 @@ Public Function fun_import_fangraphs_pitchers_populate_objects(strStatSource As 
         strSQL = strSQL & " Vol, Skew, Dim, FPTS, [FPTS/IP], SPTS, [SPTS/IP], NameASCII, PlayerId, MLBAMID ) select DISTINCT " & """" & strStatSource & """" & " as stat_source, [﻿Name] as [Name], Team, W, L, QS, "
         strSQL = strSQL & " ERA, G, GS, SV, HLD, BS, IP, TBF, H, R, ER, HR, BB, IBB, HBP, SO, [K/9], [BB/9], [K/BB], [HR/9], [K%], [BB%], [K-BB%], Avg, WHIP, BABIP, [LOB%], [GB%], [HR/FB], FIP, WAR,"
         strSQL = strSQL & " [RA9-WAR], ADP, InterSD, InterSK, IntraSD, Vol, Skew, Dim, FPTS, [FPTS/IP], SPTS, [SPTS/IP], NameASCII, PlayerId, MLBAMID"
-        strSQL = strSQL & " from [" & strSourceTable & "] WHERE [G] > 1;"
+        strSQL = strSQL & " from [" & strSourceTable & "] WHERE [IP] > 0;"
+        If strStatSource = "Last Year" Then
+            strSQL = ""
+            strSQL = strSQL & "insert into [" & strPitchingProjectionsTableName & "] ( Name, Team, WHIP, W, L, ERA, G, GS, QS, SV, HLD, BS, IP, TBF, H, R, ER, HR, BB, IBB, HBP, SO, NameASCII, PlayerId, MLBAMID, stat_source ) "
+            strSQL = strSQL & " SELECT NameASCII AS Name, Team, ([W]+[H])/[IP] as WHIP, W, L, ERA, G, GS, QS, SV, HLD, BS, IP, TBF, H, R, ER, HR, BB, IBB, HBP, SO, NameASCII, PlayerId, MLBAMID, ""Last Year"" AS stat_source "
+            strSQL = strSQL & " from [" & strSourceTable & "] WHERE [IP] > 0;"
+        End If
         db.Execute strSQL, dbFailOnError
         '
         ' Clean/normalize team names
@@ -307,6 +313,7 @@ Public Function fun_import_fangraphs_pitchers_populate_objects(strStatSource As 
     strSQL = strSQL & "insert into [" & strStatsCopyTableName & "] ( player_id, Owner, Player, NL, Contract, Sal, stat_source, IP, W, SV, WHIP, ERA, K, BB, Onroto_ID, steamer_id )" & vbCrLf
     strSQL = strSQL & " select player_id, Owner, Player, NL, Contract, Sal, stat_source, IP, W, SV, WHIP, ERA, K, BB, Onroto_ID, steamer_id from NRBL_players"
     strSQL = strSQL & " where stat_source = " & """" & strStatSource & """" & " and (position_category=""Pitcher"" or position_category=""Swingman"");"
+    
     'Debug.Print strSQL
     db.Execute strSQL, dbFailOnError
     
