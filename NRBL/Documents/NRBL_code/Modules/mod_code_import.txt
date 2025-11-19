@@ -923,6 +923,7 @@ Public Function fun_import_fangraphs_hitters(strStatSource As String, boolTreatD
     Dim strBattingProjectionsTableName As String
     Dim strStatsCopyTableName As String
     Dim strButtonName As String
+    Dim boolResult As Boolean
     Dim ctl As Control
     Set db = CurrentDb
     '
@@ -968,7 +969,7 @@ Public Function fun_import_fangraphs_hitters(strStatSource As String, boolTreatD
         Forms!frm_imports.Requery
         Forms!frm_imports.Repaint
     End If
-    Call fun_import_fangraphs_hitters_build_objects(strStatSource, boolTreatDrafteesAsKeepers)
+    boolResult = fun_import_fangraphs_hitters_build_objects(strStatSource, boolTreatDrafteesAsKeepers)
     Call fun_import_fangraphs_hitters_populate_objects(strStatSource, boolTreatDrafteesAsKeepers)
     Call fun_import_fangraphs_hitters_calculate_values(strStatSource, boolTreatDrafteesAsKeepers)
     
@@ -1036,6 +1037,12 @@ Public Function fun_import_fangraphs_hitters_populate_objects(strStatSource As S
         strSQL = strSQL & "[BB/K], OBP, SLG, wOBA, OPS, ISO, Spd, BABIP, UBR, wSB, wRC, wRAA, [wRC+], BsR, Fld, [Off], Def, WAR, "
         strSQL = strSQL & "ADP, InterSD , InterSK, IntraSD, Vol, Skew, Dim, FPTS, [FPTS/G], SPTS, [SPTS/G], NameASCII, PlayerId, MLBAMID, "
         strSQL = strSQL & """" & strStatSource & """" & " as stat_source from " & strSourceTable & " where [G] > 0;"
+        If strStatSource = "Last Year" Then
+            strSQL = ""
+            strSQL = strSQL & "INSERT INTO fg_batting_projections_ly ( Name, Team, G, AB, PA, H, 1B, 2B, 3B, HR, R, RBI, BB, IBB, SO, HBP, SF, SH, GDP, SB, CS, [AVG], NameASCII, PlayerId, MLBAMID, stat_source )"
+            strSQL = strSQL & "SELECT NameASCII, Team, G, AB, PA, H, [1B], [2B], [3B], HR, R, RBI, BB, IBB, SO, HBP, SF, SH, GDP, SB, CS, AVG, NameASCII, PlayerId, MLBAMID, ""Last Year"" AS stat_source"
+            strSQL = strSQL & " FROM [fg-last-year-actual-batting] where AB > 0;"
+        End If
     'Debug.Print strSQL
         db.Execute strSQL, dbFailOnError
         '
@@ -1136,8 +1143,23 @@ Public Function fun_import_fangraphs_hitters_populate_objects(strStatSource As S
     strSQL = strSQL & strBattingProjectionsTableName & "].OPS, NRBL_players.stat_source = " & """" & strStatSource & """"
     strSQL = strSQL & ", NRBL_players.stat_upd = Now() WHERE (((NRBL_players.position_category)=""Hitter"""
     strSQL = strSQL & " Or (NRBL_players.position_category)=""Swingman""));"
+    If strStatSource = "Last Year" Then
+        strSQL = ""
+        strSQL = strSQL & "update NRBL_players inner join [" & strBattingProjectionsTableName & "] on NRBL_players.steamer_id = ["
+        strSQL = strSQL & strBattingProjectionsTableName & "].playerid SET NRBL_players.G = [" & strBattingProjectionsTableName
+        strSQL = strSQL & "].G, NRBL_players.H = [" & strBattingProjectionsTableName & "].[H], NRBL_players.BB = ["
+        strSQL = strSQL & strBattingProjectionsTableName & "].[BB], NRBL_players.RBI = [" & strBattingProjectionsTableName & "].[RBI],"
+        strSQL = strSQL & "NRBL_players.HR = [" & strBattingProjectionsTableName & "].[HR], NRBL_players.AVG = ["
+        strSQL = strSQL & strBattingProjectionsTableName & "].[H]/[" & strBattingProjectionsTableName & "].AB, NRBL_players.SB = ["
+        strSQL = strSQL & strBattingProjectionsTableName & "].SB, NRBL_players.AB = [" & strBattingProjectionsTableName & "].AB, "
+        strSQL = strSQL & "NRBL_players.stat_source = " & """" & strStatSource & """"
+        strSQL = strSQL & ", NRBL_players.stat_upd = Now() WHERE NRBL_players.AB > 0 and (((NRBL_players.position_category)=""Hitter"""
+        strSQL = strSQL & " Or (NRBL_players.position_category)=""Swingman""));"
+    End If
 'Debug.Print strSQL
+    DoCmd.SetWarnings False
     db.Execute strSQL, dbFailOnError
+    DoCmd.SetWarnings True
     '
     ' Populate "stats copy" table
     '
@@ -1584,7 +1606,8 @@ Public Function fun_import_fangraphs_hitters_calculate_values(strStatSource As S
     strSQL = strSQL & "update (tbl_hitter_averages_and_standard_deviations_after_keepers inner join tbl_rank_hitters_after_keepers on tbl_hitter_averages_and_standard_deviations_after_keepers.stat_source = "
     strSQL = strSQL & " tbl_rank_hitters_after_keepers.stat_source) inner join [" & strStatsCopyTableName & "] on tbl_rank_hitters_after_keepers.player_id = [" & strStatsCopyTableName & "].player_id "
     strSQL = strSQL & " set [" & strStatsCopyTableName & "].KeeperAdjustment = [tbl_rank_hitters_after_keepers].[vTotal]*(-1) where iif(isnull([KeeperAdjustment]), 0, [KeeperAdjustment]) <> 0 "
-    strSQL = strSQL & " and [tbl_rank_hitters_after_keepers].[hitter_rank] = [tbl_hitter_averages_and_standard_deviations_after_keepers].[ct] and iif(isnull([InfDollarValue]), 0, [InfDollarValue]) = 0;"
+    strSQL = strSQL & " and [tbl_rank_hitters_after_keepers].[hitter_rank] = [tbl_hitter_averages_and_standard_deviations_after_keepers].[ct] and iif(isnull([InfDollarValue]), 0, [InfDollarValue]) = 0"
+    strSQL = strSQL & " and [tbl_rank_hitters_after_keepers].[vTotal] is not null;"
     'Debug.Print strSQL
     db.Execute strSQL, dbFailOnError
     '
