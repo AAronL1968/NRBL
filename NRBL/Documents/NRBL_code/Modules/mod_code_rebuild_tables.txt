@@ -141,8 +141,8 @@ Public Function fun_reset_pre_draft_conditions()
     Set tdf = Nothing
     db.Close
     Set db = Nothing
-    Forms!frm![League Projections, Budgets, Max Bids].Form.RecordSource = "tbl_team_projections_placeholder"
-    Forms!frm![League Projections, Budgets, Max Bids].Requery
+    Forms!frm!frm_sub_status.Form.RecordSource = "tbl_team_projections_placeholder"
+    Forms!frm!frm_sub_status.Requery
     DoCmd.Close acForm, "frm"
     DoCmd.OpenForm "frm"
   ' DoCmd.OpenQuery "qpt_NRBL_reset_to_pre_draft_status"

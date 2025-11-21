@@ -149,8 +149,8 @@ Public Function fun_load_frm()
         strRS = rst!rs
         rst.Close
         Set rst = Nothing
-        'Forms!frm![League Projections, Budgets, Max Bids].Form.RecordSource = strRS
-        Forms!frm![League Projections, Budgets, Max Bids].Requery
+        'Forms!frm!frm_sub_status.Form.RecordSource = strRS
+        Forms!frm!frm_sub_status.Requery
         Dim iDraftSlots As Long
         Set rst = db.OpenRecordset("tbl_team_position_slot_pre_draft_slot_summary")
         iDraftSlots = rst!non_keeper_slot_ct
