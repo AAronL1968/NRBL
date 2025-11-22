@@ -63,6 +63,44 @@ Public Sub sub_build_table_from_sql(strSQL As String, strFileNameWithPath As Str
     db.Close
     Set db = Nothing
 End Sub
+Public Function fn_rebuild_stat_points_table(strStat As String) As Boolean
+    fn_rebuild_stat_points_table = False
+    Dim strTableName As String
+    Dim strSQL As String
+    Dim strPositionCategory As String
+    Dim boolIsCountingCategory As Boolean
+    
+    Dim db As DAO.Database
+    Dim rst As DAO.Recordset
+    strPositionCategory = ""
+    strTableName = Trim(strStat) & "_points"
+    Set db = CurrentDb
+    strSQL = "select * from stat_categories where is_active = True and stat_category_name = " & """" & Replace(strStat, """", """""") & """" & ";"
+    Set rst = db.OpenRecordset(strSQL)
+    If Not rst.EOF Then
+        strPositionCategory = IIf(IsNull(rst!position_category), "", rst!position_category)
+        boolIsCountingCategory = rst!is_counting_category
+    End If
+    rst.Close
+    Set rst = Nothing
+    db.Close
+    Set db = Nothing
+    If strPositionCategory <> "" Then
+        Call sub_drop_table(strTableName)
+        strSQL = "create table [" & Replace(strTableName, """", """""") & "] ( [" & Replace(strStat, """", """""") & "_rank] counter(1,1) primary key,"
+        strSQL = strSQL & " Owner varchar, [" & Replace(strStat, """", """""") & "] "
+        If boolIsCountingCategory Then
+            strSQL = strSQL & " long )"
+        Else
+            strSQL = strSQL & " double )"
+        End If
+        Call sub_rebuild_and_relink_table(strSQL, strTableName)
+        fn_rebuild_stat_points_table = True
+        Exit Function
+    Else
+        MsgBox "Error obtaining stat info for strStat = " & IIf(IsNull(strStat), "", strStat)
+    End If
+End Function
 Public Function fun_fix_autonumbers()
     Dim db As DAO.Database
     Dim tdf As DAO.TableDef
@@ -72,6 +110,7 @@ Public Function fun_fix_autonumbers()
     Dim boolIsMock As Boolean
     Dim strFileNameWithPath As String
     Dim strSQL As String
+    Dim boolCreatedTable As Boolean
     boolIsMock = fn_db_is_mock()
     strDataPath = fn_get_db_data_path()
     If boolIsMock = True Then
@@ -86,30 +125,42 @@ Public Function fun_fix_autonumbers()
             Call sub_drop_table(strTableName)
         End If
     Next
-    strSQL = "create table HR_points (HR_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), HR int)"
-    Call sub_rebuild_and_relink_table(strSQL, "HR_points")
-    strSQL = "create table RBI_points (RBI_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), RBI int)"
-    Call sub_rebuild_and_relink_table(strSQL, "RBI_points")
-    strSQL = "create table SB_points (SB_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), SB int)"
-    Call sub_rebuild_and_relink_table(strSQL, "SB_points")
-    strSQL = "create table AVG_points (AVG_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), AVG double)"
-    Call sub_rebuild_and_relink_table(strSQL, "AVG_points")
-    strSQL = "create table W_points (W_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), W int)"
-    Call sub_rebuild_and_relink_table(strSQL, "W_points")
-    strSQL = "create table SV_points (SV_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), SV int)"
-    Call sub_rebuild_and_relink_table(strSQL, "SV_points")
-    strSQL = "create table ERA_points (ERA_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), ERA double)"
-    Call sub_rebuild_and_relink_table(strSQL, "ERA_points")
-    strSQL = "create table WHIP_points (WHIP_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), WHIP double)"
-    Call sub_rebuild_and_relink_table(strSQL, "WHIP_points")
+    boolCreatedTable = fn_rebuild_stat_points_table("R")
+    boolCreatedTable = fn_rebuild_stat_points_table("K")
+    boolCreatedTable = fn_rebuild_stat_points_table("HR")
+    boolCreatedTable = fn_rebuild_stat_points_table("RBI")
+    boolCreatedTable = fn_rebuild_stat_points_table("SB")
+    boolCreatedTable = fn_rebuild_stat_points_table("AVG")
+    boolCreatedTable = fn_rebuild_stat_points_table("W")
+    boolCreatedTable = fn_rebuild_stat_points_table("SV")
+    boolCreatedTable = fn_rebuild_stat_points_table("ERA")
+    boolCreatedTable = fn_rebuild_stat_points_table("WHIP")
+    'strSQL = "create table HR_points (HR_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), HR int)"
+    'Call sub_rebuild_and_relink_table(strSQL, "HR_points")
+    'strSQL = "create table RBI_points (RBI_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), RBI int)"
+    'Call sub_rebuild_and_relink_table(strSQL, "RBI_points")
+    'strSQL = "create table SB_points (SB_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), SB int)"
+    'Call sub_rebuild_and_relink_table(strSQL, "SB_points")
+    'strSQL = "create table AVG_points (AVG_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), AVG double)"
+    'Call sub_rebuild_and_relink_table(strSQL, "AVG_points")
+    'strSQL = "create table W_points (W_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), W int)"
+    'Call sub_rebuild_and_relink_table(strSQL, "W_points")
+    'strSQL = "create table SV_points (SV_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), SV int)"
+    'Call sub_rebuild_and_relink_table(strSQL, "SV_points")
+    'strSQL = "create table ERA_points (ERA_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), ERA double)"
+    'Call sub_rebuild_and_relink_table(strSQL, "ERA_points")
+    'strSQL = "create table WHIP_points (WHIP_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), WHIP double)"
+    'Call sub_rebuild_and_relink_table(strSQL, "WHIP_points")
     
     db.TableDefs.Refresh
     DoCmd.OpenQuery "qry_HR_points_append"
     DoCmd.OpenQuery "qry_RBI_points_append"
+    DoCmd.OpenQuery "qry_R_points_append"
     DoCmd.OpenQuery "qry_AVG_points_append"
     DoCmd.OpenQuery "qry_SB_points_append"
     DoCmd.OpenQuery "qry_W_points_append"
     DoCmd.OpenQuery "qry_SV_points_append"
+    DoCmd.OpenQuery "qry_K_points_append"
     DoCmd.OpenQuery "qry_ERA_points_append"
     DoCmd.OpenQuery "qry_WHIP_points_append"
     strTableName = ""
@@ -545,7 +596,7 @@ Public Function fun_import_fangraphs_hitters_build_objects(strStatSource As Stri
     strSQL = ""
     strSQL = strSQL & "create table " & strStatsCopyTableName & " ( player_id long not null primary key, Owner varchar, "
     strSQL = strSQL & "Player varchar, NL varchar, Contract varchar, Sal currency, stat_source varchar, AB long, HR long, "
-    strSQL = strSQL & "RBI long, SB long, AVG double, SLG double, OPS double, Onroto_ID long, steamer_id varchar )"
+    strSQL = strSQL & "RBI long, SB long, R long, AVG double, SLG double, OPS double, Onroto_ID long, steamer_id varchar )"
 'Debug.Print strSQL
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column avgHR double"
@@ -555,6 +606,10 @@ Public Function fun_import_fangraphs_hitters_build_objects(strStatSource As Stri
     strSQL = "alter table " & strStatsCopyTableName & " add column avgRBI double"
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column stdRBI double"
+    db.Execute strSQL, dbFailOnError
+    strSQL = "alter table " & strStatsCopyTableName & " add column avgR double"
+    db.Execute strSQL, dbFailOnError
+    strSQL = "alter table " & strStatsCopyTableName & " add column stdR double"
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column avgSB double"
     db.Execute strSQL, dbFailOnError
@@ -571,6 +626,8 @@ Public Function fun_import_fangraphs_hitters_build_objects(strStatSource As Stri
     strSQL = "alter table " & strStatsCopyTableName & " add column vHR double"
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column vRBI double"
+    db.Execute strSQL, dbFailOnError
+    strSQL = "alter table " & strStatsCopyTableName & " add column vR double"
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column vSB double"
     db.Execute strSQL, dbFailOnError
@@ -608,7 +665,11 @@ Public Function fun_import_fangraphs_hitters_build_objects(strStatSource As Stri
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column aKavgRBI double"
     db.Execute strSQL, dbFailOnError
+    strSQL = "alter table " & strStatsCopyTableName & " add column aKavgR double"
+    db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column aKstdRBI double"
+    db.Execute strSQL, dbFailOnError
+    strSQL = "alter table " & strStatsCopyTableName & " add column aKstdR double"
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column aKavgSB double"
     db.Execute strSQL, dbFailOnError
@@ -623,6 +684,8 @@ Public Function fun_import_fangraphs_hitters_build_objects(strStatSource As Stri
     strSQL = "alter table " & strStatsCopyTableName & " add column aKvHR double"
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column aKvRBI double"
+    db.Execute strSQL, dbFailOnError
+    strSQL = "alter table " & strStatsCopyTableName & " add column aKvR double"
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column aKvSB double"
     db.Execute strSQL, dbFailOnError
