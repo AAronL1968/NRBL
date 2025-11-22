@@ -356,7 +356,7 @@ Public Function fun_import_fangraphs_pitchers_calculate_values(strStatSource As 
     Call fun_upd_import_status(strStatus)
     strSQL = ""
     strSQL = strSQL & "select stat_source, round(Sum([IP]), 1) as IPs, Sum([WHIP]*[IP]) as W_plus_H, Sum([ERA]*[IP]/9) as ERs, Sum([W]) as Ws, Avg([W]) as avgW, StDev([W]) as stdW, "
-    strSQL = strSQL & " Sum([SV]) as SVs, Avg([SV]) as avgSV, StDev([SV]) as stdSV from [" & strStatsCopyTableName & "] group by stat_source having sum([IP]) <> 0;"
+    strSQL = strSQL & " Sum([SV]) as SVs, Avg([SV]) as avgSV, StDev([SV]) as stdSV, Sum([K]) as Ks, Avg([K]) as avgK, StDev([K]) as stdK from [" & strStatsCopyTableName & "] group by stat_source having sum([IP]) <> 0;"
     Set qdf = db.QueryDefs("qry_fg_pitcher_valuations_01")
     qdf.SQL = strSQL
     qdf.Close
@@ -1143,7 +1143,8 @@ Public Function fun_import_fangraphs_hitters_populate_objects(strStatSource As S
     strSQL = strSQL & strBattingProjectionsTableName & "].playerid SET NRBL_players.G = [" & strBattingProjectionsTableName
     strSQL = strSQL & "].G, NRBL_players.H = [" & strBattingProjectionsTableName & "].[H], NRBL_players.BB = ["
     strSQL = strSQL & strBattingProjectionsTableName & "].[BB], NRBL_players.RBI = [" & strBattingProjectionsTableName & "].[RBI],"
-    strSQL = strSQL & "NRBL_players.HR = [" & strBattingProjectionsTableName & "].[HR], NRBL_players.AVG = ["
+    strSQL = strSQL & " NRBL_players.R = [" & strBattingProjectionsTableName & "].[R],"
+    strSQL = strSQL & " NRBL_players.HR = [" & strBattingProjectionsTableName & "].[HR], NRBL_players.AVG = ["
     strSQL = strSQL & strBattingProjectionsTableName & "].[H]/[" & strBattingProjectionsTableName & "].AB, NRBL_players.SB = ["
     strSQL = strSQL & strBattingProjectionsTableName & "].SB, NRBL_players.AB = [" & strBattingProjectionsTableName & "].AB, "
     strSQL = strSQL & "NRBL_players.SLG = [" & strBattingProjectionsTableName & "].SLG, NRBL_players.OPS = ["
@@ -1156,6 +1157,7 @@ Public Function fun_import_fangraphs_hitters_populate_objects(strStatSource As S
         strSQL = strSQL & strBattingProjectionsTableName & "].playerid SET NRBL_players.G = [" & strBattingProjectionsTableName
         strSQL = strSQL & "].G, NRBL_players.H = [" & strBattingProjectionsTableName & "].[H], NRBL_players.BB = ["
         strSQL = strSQL & strBattingProjectionsTableName & "].[BB], NRBL_players.RBI = [" & strBattingProjectionsTableName & "].[RBI],"
+        strSQL = strSQL & " NRBL_players.R = [" & strBattingProjectionsTableName & "].[R],"
         strSQL = strSQL & "NRBL_players.HR = [" & strBattingProjectionsTableName & "].[HR], NRBL_players.AVG = ["
         strSQL = strSQL & strBattingProjectionsTableName & "].[H]/[" & strBattingProjectionsTableName & "].AB, NRBL_players.SB = ["
         strSQL = strSQL & strBattingProjectionsTableName & "].SB, NRBL_players.AB = [" & strBattingProjectionsTableName & "].AB, "
@@ -1173,8 +1175,8 @@ Public Function fun_import_fangraphs_hitters_populate_objects(strStatSource As S
     strStatus = "Populate " & strStatsCopyTableName & "..."
     Call fun_upd_import_status(strStatus)
     strSQL = ""
-    strSQL = strSQL & "insert into [" & strStatsCopyTableName & "] ( KeeperAdjustment, player_id, Owner, Player, NL, Contract, Sal, stat_source, AB, HR, RBI, SB, [AVG], SLG, OPS, steamer_id, Onroto_ID )"
-    strSQL = strSQL & "select 0.0 as KeeperAdjustment, player_id, Owner, Player, NL, Contract, Sal, stat_source, AB, HR, RBI, SB, Avg, SLG, OPS, steamer_id, Onroto_ID from NRBL_players"
+    strSQL = strSQL & "insert into [" & strStatsCopyTableName & "] ( KeeperAdjustment, player_id, Owner, Player, NL, Contract, Sal, stat_source, AB, HR, RBI, R, SB, [AVG], SLG, OPS, steamer_id, Onroto_ID )"
+    strSQL = strSQL & "select 0.0 as KeeperAdjustment, player_id, Owner, Player, NL, Contract, Sal, stat_source, AB, HR, RBI, R, SB, Avg, SLG, OPS, steamer_id, Onroto_ID from NRBL_players"
     strSQL = strSQL & " where stat_source = " & """" & strStatSource & """" & " and (position_category = ""Hitter"" or position_category = ""Swingman"");"
 'Debug.Print strSQL
     db.Execute strSQL, dbFailOnError
@@ -1218,7 +1220,10 @@ Public Function fun_import_fangraphs_hitters_calculate_values(strStatSource As S
     Call fun_upd_import_status(strStatus)
     strSQL = ""
     strSQL = strSQL & "select [" & strStatsCopyTableName & "].stat_source, Sum([AVG]*[AB]) as Hits, Sum([" & strStatsCopyTableName & "].AB) as ABs, Avg([" & strStatsCopyTableName & "].HR) as avgHR,"
-    strSQL = strSQL & " StDev([" & strStatsCopyTableName & "].HR) as stdHR, Avg([" & strStatsCopyTableName & "].RBI) as avgRBI, StDev([" & strStatsCopyTableName & "].RBI) as stdRBI, Avg([" & strStatsCopyTableName
+    strSQL = strSQL & " StDev([" & strStatsCopyTableName & "].HR) as stdHR,"
+    strSQL = strSQL & " Avg([" & strStatsCopyTableName & "].RBI) as avgRBI, StDev([" & strStatsCopyTableName & "].RBI) as stdRBI,"
+    strSQL = strSQL & " Avg([" & strStatsCopyTableName & "].R) as avgR, StDev([" & strStatsCopyTableName & "].R) as stdR,"
+    strSQL = strSQL & " Avg([" & strStatsCopyTableName
     strSQL = strSQL & "].SB) as avgSB, StDev([" & strStatsCopyTableName & "].SB) as stdSB from [" & strStatsCopyTableName & "] group by [" & strStatsCopyTableName & "].stat_source;"
     Set qdf = db.QueryDefs("qry_fg_hitter_valuations_01")
     qdf.SQL = strSQL
@@ -1236,8 +1241,8 @@ Public Function fun_import_fangraphs_hitters_calculate_values(strStatSource As S
     ' Populate tbl_hitter_averages_and_standard_deviations for selected stat source
     '
     strSQL = ""
-    strSQL = strSQL & "insert into tbl_hitter_averages_and_standard_deviations ( stat_source, avgHR, stdHR, avgRBI, stdRBI, avgSB, stdSB, avgAVG )"
-    strSQL = strSQL & " select stat_source, avgHR, stdHR, avgRBI, stdRBI, avgSB, stdSB, avgAVG from qry_fg_hitter_valuations_02"
+    strSQL = strSQL & "insert into tbl_hitter_averages_and_standard_deviations ( stat_source, avgHR, stdHR, avgRBI, stdRBI, avgR, stdR, avgSB, stdSB, avgAVG )"
+    strSQL = strSQL & " select stat_source, avgHR, stdHR, avgRBI, stdRBI, avgR, stdR, avgSB, stdSB, avgAVG from qry_fg_hitter_valuations_02"
     strSQL = strSQL & " where qry_fg_hitter_valuations_02.stat_source=" & """" & strStatSource & """" & ";"
 'Debug.Print strSQL
     db.Execute strSQL, dbFailOnError

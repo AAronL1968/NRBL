@@ -68,3 +68,134 @@ Public Sub sub_rebuild_REGAL_MainDataSet()
     Call link_access_table(strTableName, strTableName, strFileNameWithPath)
     set_status_bar ("")
 End Sub
+Public Sub sub_check_AllModules_for_OptionExplicit()
+    Dim objProject As Access.CurrentProject
+    Dim objModule As AccessObject
+    Dim modWork As Access.Module
+    Dim strModuleName As String
+    Dim strModuleText As String
+    Dim strTargetText As String
+    Dim iModules As Long
+    Dim iLines As Long
+    Dim boolHasOptionExplicit As Boolean
+    strTargetText = "Option Explicit"
+    boolHasOptionExplicit = False
+    Set objProject = Application.CurrentProject
+    For Each objModule In objProject.AllModules
+        strModuleName = objModule.Name
+        DoCmd.OpenModule strModuleName
+        Set modWork = Modules(strModuleName)
+        iLines = modWork.CountOfLines
+        strModuleText = modWork.Lines(1, iLines)
+        Set modWork = Nothing
+        If InStr(strModuleText, strTargetText) > 0 Then
+            boolHasOptionExplicit = True
+        Else
+            boolHasOptionExplicit = False
+        End If
+        If boolHasOptionExplicit = False Then
+            Debug.Print "  CurrentProject.AllModules - " & CStr(boolHasOptionExplicit) & " - " & strModuleName
+        End If
+        'Debug.Print "  CurrentProject.AllModules - " & CStr(boolHasOptionExplicit) & " - " & strModuleName
+    Next objModule
+    Set modWork = Nothing
+    Set objModule = Nothing
+    Set objProject = Nothing
+End Sub
+Public Sub sub_check_Form_Modules_for_OptionExplicit()
+    Dim objProject As Access.CurrentProject
+    Dim modWork As Access.Module
+    Dim objForm As AccessObject
+    Dim frm As Access.Form
+    Dim strFormName As String
+    Dim strModuleName As String
+    Dim strModuleText As String
+    Dim strTargetText As String
+    Dim iModules As Long
+    Dim iLines As Long
+    Dim boolHasOptionExplicit As Boolean
+    strTargetText = "Option Explicit"
+    boolHasOptionExplicit = False
+    Set objProject = Application.CurrentProject
+    For Each objForm In objProject.AllForms
+        strFormName = objForm.Name
+        DoCmd.OpenForm strFormName, acDesign
+        Set frm = Forms(strFormName)
+        Set modWork = frm.Module
+        strModuleName = modWork.Name
+        iLines = modWork.CountOfLines
+        strModuleText = modWork.Lines(1, iLines)
+        Set modWork = Nothing
+        If InStr(strModuleText, strTargetText) > 0 Then
+            boolHasOptionExplicit = True
+        Else
+            boolHasOptionExplicit = False
+        End If
+        If boolHasOptionExplicit = False Then
+            Debug.Print "  " & strFormName & " - " & CStr(boolHasOptionExplicit) & " - " & strModuleName
+        End If
+        ' Debug.Print "  " & strFormName & " - " & CStr(boolHasOptionExplicit) & " - " & strModuleName
+        DoCmd.Close acForm, strFormName, acSaveNo
+    Next objForm
+    Set modWork = Nothing
+    Set frm = Nothing
+    Set objProject = Nothing
+End Sub
+Public Sub sub_check_Report_Modules_for_OptionExplicit()
+    Dim objProject As Access.CurrentProject
+    Dim modWork As Access.Module
+    Dim objReport As AccessObject
+    Dim rpt As Access.Report
+    Dim strReportName As String
+    Dim strModuleName As String
+    Dim strModuleText As String
+    Dim strTargetText As String
+    Dim iModules As Long
+    Dim iLines As Long
+    Dim boolHasOptionExplicit As Boolean
+    strTargetText = "Option Explicit"
+    boolHasOptionExplicit = False
+    Set objProject = Application.CurrentProject
+    For Each objReport In objProject.AllReports
+        strReportName = objReport.Name
+        DoCmd.OpenReport strReportName, acViewDesign
+        Set rpt = Reports(strReportName)
+        Set modWork = rpt.Module
+        strModuleName = modWork.Name
+        iLines = modWork.CountOfLines
+        strModuleText = modWork.Lines(1, iLines)
+        Set modWork = Nothing
+        If InStr(strModuleText, strTargetText) > 0 Then
+            boolHasOptionExplicit = True
+        Else
+            boolHasOptionExplicit = False
+        End If
+        If boolHasOptionExplicit = False Then
+            Debug.Print " " & strReportName & " - " & CStr(boolHasOptionExplicit) & " - " & strModuleName
+        End If
+        'Debug.Print " " & strReportName & " - " & CStr(boolHasOptionExplicit) & " - " & strModuleName
+        DoCmd.Close acReport, strReportName, acSaveNo
+    Next objReport
+    Set modWork = Nothing
+    Set rpt = Nothing
+    Set objProject = Nothing
+End Sub
+Public Sub sub_find_string_in_query(strTextToFind As String)
+    Dim db As DAO.Database
+    Dim qdf As DAO.QueryDef
+    Dim strSQL As String
+    Dim strQueryName As String
+    Dim iCtr As Long
+    iCtr = 0
+    Set db = CurrentDb
+    For Each qdf In db.QueryDefs
+        strQueryName = qdf.Name
+        strSQL = qdf.SQL
+        If InStr(strSQL, strTextToFind) > 0 Then
+            iCtr = iCtr + 1
+            Debug.Print strQueryName & " ' " & iCtr ' & vbCrLf
+        End If
+    Next qdf
+    db.Close
+    Set db = Nothing
+End Sub

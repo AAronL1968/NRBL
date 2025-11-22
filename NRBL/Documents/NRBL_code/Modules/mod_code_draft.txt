@@ -28,8 +28,8 @@ Public Function fun_draft()
     End If
     strPositionCategory = Forms!frm!txt_position_category.Value
     If strPositionCategory = "Pitcher" Then
-        Forms!frm![League Projections, Budgets, Max Bids].Form.RecordSource = "tbl_team_projections_placeholder"
-        Forms!frm![League Projections, Budgets, Max Bids].Requery
+        Forms!frm!frm_sub_status.Form.RecordSource = "tbl_team_projections_placeholder"
+        Forms!frm!frm_sub_status.Requery
         DoCmd.OpenQuery "qry_append_draft_pick_pitcher"
         DoCmd.OpenQuery "qry_upd_drafted_statuses"
         DoCmd.OpenQuery "qry_team_position_slot_update_for_pitcher"
@@ -46,8 +46,8 @@ Public Function fun_draft()
         Set rst = Nothing
         db.Close
         Set db = Nothing
-        Forms!frm![League Projections, Budgets, Max Bids].Form.RecordSource = strRS
-        Forms!frm![League Projections, Budgets, Max Bids].Requery
+        Forms!frm!frm_sub_status.Form.RecordSource = strRS
+        Forms!frm!frm_sub_status.Requery
         Call sub_in_draft_value_recalculation
     Else
         If Not CurrentProject.AllForms("frm").IsLoaded Then
@@ -242,8 +242,8 @@ Public Function fun_get_next_drafter()
     rst.Close
     Set rst = Nothing
     If CurrentProject.AllForms("frm").IsLoaded Then
-        Forms!frm![League Projections, Budgets, Max Bids].Form.RecordSource = "tbl_team_projections_placeholder"
-        Forms!frm![League Projections, Budgets, Max Bids].Requery
+        Forms!frm!frm_sub_status.Form.RecordSource = "tbl_team_projections_placeholder"
+        Forms!frm!frm_sub_status.Requery
     End If
     DoCmd.OpenQuery "qry_draft_pick_ct_delete"
     DoCmd.OpenQuery "qry_draft_pick_ct_append"
@@ -336,8 +336,8 @@ Public Function fun_get_next_drafter()
         DoCmd.OpenQuery "qry_max_bid_delete"
         DoCmd.OpenQuery "qry_nominator_max_bid_append"
         Call fun_set_status
-        Forms!frm![League Projections, Budgets, Max Bids].Form.RecordSource = strRS
-        Forms!frm![League Projections, Budgets, Max Bids].Requery
+        Forms!frm!frm_sub_status.Form.RecordSource = strRS
+        Forms!frm!frm_sub_status.Requery
     End If
 End Function
 Public Sub sub_in_draft_value_recalculation()
