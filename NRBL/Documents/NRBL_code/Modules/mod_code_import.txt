@@ -1254,8 +1254,12 @@ Public Function fun_import_fangraphs_hitters_calculate_values(strStatSource As S
     strSQL = ""
     strSQL = strSQL & "update [" & strStatsCopyTableName & "] inner join tbl_hitter_averages_and_standard_deviations on [" & strStatsCopyTableName & "].stat_source = "
     strSQL = strSQL & " tbl_hitter_averages_and_standard_deviations.stat_source set [" & strStatsCopyTableName & "].avgHR = [tbl_hitter_averages_and_standard_deviations].[avgHR], ["
-    strSQL = strSQL & strStatsCopyTableName & "].stdHR = [tbl_hitter_averages_and_standard_deviations].[stdHR], [" & strStatsCopyTableName & "].avgRBI = [tbl_hitter_averages_and_standard_deviations].[avgRBI], ["
-    strSQL = strSQL & strStatsCopyTableName & "].stdRBI = [tbl_hitter_averages_and_standard_deviations].[stdRBI], [" & strStatsCopyTableName & "].avgSB = [tbl_hitter_averages_and_standard_deviations].[avgSB], ["
+    strSQL = strSQL & strStatsCopyTableName & "].stdHR = [tbl_hitter_averages_and_standard_deviations].[stdHR], ["
+    strSQL = strSQL & strStatsCopyTableName & "].avgRBI = [tbl_hitter_averages_and_standard_deviations].[avgRBI], ["
+    strSQL = strSQL & strStatsCopyTableName & "].stdRBI = [tbl_hitter_averages_and_standard_deviations].[stdRBI], ["
+    strSQL = strSQL & strStatsCopyTableName & "].avgR = [tbl_hitter_averages_and_standard_deviations].[avgR], ["
+    strSQL = strSQL & strStatsCopyTableName & "].stdR = [tbl_hitter_averages_and_standard_deviations].[stdR], ["
+    strSQL = strSQL & strStatsCopyTableName & "].avgSB = [tbl_hitter_averages_and_standard_deviations].[avgSB], ["
     strSQL = strSQL & strStatsCopyTableName & "].stdSB = [tbl_hitter_averages_and_standard_deviations].[stdSB], [" & strStatsCopyTableName & "].avgAVG = [tbl_hitter_averages_and_standard_deviations].[avgAVG];"
 'Debug.Print strSQL
     db.Execute strSQL, dbFailOnError
@@ -1293,26 +1297,31 @@ Public Function fun_import_fangraphs_hitters_calculate_values(strStatSource As S
 'Debug.Print strSQL
     db.Execute strSQL, dbFailOnError
     '
-    ' Calculate vH, vHR, vRBI, vSB in "stats copy" table
+    ' Calculate vH, vHR, vRBI, vSB, vR in "stats copy" table
     '
-    strStatus = "Update vH, vHR, vRBI, vSB in " & strStatsCopyTableName & " table..."
+    strStatus = "Update vH, vHR, vRBI, vSB, vR in " & strStatsCopyTableName & " table..."
     Call fun_upd_import_status(strStatus)
     strSQL = ""
-    strSQL = strSQL & "update [" & strStatsCopyTableName & "] set [" & strStatsCopyTableName & "].vH = [aH]/[stdAH], [" & strStatsCopyTableName & "].vHR = ([HR]-[avgHR])/[stdHR], ["
-    strSQL = strSQL & strStatsCopyTableName & "].vRBI = ([RBI]-[avgRBI])/[stdRBI], [" & strStatsCopyTableName & "].vSB = ([SB]-[avgSB])/[stdSB]"
-    strSQL = strSQL & " where ((([" & strStatsCopyTableName & "].stdAH)<>0) and (([" & strStatsCopyTableName & "].stdHR)<>0) and (([" & strStatsCopyTableName & "].stdRBI)<>0) "
+    strSQL = strSQL & "update [" & strStatsCopyTableName & "] set [" & strStatsCopyTableName & "].vH = [aH]/[stdAH], ["
+    strSQL = strSQL & strStatsCopyTableName & "].vHR = ([HR]-[avgHR])/[stdHR], ["
+    strSQL = strSQL & strStatsCopyTableName & "].vRBI = ([RBI]-[avgRBI])/[stdRBI], ["
+    strSQL = strSQL & strStatsCopyTableName & "].vR = ([R]-[avgR])/[stdR], ["
+    strSQL = strSQL & strStatsCopyTableName & "].vSB = ([SB]-[avgSB])/[stdSB]"
+    strSQL = strSQL & " where ((([" & strStatsCopyTableName & "].stdAH)<>0) and (([" & strStatsCopyTableName & "].stdHR)<>0)"
+    strSQL = strSQL & " and (([" & strStatsCopyTableName & "].stdRBI)<>0) "
+    strSQL = strSQL & " and (([" & strStatsCopyTableName & "].stdR)<>0) "
     strSQL = strSQL & " and (([" & strStatsCopyTableName & "].stdSB)<>0));"
 'Debug.Print strSQL
     db.Execute strSQL, dbFailOnError
     '
-    ' Update vTotal in "stats copy" table (sum vH, vHR, vRBI, and vSB)
+    ' Update vTotal in "stats copy" table (sum vH, vHR, vRBI, vR, and vSB)
     '
-    strStatus = "Update vTotal in " & strStatsCopyTableName & " table (sum vH, vHR, vRBI, and vSB)..."
+    strStatus = "Update vTotal in " & strStatsCopyTableName & " table (sum vH, vHR, vRBI, vR, and vSB)..."
     Call fun_upd_import_status(strStatus)
-    strSQL = "update [" & strStatsCopyTableName & "] set [" & strStatsCopyTableName & "].vTotal = [vH]+[vHR]+[vRBI]+[vSB];"
+    strSQL = "update [" & strStatsCopyTableName & "] set [" & strStatsCopyTableName & "].vTotal = [vH]+[vHR]+[vRBI]+[vSB]+[vR];"
 'Debug.Print strSQL
     db.Execute strSQL, dbFailOnError
-    '
+    'g`
     ' Recreate tbl_rank_hitters, tbl_league_hitter_units, and tbl_keeper_hitter_counts_and_sums (for fresh "autonumber" columns)
     '
     Call fun_upd_import_status("Drop and recreate tbl_rank_hitters (refreshes autonumber)")
@@ -1323,6 +1332,7 @@ Public Function fun_import_fangraphs_hitters_calculate_values(strStatSource As S
             db.Execute "drop table " & strTableName
         End If
     Next
+    Call sub_drop_table("tbl_rank_hitters")
     strSQL = "create table tbl_rank_hitters (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
     Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_hitters")
     db.TableDefs.Refresh
@@ -1500,8 +1510,12 @@ Public Function fun_import_fangraphs_hitters_calculate_values(strStatSource As S
     strStatus = "Set SQL for qry_fg_hitter_valuations_after_keepers_01 to be based on " & strStatSource
     Call fun_upd_import_status(strStatus)
     strSQL = strSQL & "select [" & strStatsCopyTableName & "].stat_source, Count(*) as ct, Sum([AVG]*[AB]) as Hits, Sum([" & strStatsCopyTableName & "].AB) as ABs, "
-    strSQL = strSQL & " Avg([" & strStatsCopyTableName & "].HR) as avgHR, StDev([" & strStatsCopyTableName & "].HR) as stdHR, Avg([" & strStatsCopyTableName & "].RBI) as avgRBI, "
-    strSQL = strSQL & " StDev([" & strStatsCopyTableName & "].RBI) AS stdRBI, Avg([" & strStatsCopyTableName & "].SB) AS avgSB, StDev([" & strStatsCopyTableName & "].SB) AS stdSB "
+    strSQL = strSQL & " Avg([" & strStatsCopyTableName & "].HR) as avgHR, StDev([" & strStatsCopyTableName & "].HR) as stdHR, "
+    strSQL = strSQL & " Avg([" & strStatsCopyTableName & "].RBI) as avgRBI, "
+    strSQL = strSQL & " StDev([" & strStatsCopyTableName & "].RBI) AS stdRBI, "
+    strSQL = strSQL & " Avg([" & strStatsCopyTableName & "].R) as avgR, "
+    strSQL = strSQL & " StDev([" & strStatsCopyTableName & "].R) AS stdR, "
+    strSQL = strSQL & " Avg([" & strStatsCopyTableName & "].SB) AS avgSB, StDev([" & strStatsCopyTableName & "].SB) AS stdSB "
     strSQL = strSQL & " from [" & strStatsCopyTableName & "] where ((([" & strStatsCopyTableName & "].KeeperAdjustment)<>0)) group by [" & strStatsCopyTableName & "].stat_source;"
     Set qdf = db.QueryDefs("qry_fg_hitter_valuations_after_keepers_01")
     qdf.SQL = strSQL
@@ -1514,10 +1528,8 @@ Public Function fun_import_fangraphs_hitters_calculate_values(strStatSource As S
     strStatus = "Insert into tbl_hitter_averages_and_standard_deviations_after_keepers from qry_fg_hitter_valuations_after_keepers_02"
     Call fun_upd_import_status(strStatus)
     strSQL = ""
-    strSQL = strSQL & "insert into tbl_hitter_averages_and_standard_deviations_after_keepers ( stat_source, ct, avgHR, stdHR, avgRBI, stdRBI, avgSB, stdSB, avgAVG ) "
-    strSQL = strSQL & "select qry_fg_hitter_valuations_after_keepers_02.stat_source, qry_fg_hitter_valuations_after_keepers_02.ct, qry_fg_hitter_valuations_after_keepers_02.avgHR, "
-    strSQL = strSQL & " qry_fg_hitter_valuations_after_keepers_02.stdHR, qry_fg_hitter_valuations_after_keepers_02.avgRBI, qry_fg_hitter_valuations_after_keepers_02.stdRBI, "
-    strSQL = strSQL & " qry_fg_hitter_valuations_after_keepers_02.avgSB, qry_fg_hitter_valuations_after_keepers_02.stdSB, qry_fg_hitter_valuations_after_keepers_02.avgAVG"
+    strSQL = strSQL & "insert into tbl_hitter_averages_and_standard_deviations_after_keepers ( stat_source, ct, avgHR, stdHR, avgRBI, stdRBI, avgR, stdR, avgSB, stdSB, avgAVG ) "
+    strSQL = strSQL & "select stat_source, ct, avgHR, stdHR, avgRBI, stdRBI, avgR, stdR, avgSB, stdSB, avgAVG"
     strSQL = strSQL & " from qry_fg_hitter_valuations_after_keepers_02;"
 'Debug.Print strSQL
     db.Execute strSQL, dbFailOnError
@@ -1531,6 +1543,8 @@ Public Function fun_import_fangraphs_hitters_calculate_values(strStatSource As S
     strSQL = strSQL & " tbl_hitter_averages_and_standard_deviations_after_keepers.stat_source set [" & strStatsCopyTableName & "].aKavgHR = [tbl_hitter_averages_and_standard_deviations_after_keepers].[avgHR], "
     strSQL = strSQL & " [aKstdHR] = [tbl_hitter_averages_and_standard_deviations_after_keepers].[stdHR], [aKavgRBI] = "
     strSQL = strSQL & " [tbl_hitter_averages_and_standard_deviations_after_keepers].[avgRBI], [aKstdRBI] = [tbl_hitter_averages_and_standard_deviations_after_keepers].[stdRBI], "
+    strSQL = strSQL & " [aKavgR] = "
+    strSQL = strSQL & " [tbl_hitter_averages_and_standard_deviations_after_keepers].[avgR], [aKstdR] = [tbl_hitter_averages_and_standard_deviations_after_keepers].[stdR], "
     strSQL = strSQL & " [aKavgSB] = [tbl_hitter_averages_and_standard_deviations_after_keepers].[avgSB], [aKstdSB] = "
     strSQL = strSQL & " [tbl_hitter_averages_and_standard_deviations_after_keepers].[stdSB], [aKavgAVG] = [tbl_hitter_averages_and_standard_deviations_after_keepers].[avgAVG] "
     strSQL = strSQL & " where IIf(IsNull([KeeperAdjustment]),0,[KeeperAdjustment])<>0 and IIf(IsNull([InfDollarValue]),0,[InfDollarValue])=0;"
@@ -1587,25 +1601,27 @@ Public Function fun_import_fangraphs_hitters_calculate_values(strStatSource As S
     'Debug.Print strSQL
     db.Execute strSQL, dbFailOnError
     '
-    ' Update aKvH, aKvHR, aKvRBI, aKvSB values in "stats copy" table
+    ' Update aKvH, aKvHR, aKvRBI, aKvSB, aKvR values in "stats copy" table
     '
-    strStatus = "Update aKvH, aKvHR, aKvRBI, aKvSB values in [" & strStatsCopyTableName & "]..."
+    strStatus = "Update aKvH, aKvHR, aKvRBI, aKvSB, aKvR values in [" & strStatsCopyTableName & "]..."
     Call fun_upd_import_status(strStatus)
     strSQL = ""
     strSQL = strSQL & "update [" & strStatsCopyTableName & "] set [aKvH] = [aKaH]/[aKstdAH], [aKvHR] = ([HR]-[aKavgHR])/[aKstdHR], "
-    strSQL = strSQL & " [aKvRBI] = ([RBI]-[aKavgRBI])/[aKstdRBI], [aKvSB] = ([SB]-[aKavgSB])/[aKstdSB] where "
+    strSQL = strSQL & " [aKvRBI] = ([RBI]-[aKavgRBI])/[aKstdRBI],"
+    strSQL = strSQL & " [aKvR] = ([R]-[aKavgR])/[aKstdR],"
+    strSQL = strSQL & " [aKvSB] = ([SB]-[aKavgSB])/[aKstdSB] where "
     strSQL = strSQL & " iif(isnull([KeeperAdjustment]), 0, [KeeperAdjustment])<>0 and iif(isnull([InfDollarValue]), 0, [InfDollarValue])=0 "
-    strSQL = strSQL & " and iif(isnull([aKstdAH]), 0, [aKstdAH])<>0 "
-    strSQL = strSQL & " and iif(isnull([aKstdHR]), 0, [aKstdHR])<>0 and iif(isnull([aKstdRBI]), 0, [aKstdRBI])<>0 and iif(isnull([aKstdSB]), 0, [aKstdSB])<>0;"
+    strSQL = strSQL & " and iif(isnull([aKstdAH]), 0, [aKstdAH])<>0 and iif(isnull([aKstdHR]), 0, [aKstdHR])<>0 "
+    strSQL = strSQL & " and iif(isnull([aKstdRBI]), 0, [aKstdRBI]) <> 0  and iif(isnull([aKstdR]), 0, [aKstdR]) <> 0 and iif(isnull([aKstdSB]), 0, [aKstdSB])<>0;"
     'Debug.Print strSQL
     db.Execute strSQL, dbFailOnError
     '
-    ' Update vTotal (sum aKvH, aKvHR, aKvRBI, and aKvSB) in "stats copy" table
+    ' Update vTotal (sum aKvH, aKvHR, aKvRBI, aKvR, and aKvSB) in "stats copy" table
     '
-    strStatus = "Update aKvH, aKvHR, aKvRBI, aKvSB values in [" & strStatsCopyTableName & "]..."
+    strStatus = "Update aKvH, aKvHR, aKvRBI, aKvR, and aKvSB values in [" & strStatsCopyTableName & "]..."
     Call fun_upd_import_status(strStatus)
     strSQL = ""
-    strSQL = strSQL & "update [" & strStatsCopyTableName & "] set [aKvTotal] = [aKvH]+[aKvHR]+[aKvRBI]+[aKvSB]"
+    strSQL = strSQL & "update [" & strStatsCopyTableName & "] set [aKvTotal] = [aKvH]+[aKvHR]+[aKvRBI]+[aKvSB]+[aKvR]"
     strSQL = strSQL & " where iif(isnull([KeeperAdjustment]), 0, [KeeperAdjustment]) <> 0 and iif(isnull([InfDollarValue]), 0, [InfDollarValue]) = 0;"
     'Debug.Print strSQL
     db.Execute strSQL, dbFailOnError
@@ -1736,6 +1752,11 @@ Public Function fun_import_onroto_hitters()
     Call fun_upd_import_status("Adding column [onroto_hitters_stage].[NL]...")
     'con.Execute "alter table onroto_hitters_stage add [NL] CHAR;"
     db.Execute "alter table onroto_hitters_stage add [NL] CHAR;"
+    
+    Call fun_upd_import_status("Adding column [onroto_hitters_stage].[R]...")
+    'con.Execute "alter table onroto_hitters_stage add [NL] CHAR;"
+    db.Execute "alter table onroto_hitters_stage add [R] long;"
+    
     Call fun_upd_import_status("Adding column [onroto_hitters_stage].[status]...")
     'con.Execute "alter table onroto_hitters_stage add [status] CHAR;"
     db.Execute "alter table onroto_hitters_stage add [status] CHAR;"
@@ -1763,6 +1784,7 @@ Public Function fun_import_onroto_hitters()
     'con.Close
     'Set con = Nothing
     ' Massage onroto_hitters_stage data
+    
     Call fun_upd_import_status("Query:  _onroto_hitters_stage_01_init_pos_status")
     DoCmd.OpenQuery "_onroto_hitters_stage_01_init_pos_status"
     Call fun_upd_import_status("Query:  _onroto_hitters_stage_02_upd_keepers")
@@ -1848,10 +1870,10 @@ Public Function fun_import_onroto_hitters()
     'Update onroto_stats_copy_hitters.stdaH from tbl_hitter_stdaH
     Call fun_upd_import_status("Query:  qry_hitter_averages_and_standard_deviations_onroto_update_03")
     DoCmd.OpenQuery "qry_hitter_averages_and_standard_deviations_onroto_update_03"
-    'Update onroto_stats_copy_hitters value rankings (vH, vHR, vRBI, vSB)
+    'Update onroto_stats_copy_hitters value rankings (vH, vHR, vRBI, vR, and vSB)
     Call fun_upd_import_status("Query:  qry_hitter_averages_and_standard_deviations_onroto_update_04")
     DoCmd.OpenQuery "qry_hitter_averages_and_standard_deviations_onroto_update_04"
-    'Update onroto_stats_copy_hitters.vTotal (sum vH, vHR, vRBI, and vSB)
+    'Update onroto_stats_copy_hitters.vTotal (sum vH, vHR, vRBI, vR, and vSB)
     Call fun_upd_import_status("Query:  qry_hitter_averages_and_standard_deviations_onroto_update_05")
     DoCmd.OpenQuery "qry_hitter_averages_and_standard_deviations_onroto_update_05"
     'Recreate tbl_rank_hitters, tbl_league_hitter_units, and tbl_keeper_hitter_counts_and_sums
@@ -1863,6 +1885,7 @@ Public Function fun_import_onroto_hitters()
             db.Execute "drop table " & strTableName
         End If
     Next
+    Call sub_drop_table("tbl_rank_hitters")
     strSQL = "create table tbl_rank_hitters (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
     Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_hitters")
     db.TableDefs.Refresh
@@ -1933,10 +1956,10 @@ Public Function fun_import_onroto_hitters()
     'Update onroto_stats_copy_hitters.aKstdaH from tbl_hitter_stdaH_after_keepers
     Call fun_upd_import_status("Query:  qry_hitter_avgs_and_stdevs_onroto_after_keepers_update_03")
     DoCmd.OpenQuery "qry_hitter_avgs_and_stdevs_onroto_after_keepers_update_03"
-    'Update onroto_stats_copy_hitters value rankings (aKvH, aKvHR, aKvRBI, aKvSB)
+    'Update onroto_stats_copy_hitters value rankings (aKvH, aKvHR, aKvRBI, aKvR and aKvSB)
     Call fun_upd_import_status("Query:  qry_hitter_avgs_and_stdevs_onroto_after_keepers_update_04")
     DoCmd.OpenQuery "qry_hitter_avgs_and_stdevs_onroto_after_keepers_update_04"
-    'Update onroto_stats_copy_hitters.aKvTotal (sum aKvH, aKvHR, aKvRBI, and aKvSB)
+    'Update onroto_stats_copy_hitters.aKvTotal (sum aKvH, aKvHR, aKvRBI, aKvR and aKvSB)
     Call fun_upd_import_status("Query:  qry_hitter_avgs_and_stdevs_onroto_after_keepers_update_05")
     DoCmd.OpenQuery "qry_hitter_avgs_and_stdevs_onroto_after_keepers_update_05"
     'Update [onroto_stats_copy_hitters].[KeeperAdjustment] to [tbl_hitter_rank_after_keepers] last rank's [vTotal] * (-1) -- 156 - keepers for the last hitter in the pool
@@ -2155,10 +2178,10 @@ Public Function fun_import_onroto_pitchers()
     'Update onroto_stats_copy_pitchers.stdaH from tbl_pitcher_stdaWH_stdaER
     Call fun_upd_import_status("Query:  qry_pitcher_averages_and_standard_deviations_onroto_update_03")
     DoCmd.OpenQuery "qry_pitcher_averages_and_standard_deviations_onroto_update_03"
-    'Update onroto_stats_copy_pitchers value rankings (vH, vHR, vRBI, vSB)
+    'Update onroto_stats_copy_pitchers value rankings (vW, vSV, vER, vWH)
     Call fun_upd_import_status("Query:  qry_pitcher_averages_and_standard_deviations_onroto_update_04")
     DoCmd.OpenQuery "qry_pitcher_averages_and_standard_deviations_onroto_update_04"
-    'Update onroto_stats_copy_pitchers.vTotal (sum vH, vHR, vRBI, and vSB)
+    'Update onroto_stats_copy_pitchers.vTotal (sum vW, vSV, vER, AND vWH)
     Call fun_upd_import_status("Query:  qry_pitcher_averages_and_standard_deviations_onroto_update_05")
     DoCmd.OpenQuery "qry_pitcher_averages_and_standard_deviations_onroto_update_05"
     'Recreate tbl_rank_pitchers, tbl_league_pitcher_units, and tbl_keeper_pitcher_counts_and_sums
@@ -2245,7 +2268,7 @@ Public Function fun_import_onroto_pitchers()
     'Update onroto_stats_copy_pitchers value rankings (aKvWH, aKvER, aKvW, aKvSV)
     Call fun_upd_import_status("Query:  qry_pitcher_avgs_and_stdevs_onroto_after_keepers_update_04")
     DoCmd.OpenQuery "qry_pitcher_avgs_and_stdevs_onroto_after_keepers_update_04"
-    'Update onroto_stats_copy_pitchers.vTotal (sum aKvH, aKvHR, aKvRBI, and aKvSB)
+    'Update onroto_stats_copy_pitchers.vTotal (sum aKvWH, aKvER, aKvW, and aKvSV)
     Call fun_upd_import_status("Query:  qry_pitcher_avgs_and_stdevs_onroto_after_keepers_update_05")
     DoCmd.OpenQuery "qry_pitcher_avgs_and_stdevs_onroto_after_keepers_update_05"
     'Update [onroto_stats_copy_pitchers].[KeeperAdjustment] to [tbl_pitcher_rank_after_keepers] last rank's [vTotal] * (-1) -- 144 - keepers for the last pitcher in the pool
@@ -2335,10 +2358,10 @@ Public Function fun_update_hitters_ESPN_values()
     'Update espn_stats_copy_hitters.stdaH from tbl_hitter_stdaH
     Call fun_upd_import_status("Query:  qry_hitter_averages_and_standard_deviations_espn_update_03")
     DoCmd.OpenQuery "qry_hitter_averages_and_standard_deviations_espn_update_03"
-    'Update espn_stats_copy_hitters value rankings (vH, vHR, vRBI, vSB)
+    'Update espn_stats_copy_hitters value rankings (vH, vHR, vRBI, vR and vSB)
     Call fun_upd_import_status("Query:  qry_hitter_averages_and_standard_deviations_espn_update_04")
     DoCmd.OpenQuery "qry_hitter_averages_and_standard_deviations_espn_update_04"
-    'Update espn_stats_copy_hitters.vTotal (sum vH, vHR, vRBI, and vSB)
+    'Update espn_stats_copy_hitters.vTotal (sum vH, vHR, vRBI, vR and vSB)
     Call fun_upd_import_status("Query:  qry_hitter_averages_and_standard_deviations_espn_update_05")
     DoCmd.OpenQuery "qry_hitter_averages_and_standard_deviations_espn_update_05"
     'Recreate tbl_rank_hitters, tbl_league_hitter_units, and tbl_keeper_hitter_counts_and_sums
@@ -2350,10 +2373,12 @@ Public Function fun_update_hitters_ESPN_values()
             db.Execute "drop table " & strTableName
         End If
     Next
+    Call sub_drop_table("tbl_rank_hitters")
+    Call sub_drop_table("tbl_rank_hitters_after_keepers")
     strSQL = "create table tbl_rank_hitters (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
     Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_hitters")
     db.TableDefs.Refresh
-    db.Execute "create table tbl_rank_hitters_after_keepers (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    strSQL = "create table tbl_rank_hitters_after_keepers (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
     Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_hitters_after_keepers")
     db.TableDefs.Refresh
     db.Execute "insert into tbl_rank_hitters (stat_source, vTotal, player_id ) select ""ESPN"" as stat_source, espn_stats_copy_hitters.vTotal, espn_stats_copy_hitters.player_id from espn_stats_copy_hitters order by vTotal desc, player_id;"
@@ -2369,6 +2394,11 @@ Public Function fun_update_hitters_ESPN_values()
     'Update [espn_stats_copy_hitters].[adjustment] to [hitter_rank] hitter #156's [vTotal] * (-1) -- 156 is the last hitter in the pool
     Call fun_upd_import_status("Query:  qry_upd_hitter_vTotal_adjustment_espn")
     DoCmd.OpenQuery "qry_upd_hitter_vTotal_adjustment_espn"
+    
+    Call fun_upd_import_status("Query:  qry_hitter_averages_and_standard_deviations_espn_update_05")
+    DoCmd.OpenQuery "qry_hitter_averages_and_standard_deviations_espn_update_05"
+    
+    
     'Update [espn_stats_copy_hitters].[adjTotal] to be [vTotal] + [adjustment]
     Call fun_upd_import_status("Query:  qry_hitter_averages_and_standard_deviations_espn_update_06")
     DoCmd.OpenQuery "qry_hitter_averages_and_standard_deviations_espn_update_06"
@@ -2420,10 +2450,10 @@ Public Function fun_update_hitters_ESPN_values()
     'Update espn_stats_copy_hitters.aKstdaH from tbl_hitter_stdaH_after_keepers
     Call fun_upd_import_status("Query:  qry_hitter_avgs_and_stdevs_espn_after_keepers_update_03")
     DoCmd.OpenQuery "qry_hitter_avgs_and_stdevs_espn_after_keepers_update_03"
-    'Update espn_stats_copy_hitters value rankings (aKvH, aKvHR, aKvRBI, aKvSB)
+    'Update espn_stats_copy_hitters value rankings (aKvH, aKvHR, aKvRBI, aKvR and aKvSB)
     Call fun_upd_import_status("Query:  qry_hitter_avgs_and_stdevs_espn_after_keepers_update_04")
     DoCmd.OpenQuery "qry_hitter_avgs_and_stdevs_espn_after_keepers_update_04"
-    'Update espn_stats_copy_hitters.vTotal (sum aKvH, aKvHR, aKvRBI, and aKvSB)
+    'Update espn_stats_copy_hitters.vTotal (sum aKvH, aKvHR, aKvRBI, aKvR and aKvSB)
     Call fun_upd_import_status("Query:  qry_hitter_avgs_and_stdevs_espn_after_keepers_update_05")
     DoCmd.OpenQuery "qry_hitter_avgs_and_stdevs_espn_after_keepers_update_05"
     'Update [espn_stats_copy_hitters].[KeeperAdjustment] to [tbl_hitter_rank_after_keepers] last rank's [vTotal] * (-1) -- 156 - keepers for the last hitter in the pool
@@ -2501,10 +2531,10 @@ Public Function fun_update_pitchers_ESPN_values()
     'Update espn_stats_copy_pitchers.stdaH from tbl_pitcher_stdaWH_stdaER
     Call fun_upd_import_status("Query:  qry_pitcher_averages_and_standard_deviations_espn_update_03")
     DoCmd.OpenQuery "qry_pitcher_averages_and_standard_deviations_espn_update_03"
-    'Update espn_stats_copy_pitchers value rankings (vH, vHR, vRBI, vSB)
+    'Update espn_stats_copy_pitchers value rankings (vW, vSV, vER, vWH)
     Call fun_upd_import_status("Query:  qry_pitcher_averages_and_standard_deviations_espn_update_04")
     DoCmd.OpenQuery "qry_pitcher_averages_and_standard_deviations_espn_update_04"
-    'Update espn_stats_copy_pitchers.vTotal (sum vH, vHR, vRBI, and vSB)
+    'Update espn_stats_copy_pitchers.vTotal (sum vW, vSV, vER, and vWH)
     Call fun_upd_import_status("Query:  qry_pitcher_averages_and_standard_deviations_espn_update_05")
     DoCmd.OpenQuery "qry_pitcher_averages_and_standard_deviations_espn_update_05"
     'Recreate tbl_rank_pitchers, tbl_league_pitcher_units, and tbl_keeper_pitcher_counts_and_sums
@@ -2519,7 +2549,7 @@ Public Function fun_update_pitchers_ESPN_values()
     strSQL = "create table tbl_rank_pitchers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
     Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_pitchers")
     db.TableDefs.Refresh
-    db.Execute "create table tbl_rank_pitchers_after_keepers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
+    strSQL = "create table tbl_rank_pitchers_after_keepers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
     Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_pitchers_after_keepers")
     db.TableDefs.Refresh
     db.Execute "insert into tbl_rank_pitchers (stat_source, vTotal, player_id ) select ""ESPN"" as stat_source, espn_stats_copy_pitchers.vTotal, espn_stats_copy_pitchers.player_id from espn_stats_copy_pitchers order by vTotal desc, player_id;"
@@ -2591,7 +2621,7 @@ Public Function fun_update_pitchers_ESPN_values()
     'Update espn_stats_copy_pitchers value rankings (aKvWH, aKvER, aKvW, aKvSV)
     Call fun_upd_import_status("Query:  qry_pitcher_avgs_and_stdevs_espn_after_keepers_update_04")
     DoCmd.OpenQuery "qry_pitcher_avgs_and_stdevs_espn_after_keepers_update_04"
-    'Update espn_stats_copy_pitchers.vTotal (sum aKvH, aKvHR, aKvRBI, and aKvSB)
+    'Update espn_stats_copy_pitchers.vTotal (sum aKvW, aKvSV, aKvER, and aKvWH)
     Call fun_upd_import_status("Query:  qry_pitcher_avgs_and_stdevs_espn_after_keepers_update_05")
     DoCmd.OpenQuery "qry_pitcher_avgs_and_stdevs_espn_after_keepers_update_05"
     'Update [espn_stats_copy_pitchers].[KeeperAdjustment] to [tbl_pitcher_rank_after_keepers] last rank's [vTotal] * (-1) -- 144 - keepers for the last pitcher in the pool
