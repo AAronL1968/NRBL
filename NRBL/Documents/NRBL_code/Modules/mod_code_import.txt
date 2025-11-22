@@ -9,6 +9,11 @@ Public Sub sub_run_all_imports()
     Dim strPitcherButton As String
     Dim iEnabled As Long
     Dim iFanGraphs As Long
+    Dim boolEnabled As Boolean
+    Dim boolHittersEnabled As Boolean
+    Dim boolPitchersEnabled As Boolean
+    Dim boolFangraphs As Boolean
+    
     Dim db As DAO.Database
     Dim rst As DAO.Recordset
     Dim ctlLoop As Control
@@ -17,22 +22,33 @@ Public Sub sub_run_all_imports()
     Dim strExecute As String
     
     Set db = CurrentDb
+    ' Initialize buttons
     Set rst = db.OpenRecordset("qry_external_stat_sources")
     Do While Not rst.EOF
         strStatSource = IIf(IsNull(rst!stat_source), "", rst!stat_source)
-        iFanGraphs = IIf(IsNull(rst!fangraphs), 0, Abs(CLng(rst!fangraphs)))
-        iEnabled = IIf(IsNull(rst!Enabled), 0, Abs(CLng(rst!Enabled)))
+        boolFangraphs = rst!fangraphs
+        boolEnabled = rst!Enabled
+        boolHittersEnabled = rst!hitter_enabled
+        boolPitchersEnabled = rst!pitcher_enabled
         strHitterButton = IIf(IsNull(rst!btn_name_import_hitters), "", rst!btn_name_import_hitters)
         strPitcherButton = IIf(IsNull(rst!btn_name_import_pitchers), "", rst!btn_name_import_pitchers)
         'Debug.Print strStatSource
         For Each ctlLoop In Forms!frm_imports.Controls
             strControlName = ctlLoop.Name
-            If strControlName = strHitterButton Or strControlName = strPitcherButton Then
-                If iEnabled = 0 Then
-                    ctlLoop.Enabled = False
-                Else
+            If strControlName = strHitterButton Then
+                If boolEnabled = True And boolHittersEnabled = True Then
                     ctlLoop.Enabled = True
                     ctlLoop.BackColor = CLR_BLUE_QUEUED
+                Else
+                    ctlLoop.Enabled = False
+                End If
+            End If
+            If strControlName = strPitcherButton Then
+                If boolEnabled = True And boolPitchersEnabled = True Then
+                    ctlLoop.Enabled = True
+                    ctlLoop.BackColor = CLR_BLUE_QUEUED
+                Else
+                    ctlLoop.Enabled = False
                 End If
             End If
         Next
@@ -40,41 +56,59 @@ Public Sub sub_run_all_imports()
     Loop
     rst.Close
     Set rst = Nothing
-    db.Close
-    Set db = Nothing
-        
     Forms!frm_imports.Requery
     Forms!frm_imports.Repaint
-    Call fun_import_onroto_hitters
-    Call fun_set_sources
-    Call fun_import_onroto_pitchers
-    Call fun_set_sources
-    Call fun_load_frm
-    
-    Set db = CurrentDb
-    Set rst = db.OpenRecordset("qry_external_stat_sources")
+    ' Import Hitters
+    Set rst = db.OpenRecordset("qry_external_stat_sources_hitter_sort")
     Do While Not rst.EOF
         strStatSource = IIf(IsNull(rst!stat_source), "", rst!stat_source)
-        iFanGraphs = IIf(IsNull(rst!fangraphs), 0, Abs(CLng(rst!fangraphs)))
-        iEnabled = IIf(IsNull(rst!Enabled), 0, Abs(CLng(rst!Enabled)))
-        strHitterButton = IIf(IsNull(rst!btn_name_import_hitters), "", rst!btn_name_import_hitters)
-        strPitcherButton = IIf(IsNull(rst!btn_name_import_pitchers), "", rst!btn_name_import_pitchers)
-        If iFanGraphs <> 0 And iEnabled <> 0 Then
-            If strHitterButton <> "" Then
+        boolFangraphs = rst!fangraphs
+        boolEnabled = rst!Enabled
+        boolHittersEnabled = rst!hitter_enabled
+        If boolEnabled = True And boolHittersEnabled = True Then
+            strHitterButton = IIf(IsNull(rst!btn_name_import_hitters), "", rst!btn_name_import_hitters)
+            If boolFangraphs = True Then
                 Call fun_import_fangraphs_hitters(strStatSource, False)
+            Else
+                If strStatSource = "OnRoto" Then
+                    Call fun_import_onroto_hitters
+                End If
+                If strStatSource = "ESPN" Then
+                    Call fun_update_hitters_ESPN_values
+                End If
             End If
-            If strPitcherButton <> "" Then
-                Call fun_import_fangraphs_pitchers(strStatSource, False)
-            End If
-            Call fun_set_sources
-            Call fun_load_frm
         End If
         rst.MoveNext
     Loop
     rst.Close
     Set rst = Nothing
+    ' Import Pitchers
+    Set rst = db.OpenRecordset("qry_external_stat_sources_pitcher_sort")
+    Do While Not rst.EOF
+        strStatSource = IIf(IsNull(rst!stat_source), "", rst!stat_source)
+        boolFangraphs = rst!fangraphs
+        boolEnabled = rst!Enabled
+        boolPitchersEnabled = rst!pitcher_enabled
+        If boolEnabled = True And boolPitchersEnabled = True Then
+            strPitcherButton = IIf(IsNull(rst!btn_name_import_pitchers), "", rst!btn_name_import_pitchers)
+            If boolFangraphs = True Then
+                Call fun_import_fangraphs_pitchers(strStatSource, False)
+            End If
+            If strStatSource = "OnRoto" Then
+                Call fun_import_onroto_pitchers
+            End If
+            If strStatSource = "ESPN" Then
+                Call fun_update_pitchers_ESPN_values
+            End If
+        End If
+        rst.MoveNext
+    Loop
+    rst.Close
     db.Close
     Set db = Nothing
+    
+    Call fun_set_sources
+    Call fun_load_frm
     
     DoCmd.OpenQuery "import_players_10_update_first_and_last_names"
     Forms!frm_imports!btn_run_all_imports.BackColor = CLR_GREEN_BTN

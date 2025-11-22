@@ -397,8 +397,8 @@ Public Sub sub_in_draft_value_recalculation()
             If strPitcherButton <> "" Then
                 Call fun_import_fangraphs_pitchers(strStatSource, True)
             End If
-            Call fun_set_sources
-            Call fun_load_frm
+            'Call fun_set_sources
+            'Call fun_load_frm
         End If
         rst.MoveNext
     Loop

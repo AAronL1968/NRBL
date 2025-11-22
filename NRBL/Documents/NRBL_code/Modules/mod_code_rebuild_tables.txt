@@ -155,6 +155,7 @@ Public Function fun_fix_autonumbers()
     Set db = Nothing
 End Function
 Public Function fun_reset_pre_draft_conditions()
+    DoCmd.Close acForm, "frm"
     Dim db As DAO.Database
     Dim tdf As DAO.TableDef
     Dim fld As DAO.Field
@@ -176,6 +177,7 @@ Public Function fun_reset_pre_draft_conditions()
     Set tdf = Nothing
     db.Close
     Set db = Nothing
+    DoCmd.OpenForm "frm"
     Forms!frm!frm_sub_status.Form.RecordSource = "tbl_team_projections_placeholder"
     Forms!frm!frm_sub_status.Requery
     DoCmd.Close acForm, "frm"
