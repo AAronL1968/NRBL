@@ -7,12 +7,10 @@ Public Sub sub_run_all_imports()
     Dim strStatSource As String
     Dim strHitterButton As String
     Dim strPitcherButton As String
-    Dim iEnabled As Long
-    Dim iFanGraphs As Long
     Dim boolEnabled As Boolean
     Dim boolHittersEnabled As Boolean
     Dim boolPitchersEnabled As Boolean
-    Dim boolFangraphs As Boolean
+    Dim boolFanGraphs As Boolean
     
     Dim db As DAO.Database
     Dim rst As DAO.Recordset
@@ -26,7 +24,7 @@ Public Sub sub_run_all_imports()
     Set rst = db.OpenRecordset("qry_external_stat_sources")
     Do While Not rst.EOF
         strStatSource = IIf(IsNull(rst!stat_source), "", rst!stat_source)
-        boolFangraphs = rst!fangraphs
+        boolFanGraphs = rst!fangraphs
         boolEnabled = rst!Enabled
         boolHittersEnabled = rst!hitter_enabled
         boolPitchersEnabled = rst!pitcher_enabled
@@ -62,12 +60,12 @@ Public Sub sub_run_all_imports()
     Set rst = db.OpenRecordset("qry_external_stat_sources_hitter_sort")
     Do While Not rst.EOF
         strStatSource = IIf(IsNull(rst!stat_source), "", rst!stat_source)
-        boolFangraphs = rst!fangraphs
+        boolFanGraphs = rst!fangraphs
         boolEnabled = rst!Enabled
         boolHittersEnabled = rst!hitter_enabled
         If boolEnabled = True And boolHittersEnabled = True Then
             strHitterButton = IIf(IsNull(rst!btn_name_import_hitters), "", rst!btn_name_import_hitters)
-            If boolFangraphs = True Then
+            If boolFanGraphs = True Then
                 Call fun_import_fangraphs_hitters(strStatSource, False)
             Else
                 If strStatSource = "OnRoto" Then
@@ -86,12 +84,12 @@ Public Sub sub_run_all_imports()
     Set rst = db.OpenRecordset("qry_external_stat_sources_pitcher_sort")
     Do While Not rst.EOF
         strStatSource = IIf(IsNull(rst!stat_source), "", rst!stat_source)
-        boolFangraphs = rst!fangraphs
+        boolFanGraphs = rst!fangraphs
         boolEnabled = rst!Enabled
         boolPitchersEnabled = rst!pitcher_enabled
         If boolEnabled = True And boolPitchersEnabled = True Then
             strPitcherButton = IIf(IsNull(rst!btn_name_import_pitchers), "", rst!btn_name_import_pitchers)
-            If boolFangraphs = True Then
+            If boolFanGraphs = True Then
                 Call fun_import_fangraphs_pitchers(strStatSource, False)
             End If
             If strStatSource = "OnRoto" Then
@@ -411,8 +409,8 @@ Public Function fun_import_fangraphs_pitchers_calculate_values(strStatSource As 
     strStatus = "Populate tbl_pitcher_averages_and_standard_deviations for " & strStatSource & "..."
     Call fun_upd_import_status(strStatus)
     strSQL = ""
-    strSQL = strSQL & "insert into tbl_pitcher_averages_and_standard_deviations ( stat_source, ER, IP, W_plus_H, avgW, stdW, avgSV, stdSV, avgWHIP, avgERA )"
-    strSQL = strSQL & " select stat_source, ER, IP, W_plus_H, avgW, stdW, avgSV, stdSV, avgWHIP, avgERA from qry_fg_pitcher_valuations_02"
+    strSQL = strSQL & "insert into tbl_pitcher_averages_and_standard_deviations ( stat_source, ER, IP, W_plus_H, avgW, stdW, avgSV, stdSV, avgK, stdK, avgWHIP, avgERA )"
+    strSQL = strSQL & " select stat_source, ER, IP, W_plus_H, avgW, stdW, avgSV, stdSV, avgK, stdK, avgWHIP, avgERA from qry_fg_pitcher_valuations_02"
     strSQL = strSQL & " where stat_source=" & """" & strStatSource & """" & ";"
     'Debug.Print strSQL
     ws.BeginTrans
@@ -430,6 +428,8 @@ Public Function fun_import_fangraphs_pitchers_calculate_values(strStatSource As 
     strSQL = strSQL & " [" & strStatsCopyTableName & "].stdW = [tbl_pitcher_averages_and_standard_deviations].[stdW], "
     strSQL = strSQL & " [" & strStatsCopyTableName & "].avgSV = [tbl_pitcher_averages_and_standard_deviations].[avgSV], "
     strSQL = strSQL & " [" & strStatsCopyTableName & "].stdSV = [tbl_pitcher_averages_and_standard_deviations].[stdSV], "
+    strSQL = strSQL & " [" & strStatsCopyTableName & "].avgK = [tbl_pitcher_averages_and_standard_deviations].[avgK], "
+    strSQL = strSQL & " [" & strStatsCopyTableName & "].stdK = [tbl_pitcher_averages_and_standard_deviations].[stdK], "
     strSQL = strSQL & " [" & strStatsCopyTableName & "].avgWHIP = [tbl_pitcher_averages_and_standard_deviations].[avgWHIP], "
     strSQL = strSQL & " [" & strStatsCopyTableName & "].avgERA = [tbl_pitcher_averages_and_standard_deviations].[avgERA], "
     strSQL = strSQL & " [" & strStatsCopyTableName & "].W_plus_H = [tbl_pitcher_averages_and_standard_deviations].[W_plus_H], "
@@ -485,13 +485,13 @@ Public Function fun_import_fangraphs_pitchers_calculate_values(strStatSource As 
     db.Execute strSQL, dbFailOnError
     ws.CommitTrans
     '
-    ' Update [vW], [vSV], [vER], and [vWH] in "stats copy" table
+    ' Update [vW], [vSV], [vK], [vER], and [vWH] in "stats copy" table
     '
-    strStatus = "Update [vW], [vSV], [vER], and [vWH] in " & strStatsCopyTableName & "..."
+    strStatus = "Update [vW], [vSV], [vK], [vER], and [vWH] in " & strStatsCopyTableName & "..."
     Call fun_upd_import_status(strStatus)
     strSQL = ""
-    strSQL = strSQL & "update [" & strStatsCopyTableName & "] set vW = ([W]-[avgW])/[stdW], vSV = ([SV]-[avgSV])/[stdSV], vER = [aER]/[stdaER], vWH = [aWH]/[stdaWH] "
-    strSQL = strSQL & " where stdW <> 0 and stdSV <> 0 and stdaER <> 0 and stdaWH <> 0;"
+    strSQL = strSQL & "update [" & strStatsCopyTableName & "] set vW = ([W]-[avgW])/[stdW], vSV = ([SV]-[avgSV])/[stdSV], vK = ([K]-[avgK])/[stdK], vER = [aER]/[stdaER], vWH = [aWH]/[stdaWH] "
+    strSQL = strSQL & " where stdW <> 0 and stdSV <> 0 and stdK <> 0 and stdaER <> 0 and stdaWH <> 0;"
     'Debug.Print strSQL
     ws.BeginTrans
     db.Execute strSQL, dbFailOnError
@@ -502,7 +502,7 @@ Public Function fun_import_fangraphs_pitchers_calculate_values(strStatSource As 
     strStatus = "Update [vTotal] in " & strStatsCopyTableName & "..."
     Call fun_upd_import_status(strStatus)
     strSQL = ""
-    strSQL = strSQL & "update [" & strStatsCopyTableName & "] set [" & strStatsCopyTableName & "].vTotal = [vW]+[vSV]+[vWH]+[vER];"
+    strSQL = strSQL & "update [" & strStatsCopyTableName & "] set [" & strStatsCopyTableName & "].vTotal = [vW]+[vSV]+[vK]+[vWH]+[vER];"
     'Debug.Print strSQL
     ws.BeginTrans
     db.Execute strSQL, dbFailOnError
@@ -520,29 +520,40 @@ Public Function fun_import_fangraphs_pitchers_calculate_values(strStatSource As 
             ws.CommitTrans
         End If
     Next
+    db.TableDefs.Refresh
     ws.BeginTrans
+    Call sub_drop_local_table("tbl_rank_pitchers")
     strSQL = "create table tbl_rank_pitchers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_pitchers")
+    'Call sub_build_local_table_from_sql(strSQL, "tbl_rank_pitchers")
+    Call sub_build_local_table_from_sql(strSQL)
     db.TableDefs.Refresh
     ws.CommitTrans
     ws.BeginTrans
+    Call sub_drop_local_table("tbl_rank_pitchers_after_keepers")
     strSQL = "create table tbl_rank_pitchers_after_keepers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_pitchers_after_keepers")
+    'Call sub_build_local_table_from_sql(strSQL, "tbl_rank_pitchers_after_keepers")
+    Call sub_build_local_table_from_sql(strSQL)
     db.TableDefs.Refresh
     ws.CommitTrans
     ws.BeginTrans
+    Call sub_drop_local_table("tbl_league_pitcher_units")
     strSQL = "create table tbl_league_pitcher_units ( stat_source char primary key, vPitcherUnits double )"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_pitcher_units")
+    'Call sub_build_local_table_from_sql(strSQL, "tbl_league_pitcher_units")
+    Call sub_build_local_table_from_sql(strSQL)
     db.TableDefs.Refresh
     ws.CommitTrans
     ws.BeginTrans
+    Call sub_drop_local_table("tbl_league_pitcher_units_after_keepers")
     strSQL = "create table tbl_league_pitcher_units_after_keepers ( stat_source char primary key, vPitcherUnits double )"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_pitcher_units_after_keepers")
+    'Call sub_build_local_table_from_sql(strSQL, "tbl_league_pitcher_units_after_keepers")
+    Call sub_build_local_table_from_sql(strSQL)
     db.TableDefs.Refresh
     ws.CommitTrans
     ws.BeginTrans
+    Call sub_drop_local_table("tbl_keeper_pitcher_counts_and_sums")
     strSQL = "create table tbl_keeper_pitcher_counts_and_sums ( stat_source char primary key, Keepers long, KeeperPool double, KeeperUnits double )"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_keeper_pitcher_counts_and_sums")
+    'Call sub_build_local_table_from_sql(strSQL, "tbl_keeper_pitcher_counts_and_sums")
+    Call sub_build_local_table_from_sql(strSQL)
     db.TableDefs.Refresh
     ws.CommitTrans
     '
@@ -731,7 +742,8 @@ Public Function fun_import_fangraphs_pitchers_calculate_values(strStatSource As 
     strSQL = strSQL & "select [" & strStatsCopyTableName & "].stat_source, Count(*) as ct, Sum([" & strStatsCopyTableName & "].IP) as IPs, "
     strSQL = strSQL & " Sum([ERA]*[IP]/9) as ERs, Sum([" & strStatsCopyTableName & "].W) as Ws, Sum([WHIP]*[IP]) as WHs, "
     strSQL = strSQL & " Avg([" & strStatsCopyTableName & "].W) as avgW, StDev([" & strStatsCopyTableName & "].W) as stdW, "
-    strSQL = strSQL & " Avg([" & strStatsCopyTableName & "].SV) as avgSV, StDev([" & strStatsCopyTableName & "].SV) as stdSV "
+    strSQL = strSQL & " Avg([" & strStatsCopyTableName & "].SV) as avgSV, StDev([" & strStatsCopyTableName & "].SV) as stdSV, "
+    strSQL = strSQL & " Avg([" & strStatsCopyTableName & "].K) as avgK, StDev([" & strStatsCopyTableName & "].K) as stdK "
     strSQL = strSQL & " from [" & strStatsCopyTableName & "] where [" & strStatsCopyTableName & "].KeeperAdjustment<>0 "
     strSQL = strSQL & " group by [" & strStatsCopyTableName & "].stat_source;"
     'Debug.Print strSQL
@@ -745,15 +757,15 @@ Public Function fun_import_fangraphs_pitchers_calculate_values(strStatSource As 
     strStatus = "Populate tbl_pitcher_averages_and_standard_deviations_after_keepers from qry_fg_pitcher_valuations_after_keepers_02..."
     Call fun_upd_import_status(strStatus)
     strSQL = ""
-    strSQL = strSQL & "insert into tbl_pitcher_averages_and_standard_deviations_after_keepers ( stat_source, ct, IP, ER, W_plus_H, avgW, stdW, avgSV, stdSV, avgWHIP, avgERA ) "
-    strSQL = strSQL & " select stat_source, ct, IPs, ERs, WHs, avgW, stdW, avgSV, stdSV, avgWHIP, avgERA "
+    strSQL = strSQL & "insert into tbl_pitcher_averages_and_standard_deviations_after_keepers ( stat_source, ct, IP, ER, W_plus_H, avgW, stdW, avgSV, stdSV, avgK, stdK, avgWHIP, avgERA ) "
+    strSQL = strSQL & " select stat_source, ct, IPs, ERs, WHs, avgW, stdW, avgSV, stdSV, avgK, stdK, avgWHIP, avgERA "
     strSQL = strSQL & " from qry_fg_pitcher_valuations_after_keepers_02;"
     'Debug.Print strSQL
     ws.BeginTrans
     db.Execute strSQL, dbFailOnError
     ws.CommitTrans
     '
-    ' Update "stats copy" values ([avgW], [stdW], [avgSV], [stdSV], [avgWHIP], and [avgERA]) from tbl_pitcher_averages_and_standard_deviations_after_keepers
+    ' Update "stats copy" values ([avgW], [stdW], [avgSV], [stdSV], [avgK], [stdK], [avgWHIP], and [avgERA]) from tbl_pitcher_averages_and_standard_deviations_after_keepers
     '
     strStatus = "Populate tbl_pitcher_averages_and_standard_deviations_after_keepers from qry_fg_pitcher_valuations_after_keepers_02..."
     Call fun_upd_import_status(strStatus)
@@ -764,6 +776,8 @@ Public Function fun_import_fangraphs_pitchers_calculate_values(strStatSource As 
     strSQL = strSQL & " [" & strStatsCopyTableName & "].aKstdW = [tbl_pitcher_averages_and_standard_deviations_after_keepers].[stdW], "
     strSQL = strSQL & " [" & strStatsCopyTableName & "].aKavgSV = [tbl_pitcher_averages_and_standard_deviations_after_keepers].[avgSV], "
     strSQL = strSQL & " [" & strStatsCopyTableName & "].aKstdSV = [tbl_pitcher_averages_and_standard_deviations_after_keepers].[stdSV], "
+    strSQL = strSQL & " [" & strStatsCopyTableName & "].aKavgK = [tbl_pitcher_averages_and_standard_deviations_after_keepers].[avgK], "
+    strSQL = strSQL & " [" & strStatsCopyTableName & "].aKstdK = [tbl_pitcher_averages_and_standard_deviations_after_keepers].[stdK], "
     strSQL = strSQL & " [" & strStatsCopyTableName & "].aKavgWHIP = [tbl_pitcher_averages_and_standard_deviations_after_keepers].[avgWHIP], "
     strSQL = strSQL & " [" & strStatsCopyTableName & "].aKavgERA = [tbl_pitcher_averages_and_standard_deviations_after_keepers].[avgERA] "
     strSQL = strSQL & " where [" & strStatsCopyTableName & "].KeeperAdjustment <> 0;"
@@ -832,15 +846,14 @@ Public Function fun_import_fangraphs_pitchers_calculate_values(strStatSource As 
     db.Execute strSQL, dbFailOnError
     ws.CommitTrans
     '
-    ' Update "stats copy" [aKvWH], [aKvER], [aKvW] and [aKvSV] from tbl_pitcher_stdaWH_stdaER_after_keepers
+    ' Update "stats copy" [aKvWH], [aKvER], [aKvW], [aKvSV], and [aKvK] from tbl_pitcher_stdaWH_stdaER_after_keepers
     '
-    strStatus = "Update " & strStatsCopyTableName & " [aKvWH], [aKvER], [aKvW] and [aKvSV] from tbl_pitcher_stdaWH_stdaER_after_keepers..."
+    strStatus = "Update " & strStatsCopyTableName & " [aKvWH], [aKvER], [aKvW], [aKvSV] and [aKvK] from tbl_pitcher_stdaWH_stdaER_after_keepers..."
     Call fun_upd_import_status(strStatus)
     strSQL = ""
-    strSQL = strSQL & "update [" & strStatsCopyTableName & "] set [aKvW] = ([W]-[aKavgW])/[aKstdW], [aKvSV] = ([SV]-[aKavgSV])/[aKstdSV], "
-    'strSQL = strSQL & " [aKvWH] = [aKaWH]/[aKstdaWH], [aKvER] = [aKaER]/[aKstdaER] "
+    strSQL = strSQL & "update [" & strStatsCopyTableName & "] set [aKvW] = ([W]-[aKavgW])/[aKstdW], [aKvSV] = ([SV]-[aKavgSV])/[aKstdSV], [aKvK] = ([K]-[aKavgK])/[aKstdK], "
     strSQL = strSQL & " [aKvWH] = [aWH]/[aKstdaWH], [aKvER] = [aER]/[aKstdaER] "
-    strSQL = strSQL & " where iif(isnull([KeeperAdjustment]), 0, [KeeperAdjustment]) <> 0 and iif(isnull([aKstdW]), 0, [aKstdW]) <> 0 and iif(isnull([aKstdSV]), 0, [aKstdSV]) <> 0"
+    strSQL = strSQL & " where iif(isnull([KeeperAdjustment]), 0, [KeeperAdjustment]) <> 0 and iif(isnull([aKstdW]), 0, [aKstdW]) <> 0 and iif(isnull([aKstdSV]), 0, [aKstdSV]) <> 0  and iif(isnull([aKstdK]), 0, [aKstdK]) <> 0 "
     strSQL = strSQL & " and iif(isnull([aKstdaWH]), 0, [aKstdaWH]) <> 0 and iif(isnull([aKstdaER]), 0, [aKstdaER]) <> 0;"
     'Debug.Print strSQL
     ws.BeginTrans
@@ -852,7 +865,7 @@ Public Function fun_import_fangraphs_pitchers_calculate_values(strStatSource As 
     strStatus = "Update " & strStatsCopyTableName & " [aKvTotal]..."
     Call fun_upd_import_status(strStatus)
     strSQL = ""
-    strSQL = strSQL & "update [" & strStatsCopyTableName & "] set aKvTotal = [aKvWH]+[aKvER]+[aKvW]+[aKvSV] "
+    strSQL = strSQL & "update [" & strStatsCopyTableName & "] set aKvTotal = [aKvWH]+[aKvER]+[aKvW]+[aKvSV]+[aKvK]"
     strSQL = strSQL & " where iif(isnull([KeeperAdjustment]), 0, [KeeperAdjustment]) <> 0 "
     strSQL = strSQL & " and iif(isnull([InfDollarValue]), 0, [InfDollarValue]) = 0;"
     'Debug.Print strSQL
@@ -1366,24 +1379,33 @@ Public Function fun_import_fangraphs_hitters_calculate_values(strStatSource As S
             db.Execute "drop table " & strTableName
         End If
     Next
-    Call sub_drop_table("tbl_rank_hitters")
+    Call sub_drop_local_table("tbl_rank_hitters")
     strSQL = "create table tbl_rank_hitters (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_hitters")
-    db.TableDefs.Refresh
+    'Call sub_build_local_table_from_sql(strSQL, "tbl_rank_hitters")
+    Call sub_build_local_table_from_sql(strSQL)
+    'db.TableDefs.Refresh
+    Call sub_drop_local_table("tbl_rank_hitters_after_keepers")
     strSQL = "create table tbl_rank_hitters_after_keepers (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_hitters_after_keepers")
-    db.TableDefs.Refresh
+    'Call sub_build_local_table_from_sql(strSQL, "tbl_rank_hitters_after_keepers")
+    Call sub_build_local_table_from_sql(strSQL)
+    'db.TableDefs.Refresh
     strSQL = "insert into tbl_rank_hitters (stat_source, vTotal, player_id ) select " & """" & strStatSource & """" & " as stat_source, [" & strStatsCopyTableName & "].vTotal, [" & strStatsCopyTableName & "].player_id from [" & strStatsCopyTableName & "] order by vTotal desc, player_id;"
 'Debug.Print strSQL
     db.Execute strSQL, dbFailOnError
+    Call sub_drop_local_table("tbl_league_hitter_units")
     strSQL = "create table tbl_league_hitter_units ( stat_source char primary key, vHitterUnits double )"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_hitter_units")
-    db.TableDefs.Refresh
+    'Call sub_build_local_table_from_sql(strSQL, "tbl_league_hitter_units")
+    Call sub_build_local_table_from_sql(strSQL)
+    'db.TableDefs.Refresh
+    Call sub_drop_local_table("tbl_league_hitter_units_after_keepers")
     strSQL = "create table tbl_league_hitter_units_after_keepers ( stat_source char primary key, vHitterUnits double )"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_hitter_units_after_keepers")
-    db.TableDefs.Refresh
+    'Call sub_build_local_table_from_sql(strSQL, "tbl_league_hitter_units_after_keepers")
+    Call sub_build_local_table_from_sql(strSQL)
+    'db.TableDefs.Refresh
+    Call sub_drop_local_table("tbl_keeper_hitter_counts_and_sums")
     strSQL = "create table tbl_keeper_hitter_counts_and_sums ( stat_source char primary key, Keepers long, KeeperPool double, KeeperUnits double )"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_keeper_hitter_counts_and_sums")
+    'Call sub_build_local_table_from_sql(strSQL, "tbl_keeper_hitter_counts_and_sums")
+    Call sub_build_local_table_from_sql(strSQL)
     db.TableDefs.Refresh
     '
     ' Update [adjustment] in "stats copy" table to [hitter_rank] hitter #156's [vTotal] * (-1) -- 156 is the last hitter in the pool (assuming SW is a hitter)
@@ -1919,22 +1941,26 @@ Public Function fun_import_onroto_hitters()
             db.Execute "drop table " & strTableName
         End If
     Next
-    Call sub_drop_table("tbl_rank_hitters")
+    Call sub_drop_local_table("tbl_rank_hitters")
     strSQL = "create table tbl_rank_hitters (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_hitters")
-    db.TableDefs.Refresh
+    Call sub_build_local_table_from_sql(strSQL)
+    'db.TableDefs.Refresh
+    Call sub_drop_local_table("tbl_rank_hitters_after_keepers")
     strSQL = "create table tbl_rank_hitters_after_keepers (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_hitters_after_keepers")
-    db.TableDefs.Refresh
+    Call sub_build_local_table_from_sql(strSQL)
+    'db.TableDefs.Refresh
     db.Execute "insert into tbl_rank_hitters (stat_source, vTotal, player_id ) select ""OnRoto"" as stat_source, onroto_stats_copy_hitters.vTotal, onroto_stats_copy_hitters.player_id from onroto_stats_copy_hitters order by vTotal desc, player_id;"
+    Call sub_drop_local_table("tbl_league_hitter_units")
     strSQL = "create table tbl_league_hitter_units ( stat_source char primary key, vHitterUnits double )"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_hitter_units")
-    db.TableDefs.Refresh
+    Call sub_build_local_table_from_sql(strSQL)
+    'db.TableDefs.Refresh
+    Call sub_drop_local_table("tbl_league_hitter_units_after_keepers")
     strSQL = "create table tbl_league_hitter_units_after_keepers ( stat_source char primary key, vHitterUnits double )"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_hitter_units_after_keepers")
-    db.TableDefs.Refresh
+    Call sub_build_local_table_from_sql(strSQL)
+    'db.TableDefs.Refresh
+    Call sub_drop_local_table("tbl_keeper_hitter_counts_and_sums")
     strSQL = "create table tbl_keeper_hitter_counts_and_sums ( stat_source char primary key, Keepers long, KeeperPool double, KeeperUnits double )"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_keeper_hitter_counts_and_sums")
+    Call sub_build_local_table_from_sql(strSQL)
     db.TableDefs.Refresh
     'Update [onroto_stats_copy_hitters].[adjustment] to [hitter_rank] hitter #156's [vTotal] * (-1) -- 156 is the last hitter in the pool
     Call fun_upd_import_status("Query:  qry_upd_hitter_vTotal_adjustment_onroto")
@@ -2085,6 +2111,9 @@ Public Function fun_import_onroto_pitchers()
     DoCmd.OpenQuery "qry_onroto_pitchers_raw_dup_abbreviations_append"
     DoCmd.OpenQuery "qry_upd_onroto_pitchers_raw_dup_abbrev"
     
+    Call fun_upd_import_status("Adding column [onroto_pitchers_stage].[K]...")
+    db.Execute "alter table onroto_pitchers_stage add [K] long;"
+    
     Call fun_upd_import_status("Adding column [onroto_pitchers_stage].[NL]...")
     'con.Execute "alter table onroto_pitchers_stage add [NL] CHAR;"
     db.Execute "alter table onroto_pitchers_stage add [NL] CHAR;"
@@ -2212,7 +2241,7 @@ Public Function fun_import_onroto_pitchers()
     'Update onroto_stats_copy_pitchers.stdaH from tbl_pitcher_stdaWH_stdaER
     Call fun_upd_import_status("Query:  qry_pitcher_averages_and_standard_deviations_onroto_update_03")
     DoCmd.OpenQuery "qry_pitcher_averages_and_standard_deviations_onroto_update_03"
-    'Update onroto_stats_copy_pitchers value rankings (vW, vSV, vER, vWH)
+    'Update onroto_stats_copy_pitchers value rankings (vW, vSV, vK, vER, vWH)
     Call fun_upd_import_status("Query:  qry_pitcher_averages_and_standard_deviations_onroto_update_04")
     DoCmd.OpenQuery "qry_pitcher_averages_and_standard_deviations_onroto_update_04"
     'Update onroto_stats_copy_pitchers.vTotal (sum vW, vSV, vER, AND vWH)
@@ -2227,21 +2256,28 @@ Public Function fun_import_onroto_pitchers()
             db.Execute "drop table " & strTableName
         End If
     Next
+    Set tdf = Nothing
+    db.TableDefs.Refresh
+    Call sub_drop_local_table("tbl_rank_pitchers")
     strSQL = "create table tbl_rank_pitchers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_pitchers")
-    db.TableDefs.Refresh
+    Call sub_build_local_table_from_sql(strSQL)
+    'db.TableDefs.Refresh
+    Call sub_drop_local_table("tbl_rank_pitchers_after_keepers")
     strSQL = "create table tbl_rank_pitchers_after_keepers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_pitchers_after_keepers")
-    db.TableDefs.Refresh
+    Call sub_build_local_table_from_sql(strSQL)
+    'db.TableDefs.Refresh
     db.Execute "insert into tbl_rank_pitchers (stat_source, vTotal, player_id ) select ""OnRoto"" as stat_source, onroto_stats_copy_pitchers.vTotal, onroto_stats_copy_pitchers.player_id from onroto_stats_copy_pitchers order by vTotal desc, player_id;"
+    Call sub_drop_local_table("tbl_league_pitcher_units")
     strSQL = "create table tbl_league_pitcher_units ( stat_source char primary key, vPitcherUnits double )"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_pitcher_units")
-    db.TableDefs.Refresh
+    Call sub_build_local_table_from_sql(strSQL)
+    'db.TableDefs.Refresh
+    Call sub_drop_local_table("tbl_league_pitcher_units_after_keepers")
     strSQL = "create table tbl_league_pitcher_units_after_keepers ( stat_source char primary key, vPitcherUnits double )"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_pitcher_units_after_keepers")
-    db.TableDefs.Refresh
+    Call sub_build_local_table_from_sql(strSQL)
+    'db.TableDefs.Refresh
+    Call sub_drop_local_table("tbl_keeper_pitcher_counts_and_sums")
     strSQL = "create table tbl_keeper_pitcher_counts_and_sums ( stat_source char primary key, Keepers long, KeeperPool double, KeeperUnits double )"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_keeper_pitcher_counts_and_sums")
+    Call sub_build_local_table_from_sql(strSQL)
     db.TableDefs.Refresh
     'Update [onroto_stats_copy_pitchers].[adjustment] to [pitcher_rank] pitcher #144's [vTotal] * (-1) -- 144 is the last pitcher in the pool
     Call fun_upd_import_status("Query:  qry_upd_pitcher_vTotal_adjustment_onroto")
@@ -2408,22 +2444,25 @@ Public Function fun_update_hitters_ESPN_values()
         End If
     Next
     Call sub_drop_table("tbl_rank_hitters")
-    Call sub_drop_table("tbl_rank_hitters_after_keepers")
     strSQL = "create table tbl_rank_hitters (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_hitters")
-    db.TableDefs.Refresh
+    Call sub_build_local_table_from_sql(strSQL)
+    'db.TableDefs.Refresh
+    Call sub_drop_table("tbl_rank_hitters_after_keepers")
     strSQL = "create table tbl_rank_hitters_after_keepers (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_hitters_after_keepers")
-    db.TableDefs.Refresh
+    Call sub_build_local_table_from_sql(strSQL)
+    'db.TableDefs.Refresh
     db.Execute "insert into tbl_rank_hitters (stat_source, vTotal, player_id ) select ""ESPN"" as stat_source, espn_stats_copy_hitters.vTotal, espn_stats_copy_hitters.player_id from espn_stats_copy_hitters order by vTotal desc, player_id;"
+    Call sub_drop_table("tbl_league_hitter_units")
     strSQL = "create table tbl_league_hitter_units ( stat_source char primary key, vHitterUnits double )"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_hitter_units")
-    db.TableDefs.Refresh
+    Call sub_build_local_table_from_sql(strSQL)
+    'db.TableDefs.Refresh
+    Call sub_drop_table("tbl_league_hitter_units_after_keepers")
     strSQL = "create table tbl_league_hitter_units_after_keepers ( stat_source char primary key, vHitterUnits double )"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_hitter_units_after_keepers")
-    db.TableDefs.Refresh
+    Call sub_build_local_table_from_sql(strSQL)
+    'db.TableDefs.Refresh
+    Call sub_drop_table("tbl_keeper_hitter_counts_and_sums")
     strSQL = "create table tbl_keeper_hitter_counts_and_sums ( stat_source char primary key, Keepers long, KeeperPool double, KeeperUnits double )"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_keeper_hitter_counts_and_sums")
+    Call sub_build_local_table_from_sql(strSQL)
     db.TableDefs.Refresh
     'Update [espn_stats_copy_hitters].[adjustment] to [hitter_rank] hitter #156's [vTotal] * (-1) -- 156 is the last hitter in the pool
     Call fun_upd_import_status("Query:  qry_upd_hitter_vTotal_adjustment_espn")
@@ -2565,7 +2604,7 @@ Public Function fun_update_pitchers_ESPN_values()
     'Update espn_stats_copy_pitchers.stdaH from tbl_pitcher_stdaWH_stdaER
     Call fun_upd_import_status("Query:  qry_pitcher_averages_and_standard_deviations_espn_update_03")
     DoCmd.OpenQuery "qry_pitcher_averages_and_standard_deviations_espn_update_03"
-    'Update espn_stats_copy_pitchers value rankings (vW, vSV, vER, vWH)
+    'Update espn_stats_copy_pitchers value rankings (vW, vSV, vK, vER, vWH)
     Call fun_upd_import_status("Query:  qry_pitcher_averages_and_standard_deviations_espn_update_04")
     DoCmd.OpenQuery "qry_pitcher_averages_and_standard_deviations_espn_update_04"
     'Update espn_stats_copy_pitchers.vTotal (sum vW, vSV, vER, and vWH)
@@ -2580,22 +2619,25 @@ Public Function fun_update_pitchers_ESPN_values()
             db.Execute "drop table " & strTableName
         End If
     Next
+    Call sub_drop_table("tbl_rank_pitchers")
     strSQL = "create table tbl_rank_pitchers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_pitchers")
-    db.TableDefs.Refresh
+    Call sub_build_local_table_from_sql(strSQL)
+    'db.TableDefs.Refresh
+    Call sub_drop_table("tbl_rank_pitchers_after_keepers")
     strSQL = "create table tbl_rank_pitchers_after_keepers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_rank_pitchers_after_keepers")
-    db.TableDefs.Refresh
+    Call sub_build_local_table_from_sql(strSQL)
+    'db.TableDefs.Refresh
+    Call sub_drop_table("tbl_rank_pitchers")
     db.Execute "insert into tbl_rank_pitchers (stat_source, vTotal, player_id ) select ""ESPN"" as stat_source, espn_stats_copy_pitchers.vTotal, espn_stats_copy_pitchers.player_id from espn_stats_copy_pitchers order by vTotal desc, player_id;"
+    Call sub_drop_table("tbl_league_pitcher_units")
     strSQL = "create table tbl_league_pitcher_units ( stat_source char primary key, vPitcherUnits double )"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_pitcher_units")
-    db.TableDefs.Refresh
+    Call sub_build_local_table_from_sql(strSQL)
+    Call sub_drop_table("tbl_league_pitcher_units_after_keepers")
     strSQL = "create table tbl_league_pitcher_units_after_keepers ( stat_source char primary key, vPitcherUnits double )"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_league_pitcher_units_after_keepers")
-    db.TableDefs.Refresh
+    Call sub_build_local_table_from_sql(strSQL)
+    Call sub_drop_table("tbl_keeper_pitcher_counts_and_sums")
     strSQL = "create table tbl_keeper_pitcher_counts_and_sums ( stat_source char primary key, Keepers long, KeeperPool double, KeeperUnits double )"
-    Call sub_rebuild_and_relink_table(strSQL, "tbl_keeper_pitcher_counts_and_sums")
-    db.TableDefs.Refresh
+    Call sub_build_local_table_from_sql(strSQL)
     'Update [espn_stats_copy_pitchers].[adjustment] to [pitcher_rank] pitcher #144's [vTotal] * (-1) -- 144 is the last pitcher in the pool
     Call fun_upd_import_status("Query:  qry_upd_pitcher_vTotal_adjustment_espn")
     DoCmd.OpenQuery "qry_upd_pitcher_vTotal_adjustment_espn"

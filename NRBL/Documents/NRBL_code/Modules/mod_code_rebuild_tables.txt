@@ -56,6 +56,29 @@ Public Sub sub_drop_table(strTableName As String)
     Set tdf = Nothing
     Set db = Nothing
 End Sub
+Public Sub sub_drop_local_table(strTableName As String)
+    Dim db As DAO.Database
+    Dim tdf As DAO.TableDef
+    Dim strSQL As String
+    Set db = CurrentDb
+    For Each tdf In db.TableDefs
+        If tdf.Name = strTableName Then
+            strSQL = "drop table " & strTableName
+            db.Execute strSQL, dbFailOnError
+        End If
+    Next tdf
+    Set tdf = Nothing
+    db.TableDefs.Refresh
+    db.Close
+    Set db = Nothing
+End Sub
+Public Sub sub_build_local_table_from_sql(strSQL As String)
+    Dim db As DAO.Database
+    Set db = CurrentDb
+    db.Execute strSQL, dbFailOnError
+    db.Close
+    Set db = Nothing
+End Sub
 Public Sub sub_build_table_from_sql(strSQL As String, strFileNameWithPath As String)
     Dim db As DAO.Database
     Set db = OpenDatabase(strFileNameWithPath)
@@ -332,6 +355,11 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column stdSV double"
     db.Execute strSQL, dbFailOnError
+    strSQL = "alter table " & strStatsCopyTableName & " add column avgK double"
+    db.Execute strSQL, dbFailOnError
+    strSQL = "alter table " & strStatsCopyTableName & " add column stdK double"
+    db.Execute strSQL, dbFailOnError
+    
     strSQL = "alter table " & strStatsCopyTableName & " add column avgWHIP double"
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column avgERA double"
@@ -347,6 +375,8 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
     strSQL = "alter table " & strStatsCopyTableName & " add column vW double"
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column vSV double"
+    db.Execute strSQL, dbFailOnError
+    strSQL = "alter table " & strStatsCopyTableName & " add column vK double"
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column vWH double"
     db.Execute strSQL, dbFailOnError
@@ -388,6 +418,10 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column aKstdSV double"
     db.Execute strSQL, dbFailOnError
+    strSQL = "alter table " & strStatsCopyTableName & " add column aKavgK double"
+    db.Execute strSQL, dbFailOnError
+    strSQL = "alter table " & strStatsCopyTableName & " add column aKstdK double"
+    db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column aKaWH double"
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column aKaER double"
@@ -399,6 +433,8 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
     strSQL = "alter table " & strStatsCopyTableName & " add column aKvW double"
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column aKvSV double"
+    db.Execute strSQL, dbFailOnError
+    strSQL = "alter table " & strStatsCopyTableName & " add column aKvK double"
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column aKvWH double"
     db.Execute strSQL, dbFailOnError
