@@ -344,61 +344,104 @@ Public Sub sub_in_draft_value_recalculation()
     Dim db As DAO.Database
     Dim rst As DAO.Recordset
     Dim strStatSource As String
-    Dim iFanGraphs As Long
-    Dim iEnabled As Long
+    Dim boolFanGraphs As Boolean
+    Dim boolEnabled As Boolean
+    Dim boolHittersEnabled As Boolean
+    Dim boolPitchersEnabled As Boolean
+    Dim boolRecalcHitters As Boolean
+    Dim boolRecalcPitchers As Boolean
     Dim strHitterButton As String
     Dim strPitcherButton As String
     Dim ctlLoop As Control
     Dim strControlName As String
     Set db = CurrentDb
-    Set rst = db.OpenRecordset("qry_external_stat_sources")
+    Set rst = db.OpenRecordset("qry_external_stat_sources_hitter_sort")
     Do While Not rst.EOF
         strStatSource = IIf(IsNull(rst!stat_source), "", rst!stat_source)
-        iFanGraphs = IIf(IsNull(rst!fangraphs), 0, Abs(CLng(rst!fangraphs)))
-        iEnabled = IIf(IsNull(rst!Enabled), 0, Abs(CLng(rst!Enabled)))
+        boolFanGraphs = rst!fangraphs
+        boolEnabled = rst!Enabled
+        boolHittersEnabled = rst!hitter_enabled
+        boolRecalcHitters = rst!recalc_hitters
         strHitterButton = IIf(IsNull(rst!btn_name_import_hitters), "", rst!btn_name_import_hitters)
+        If Not CurrentProject.AllForms("frm_imports").IsLoaded Then
+            DoCmd.OpenForm "frm_imports"
+        End If
+        If boolRecalcHitters = True And boolHittersEnabled = True Then
+            For Each ctlLoop In Forms!frm_imports.Controls
+                strControlName = ctlLoop.Name
+                If strControlName = strHitterButton Then
+                    If boolEnabled = False Then
+                        ctlLoop.Enabled = False
+                    Else
+                        ctlLoop.Enabled = True
+                        ctlLoop.BackColor = CLR_BLUE_QUEUED
+                    End If
+                End If
+            Next
+        End If
+        rst.MoveNext
+    Loop
+    rst.Close
+    Set rst = Nothing
+    Set rst = db.OpenRecordset("qry_external_stat_sources_pitcher_sort")
+    Do While Not rst.EOF
+        strStatSource = IIf(IsNull(rst!stat_source), "", rst!stat_source)
+        boolFanGraphs = rst!fangraphs
+        boolEnabled = rst!Enabled
+        boolPitchersEnabled = rst!pitcher_enabled
+        boolRecalcPitchers = rst!recalc_pitchers
         strPitcherButton = IIf(IsNull(rst!btn_name_import_pitchers), "", rst!btn_name_import_pitchers)
         If Not CurrentProject.AllForms("frm_imports").IsLoaded Then
             DoCmd.OpenForm "frm_imports"
         End If
-        For Each ctlLoop In Forms!frm_imports.Controls
-            strControlName = ctlLoop.Name
-            If strControlName = strHitterButton Or strControlName = strPitcherButton Then
-                If iEnabled = 0 Then
-                    ctlLoop.Enabled = False
-                Else
-                    ctlLoop.Enabled = True
-                    ctlLoop.BackColor = CLR_BLUE_QUEUED
+        If boolRecalcPitchers = True And boolPitchersEnabled = True Then
+            For Each ctlLoop In Forms!frm_imports.Controls
+                strControlName = ctlLoop.Name
+                If strControlName = strPitcherButton Then
+                    If boolEnabled = False Then
+                        ctlLoop.Enabled = False
+                    Else
+                        ctlLoop.Enabled = True
+                        ctlLoop.BackColor = CLR_BLUE_QUEUED
+                    End If
                 End If
-            End If
-        Next
+            Next
+        End If
         rst.MoveNext
     Loop
     rst.Close
     Set rst = Nothing
-    db.Close
-    Set db = Nothing
-        
     Forms!frm_imports.Requery
     Forms!frm_imports.Repaint
-    
-    Set db = CurrentDb
-    Set rst = db.OpenRecordset("qry_external_stat_sources")
+    Set rst = db.OpenRecordset("qry_external_stat_sources_hitter_sort")
     Do While Not rst.EOF
         strStatSource = IIf(IsNull(rst!stat_source), "", rst!stat_source)
-        iFanGraphs = IIf(IsNull(rst!fangraphs), 0, Abs(CLng(rst!fangraphs)))
-        iEnabled = IIf(IsNull(rst!Enabled), 0, Abs(CLng(rst!Enabled)))
+        boolFanGraphs = rst!fangraphs
+        boolEnabled = rst!Enabled
+        boolHittersEnabled = rst!hitter_enabled
+        boolRecalcHitters = rst!recalc_hitters
         strHitterButton = IIf(IsNull(rst!btn_name_import_hitters), "", rst!btn_name_import_hitters)
-        strPitcherButton = IIf(IsNull(rst!btn_name_import_pitchers), "", rst!btn_name_import_pitchers)
-        If iFanGraphs <> 0 And iEnabled <> 0 Then
+        If boolRecalcHitters = True And boolHittersEnabled = True And boolEnabled = True Then
             If strHitterButton <> "" Then
                 Call fun_import_fangraphs_hitters(strStatSource, True)
             End If
-            If strPitcherButton <> "" Then
+        End If
+        rst.MoveNext
+    Loop
+    rst.Close
+    Set rst = Nothing
+    Set rst = db.OpenRecordset("qry_external_stat_sources_pitcher_sort")
+    Do While Not rst.EOF
+        strStatSource = IIf(IsNull(rst!stat_source), "", rst!stat_source)
+        boolFanGraphs = rst!fangraphs
+        boolEnabled = rst!Enabled
+        boolPitchersEnabled = rst!pitcher_enabled
+        boolRecalcPitchers = rst!recalc_pitchers
+        strPitcherButton = IIf(IsNull(rst!btn_name_import_pitchers), "", rst!btn_name_import_pitchers)
+        If boolRecalcPitchers = True And boolPitchersEnabled = True And boolEnabled = True Then
+            If strHitterButton <> "" Then
                 Call fun_import_fangraphs_pitchers(strStatSource, True)
             End If
-            Call fun_set_sources
-            Call fun_load_frm
         End If
         rst.MoveNext
     Loop
@@ -406,7 +449,8 @@ Public Sub sub_in_draft_value_recalculation()
     Set rst = Nothing
     db.Close
     Set db = Nothing
-    
+    Forms!frm_imports.Requery
+    Forms!frm_imports.Repaint
     If Not CurrentProject.AllForms("frm").IsLoaded Then
         DoCmd.OpenForm "frm"
     End If

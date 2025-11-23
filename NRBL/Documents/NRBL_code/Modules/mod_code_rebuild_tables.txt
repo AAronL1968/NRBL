@@ -56,6 +56,29 @@ Public Sub sub_drop_table(strTableName As String)
     Set tdf = Nothing
     Set db = Nothing
 End Sub
+Public Sub sub_drop_local_table(strTableName As String)
+    Dim db As DAO.Database
+    Dim tdf As DAO.TableDef
+    Dim strSQL As String
+    Set db = CurrentDb
+    For Each tdf In db.TableDefs
+        If tdf.Name = strTableName Then
+            strSQL = "drop table " & strTableName
+            db.Execute strSQL, dbFailOnError
+        End If
+    Next tdf
+    Set tdf = Nothing
+    db.TableDefs.Refresh
+    db.Close
+    Set db = Nothing
+End Sub
+Public Sub sub_build_local_table_from_sql(strSQL As String)
+    Dim db As DAO.Database
+    Set db = CurrentDb
+    db.Execute strSQL, dbFailOnError
+    db.Close
+    Set db = Nothing
+End Sub
 Public Sub sub_build_table_from_sql(strSQL As String, strFileNameWithPath As String)
     Dim db As DAO.Database
     Set db = OpenDatabase(strFileNameWithPath)
@@ -121,7 +144,7 @@ Public Function fun_fix_autonumbers()
     Set db = CurrentDb
     For Each tdf In db.TableDefs
         strTableName = tdf.Name
-        If strTableName = "HR_points" Or strTableName = "RBI_points" Or strTableName = "SB_points" Or strTableName = "AVG_points" Or strTableName = "W_points" Or strTableName = "SV_points" Or strTableName = "ERA_points" Or strTableName = "WHIP_points" Then
+        If (strTableName = "HR_points" Or strTableName = "RBI_points" Or strTableName = "SB_points" Or strTableName = "AVG_points" Or strTableName = "R_points" Or strTableName = "W_points" Or strTableName = "SV_points" Or strTableName = "ERA_points" Or strTableName = "WHIP_points" Or strTableName = "K_points") Then
             Call sub_drop_table(strTableName)
         End If
     Next
@@ -135,22 +158,6 @@ Public Function fun_fix_autonumbers()
     boolCreatedTable = fn_rebuild_stat_points_table("SV")
     boolCreatedTable = fn_rebuild_stat_points_table("ERA")
     boolCreatedTable = fn_rebuild_stat_points_table("WHIP")
-    'strSQL = "create table HR_points (HR_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), HR int)"
-    'Call sub_rebuild_and_relink_table(strSQL, "HR_points")
-    'strSQL = "create table RBI_points (RBI_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), RBI int)"
-    'Call sub_rebuild_and_relink_table(strSQL, "RBI_points")
-    'strSQL = "create table SB_points (SB_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), SB int)"
-    'Call sub_rebuild_and_relink_table(strSQL, "SB_points")
-    'strSQL = "create table AVG_points (AVG_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), AVG double)"
-    'Call sub_rebuild_and_relink_table(strSQL, "AVG_points")
-    'strSQL = "create table W_points (W_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), W int)"
-    'Call sub_rebuild_and_relink_table(strSQL, "W_points")
-    'strSQL = "create table SV_points (SV_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), SV int)"
-    'Call sub_rebuild_and_relink_table(strSQL, "SV_points")
-    'strSQL = "create table ERA_points (ERA_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), ERA double)"
-    'Call sub_rebuild_and_relink_table(strSQL, "ERA_points")
-    'strSQL = "create table WHIP_points (WHIP_rank COUNTER(1, 1) PRIMARY KEY, Owner VARCHAR(255), WHIP double)"
-    'Call sub_rebuild_and_relink_table(strSQL, "WHIP_points")
     
     db.TableDefs.Refresh
     DoCmd.OpenQuery "qry_HR_points_append"
@@ -171,6 +178,7 @@ Public Function fun_fix_autonumbers()
     Set db = Nothing
 End Function
 Public Function fun_reset_pre_draft_conditions()
+    DoCmd.Close acForm, "frm"
     Dim db As DAO.Database
     Dim tdf As DAO.TableDef
     Dim fld As DAO.Field
@@ -192,6 +200,7 @@ Public Function fun_reset_pre_draft_conditions()
     Set tdf = Nothing
     db.Close
     Set db = Nothing
+    DoCmd.OpenForm "frm"
     Forms!frm!frm_sub_status.Form.RecordSource = "tbl_team_projections_placeholder"
     Forms!frm!frm_sub_status.Requery
     DoCmd.Close acForm, "frm"
@@ -346,6 +355,11 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column stdSV double"
     db.Execute strSQL, dbFailOnError
+    strSQL = "alter table " & strStatsCopyTableName & " add column avgK double"
+    db.Execute strSQL, dbFailOnError
+    strSQL = "alter table " & strStatsCopyTableName & " add column stdK double"
+    db.Execute strSQL, dbFailOnError
+    
     strSQL = "alter table " & strStatsCopyTableName & " add column avgWHIP double"
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column avgERA double"
@@ -361,6 +375,8 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
     strSQL = "alter table " & strStatsCopyTableName & " add column vW double"
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column vSV double"
+    db.Execute strSQL, dbFailOnError
+    strSQL = "alter table " & strStatsCopyTableName & " add column vK double"
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column vWH double"
     db.Execute strSQL, dbFailOnError
@@ -402,6 +418,10 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column aKstdSV double"
     db.Execute strSQL, dbFailOnError
+    strSQL = "alter table " & strStatsCopyTableName & " add column aKavgK double"
+    db.Execute strSQL, dbFailOnError
+    strSQL = "alter table " & strStatsCopyTableName & " add column aKstdK double"
+    db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column aKaWH double"
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column aKaER double"
@@ -413,6 +433,8 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
     strSQL = "alter table " & strStatsCopyTableName & " add column aKvW double"
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column aKvSV double"
+    db.Execute strSQL, dbFailOnError
+    strSQL = "alter table " & strStatsCopyTableName & " add column aKvK double"
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column aKvWH double"
     db.Execute strSQL, dbFailOnError
