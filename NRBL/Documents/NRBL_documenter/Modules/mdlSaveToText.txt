@@ -117,6 +117,7 @@ End_DocumentDatabase:
 ' You only close if you opened it
     If Len(Trim(WhatDatabase & "")) > 0 Then
         appAccess.CloseCurrentDatabase
+        appAccess.Quit
     End If
     Set appAccess = Nothing
     SysCmd acSysCmdClearStatus
