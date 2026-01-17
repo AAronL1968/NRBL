@@ -1,3 +1,4 @@
+' mod_code_main
 Option Compare Database
 Option Explicit
 Public Const CLR_WHITE As String = "&Hffffff"
@@ -107,7 +108,7 @@ Public Function fun_load_frm()
     Dim strDBName As String
     strDBFile = db.Name
     strHeader = strYear & " NRBL Auction"
-    strCaption = strHeader & " (NL-Only, " & iTeamCt & " Teams) | Draft Cap: $" & CStr(CLng(fDraftCap)) & " | In-Season Cap: $" & CStr(CLng(fInSeasonCap)) & " | FAAB $" & CStr(CLng(fFAAB))
+    strCaption = strHeader & " (NL-Only, " & iTeamCt & " Teams) | " & fn_get_stat_position_category_ct_description & " | Draft Cap: $" & CStr(CLng(fDraftCap)) & " | In-Season Cap: $" & CStr(CLng(fInSeasonCap)) & " | FAAB $" & CStr(CLng(fFAAB))
     strCaption = strCaption & " | Slots - H: " & iHitterSlots & "  P: " & iPitcherSlots & "  SW: " & iSwingmanSlots
     strFooter = strCaption & " | Floors - IP: " & iIPFloor & "  AB: " & iABFloor
     If fn_db_is_mock = True Then
