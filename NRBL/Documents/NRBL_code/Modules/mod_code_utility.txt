@@ -125,3 +125,35 @@ Public Function fn_get_date_as_string(ByVal dtDate As Date) As String
     strDate = strYear & "-" & strMonth & "-" & strDay
     fn_get_date_as_string = strDate
 End Function
+Public Function fn_get_stat_position_category_ct_description() As String
+    fn_get_stat_position_category_ct_description = ""
+    Dim db As DAO.Database
+    Dim rst As DAO.Recordset
+    Dim iHitterCategoryCt As Long
+    Dim iPitcherCategoryCt As Long
+    Dim strPositionCategory As String
+    Dim strPositionCategoryCtDescription As String
+    strPositionCategoryCtDescription = ""
+    iHitterCategoryCt = 0
+    iPitcherCategoryCt = 0
+    Set db = CurrentDb
+    Set rst = db.QueryDefs("qry_active_stat_position_category_cts").OpenRecordset()
+    Do While Not rst.EOF
+        strPositionCategory = IIf(IsNull(rst!position_category), "", rst!position_category)
+        If strPositionCategory = "Hitter" Then
+            iHitterCategoryCt = IIf(IsNull(rst!position_category_ct), 0, rst!position_category_ct)
+        End If
+        If strPositionCategory = "Pitcher" Then
+            iPitcherCategoryCt = IIf(IsNull(rst!position_category_ct), 0, rst!position_category_ct)
+        End If
+        rst.MoveNext
+    Loop
+    rst.Close
+    Set rst = Nothing
+    db.Close
+    Set db = Nothing
+    If iHitterCategoryCt > 0 And iPitcherCategoryCt > 0 Then
+        strPositionCategoryCtDescription = CStr(iHitterCategoryCt) & "x" & CStr(iPitcherCategoryCt)
+    End If
+    fn_get_stat_position_category_ct_description = strPositionCategoryCtDescription
+End Function
