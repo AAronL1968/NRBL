@@ -34,6 +34,9 @@ Public Sub sub_drop_table(strTableName As String)
         strBackFileNameWithPath = Replace(strDataPath & "\" & DB_DATA, "\\", "\")
     End If
     Set db = OpenDatabase(strBackFileNameWithPath)
+    If CurrentProject.AllForms("frm").IsLoaded Then
+        Forms!frm!frm_sub_status.Form.RecordSource = "tbl_subform_recordsource"
+    End If
     For Each tdf In db.TableDefs
         strWorkTableName = tdf.Name
         If strWorkTableName = strTableName Then
@@ -92,10 +95,14 @@ Public Function fn_rebuild_stat_points_table(strStat As String) As Boolean
     Dim strSQL As String
     Dim strPositionCategory As String
     Dim boolIsCountingCategory As Boolean
-    
     Dim db As DAO.Database
     Dim rst As DAO.Recordset
+    Dim boolFrmIsLoaded As Boolean
     strPositionCategory = ""
+    boolFrmIsLoaded = CurrentProject.AllForms("frm").IsLoaded
+    'If boolFrmIsLoaded = True Then
+    '    DoCmd.Close acForm, "frm"
+    'End If
     strTableName = Trim(strStat) & "_points"
     Set db = CurrentDb
     strSQL = "select * from stat_categories where is_active = True and stat_category_name = " & """" & Replace(strStat, """", """""") & """" & ";"
@@ -109,7 +116,7 @@ Public Function fn_rebuild_stat_points_table(strStat As String) As Boolean
     db.Close
     Set db = Nothing
     If strPositionCategory <> "" Then
-        Call sub_drop_table(strTableName)
+        Call sub_drop_local_table(strTableName)
         strSQL = "create table [" & Replace(strTableName, """", """""") & "] ( [" & Replace(strStat, """", """""") & "_rank] counter(1,1) primary key,"
         strSQL = strSQL & " Owner varchar, [" & Replace(strStat, """", """""") & "] "
         If boolIsCountingCategory Then
@@ -118,6 +125,9 @@ Public Function fn_rebuild_stat_points_table(strStat As String) As Boolean
             strSQL = strSQL & " double )"
         End If
         Call sub_rebuild_and_relink_table(strSQL, strTableName)
+        'If boolFrmIsLoaded = True Then
+        '    DoCmd.OpenForm "frm"
+        'End If
         fn_rebuild_stat_points_table = True
         Exit Function
     Else
@@ -145,7 +155,7 @@ Public Function fun_fix_autonumbers()
     For Each tdf In db.TableDefs
         strTableName = tdf.Name
         If (strTableName = "HR_points" Or strTableName = "RBI_points" Or strTableName = "SB_points" Or strTableName = "AVG_points" Or strTableName = "R_points" Or strTableName = "W_points" Or strTableName = "SV_points" Or strTableName = "ERA_points" Or strTableName = "WHIP_points" Or strTableName = "K_points") Then
-            Call sub_drop_table(strTableName)
+            Call sub_drop_local_table(strTableName)
         End If
     Next
     boolCreatedTable = fn_rebuild_stat_points_table("R")
@@ -177,35 +187,43 @@ Public Function fun_fix_autonumbers()
     db.Close
     Set db = Nothing
 End Function
-Public Function fun_reset_pre_draft_conditions()
-    DoCmd.Close acForm, "frm"
+Public Function fun_reset_pre_draft_conditions() As Boolean
+    fun_reset_pre_draft_conditions = False
     Dim db As DAO.Database
     Dim tdf As DAO.TableDef
     Dim fld As DAO.Field
     Dim strTableName As String
     Dim strSQL As String
+    Dim boolFrmIsLoaded As Boolean
+    boolFrmIsLoaded = CurrentProject.AllForms("frm").IsLoaded
+    If boolFrmIsLoaded Then
+        DoCmd.Close acForm, "frm"
+    End If
     Set db = CurrentDb
     DoCmd.OpenQuery "qry_reset_nrbl_players_to_pre_draft_status"
     DoCmd.OpenQuery "qry_reset_team_position_slots_to_pre_draft_status"
     For Each tdf In db.TableDefs
         strTableName = tdf.Name
         If strTableName = "draft_picks" Then
-            Call sub_drop_table(strTableName)
+            Call sub_drop_local_table(strTableName)
         End If
     Next
     strSQL = "create table draft_picks (draft_pick_seq COUNTER(1, 1) PRIMARY KEY, player_id int, last_name VARCHAR(255), first_name VARCHAR(255), opening_bidder VARCHAR(255), opening_bid currency, Owner VARCHAR(255), cont VARCHAR(255), Sal currency )"
-    Call sub_rebuild_and_relink_table(strSQL, "HR_points")
+    Call sub_rebuild_and_relink_table(strSQL, "draft_picks")
     db.TableDefs.Refresh
     Set fld = Nothing
     Set tdf = Nothing
     db.Close
     Set db = Nothing
-    DoCmd.OpenForm "frm"
-    Forms!frm!frm_sub_status.Form.RecordSource = "tbl_team_projections_placeholder"
-    Forms!frm!frm_sub_status.Requery
-    DoCmd.Close acForm, "frm"
-    DoCmd.OpenForm "frm"
+    'DoCmd.OpenForm "frm"
+    'Forms!frm!frm_sub_status.Form.RecordSource = "tbl_team_projections_placeholder"
+    'Forms!frm!frm_sub_status.Requery
+    'DoCmd.Close acForm, "frm"
+    'If boolFrmIsLoaded Then
+    '    DoCmd.OpenForm "frm"
+    'End If
   ' DoCmd.OpenQuery "qpt_NRBL_reset_to_pre_draft_status"
+    fun_reset_pre_draft_conditions = True
 End Function
 Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As String, boolTreatDrafteesAsKeepers As Boolean)
     DoCmd.SetWarnings True

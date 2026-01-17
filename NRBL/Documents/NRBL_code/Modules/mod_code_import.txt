@@ -2443,24 +2443,24 @@ Public Function fun_update_hitters_ESPN_values()
             db.Execute "drop table " & strTableName
         End If
     Next
-    Call sub_drop_table("tbl_rank_hitters")
+    Call sub_drop_local_table("tbl_rank_hitters")
     strSQL = "create table tbl_rank_hitters (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
     Call sub_build_local_table_from_sql(strSQL)
     'db.TableDefs.Refresh
-    Call sub_drop_table("tbl_rank_hitters_after_keepers")
+    Call sub_drop_local_table("tbl_rank_hitters_after_keepers")
     strSQL = "create table tbl_rank_hitters_after_keepers (hitter_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
     Call sub_build_local_table_from_sql(strSQL)
     'db.TableDefs.Refresh
     db.Execute "insert into tbl_rank_hitters (stat_source, vTotal, player_id ) select ""ESPN"" as stat_source, espn_stats_copy_hitters.vTotal, espn_stats_copy_hitters.player_id from espn_stats_copy_hitters order by vTotal desc, player_id;"
-    Call sub_drop_table("tbl_league_hitter_units")
+    Call sub_drop_local_table("tbl_league_hitter_units")
     strSQL = "create table tbl_league_hitter_units ( stat_source char primary key, vHitterUnits double )"
     Call sub_build_local_table_from_sql(strSQL)
     'db.TableDefs.Refresh
-    Call sub_drop_table("tbl_league_hitter_units_after_keepers")
+    Call sub_drop_local_table("tbl_league_hitter_units_after_keepers")
     strSQL = "create table tbl_league_hitter_units_after_keepers ( stat_source char primary key, vHitterUnits double )"
     Call sub_build_local_table_from_sql(strSQL)
     'db.TableDefs.Refresh
-    Call sub_drop_table("tbl_keeper_hitter_counts_and_sums")
+    Call sub_drop_local_table("tbl_keeper_hitter_counts_and_sums")
     strSQL = "create table tbl_keeper_hitter_counts_and_sums ( stat_source char primary key, Keepers long, KeeperPool double, KeeperUnits double )"
     Call sub_build_local_table_from_sql(strSQL)
     db.TableDefs.Refresh
@@ -2619,23 +2619,23 @@ Public Function fun_update_pitchers_ESPN_values()
             db.Execute "drop table " & strTableName
         End If
     Next
-    Call sub_drop_table("tbl_rank_pitchers")
+    Call sub_drop_local_table("tbl_rank_pitchers")
     strSQL = "create table tbl_rank_pitchers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
     Call sub_build_local_table_from_sql(strSQL)
     'db.TableDefs.Refresh
-    Call sub_drop_table("tbl_rank_pitchers_after_keepers")
+    Call sub_drop_local_table("tbl_rank_pitchers_after_keepers")
     strSQL = "create table tbl_rank_pitchers_after_keepers (pitcher_rank COUNTER(1, 1) PRIMARY KEY, stat_source varchar, vTotal double, player_id long)"
     Call sub_build_local_table_from_sql(strSQL)
     'db.TableDefs.Refresh
-    Call sub_drop_table("tbl_rank_pitchers")
+    Call sub_drop_local_table("tbl_rank_pitchers")
     db.Execute "insert into tbl_rank_pitchers (stat_source, vTotal, player_id ) select ""ESPN"" as stat_source, espn_stats_copy_pitchers.vTotal, espn_stats_copy_pitchers.player_id from espn_stats_copy_pitchers order by vTotal desc, player_id;"
-    Call sub_drop_table("tbl_league_pitcher_units")
+    Call sub_drop_local_table("tbl_league_pitcher_units")
     strSQL = "create table tbl_league_pitcher_units ( stat_source char primary key, vPitcherUnits double )"
     Call sub_build_local_table_from_sql(strSQL)
-    Call sub_drop_table("tbl_league_pitcher_units_after_keepers")
+    Call sub_drop_local_table("tbl_league_pitcher_units_after_keepers")
     strSQL = "create table tbl_league_pitcher_units_after_keepers ( stat_source char primary key, vPitcherUnits double )"
     Call sub_build_local_table_from_sql(strSQL)
-    Call sub_drop_table("tbl_keeper_pitcher_counts_and_sums")
+    Call sub_drop_local_table("tbl_keeper_pitcher_counts_and_sums")
     strSQL = "create table tbl_keeper_pitcher_counts_and_sums ( stat_source char primary key, Keepers long, KeeperPool double, KeeperUnits double )"
     Call sub_build_local_table_from_sql(strSQL)
     'Update [espn_stats_copy_pitchers].[adjustment] to [pitcher_rank] pitcher #144's [vTotal] * (-1) -- 144 is the last pitcher in the pool
