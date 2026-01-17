@@ -343,7 +343,7 @@ Public Function fun_import_fangraphs_pitchers_populate_objects(strStatSource As 
     Call fun_upd_import_status(strStatus)
     strSQL = ""
     strSQL = strSQL & "insert into [" & strStatsCopyTableName & "] ( player_id, Owner, Player, NL, Contract, Sal, stat_source, IP, W, SV, WHIP, ERA, K, BB, Onroto_ID, steamer_id )" & vbCrLf
-    strSQL = strSQL & " select player_id, Owner, Player, NL, Contract, Sal, stat_source, IP, W, SV, WHIP, ERA, K, BB, Onroto_ID, steamer_id from NRBL_players"
+    strSQL = strSQL & " select player_id, Owner, Player, NL, Contract, Sal, stat_source, IP, W, SV, WHIP, ERA, K, BB, Onroto_ID, steamer_id from qry_in_scope_players"
     strSQL = strSQL & " where stat_source = " & """" & strStatSource & """" & " and (position_category=""Pitcher"" or position_category=""Swingman"");"
     
     'Debug.Print strSQL
@@ -1223,7 +1223,7 @@ Public Function fun_import_fangraphs_hitters_populate_objects(strStatSource As S
     Call fun_upd_import_status(strStatus)
     strSQL = ""
     strSQL = strSQL & "insert into [" & strStatsCopyTableName & "] ( KeeperAdjustment, player_id, Owner, Player, NL, Contract, Sal, stat_source, AB, HR, RBI, R, SB, [AVG], SLG, OPS, steamer_id, Onroto_ID )"
-    strSQL = strSQL & "select 0.0 as KeeperAdjustment, player_id, Owner, Player, NL, Contract, Sal, stat_source, AB, HR, RBI, R, SB, Avg, SLG, OPS, steamer_id, Onroto_ID from NRBL_players"
+    strSQL = strSQL & "select 0.0 as KeeperAdjustment, player_id, Owner, Player, NL, Contract, Sal, stat_source, AB, HR, RBI, R, SB, Avg, SLG, OPS, steamer_id, Onroto_ID from qry_in_scope_players"
     strSQL = strSQL & " where stat_source = " & """" & strStatSource & """" & " and (position_category = ""Hitter"" or position_category = ""Swingman"");"
 'Debug.Print strSQL
     db.Execute strSQL, dbFailOnError
@@ -1513,7 +1513,7 @@ Public Function fun_import_fangraphs_hitters_calculate_values(strStatSource As S
     '
     ' Populate tbl_rank_hitters_after_keepers
     '
-    strStatus = "Populate tbl_rancak_hitters_after_keepers from " & strStatsCopyTableName & "..."
+    strStatus = "Populate tbl_rank_hitters_after_keepers from " & strStatsCopyTableName & "..."
     Call fun_upd_import_status(strStatus)
     strSQL = "delete from tbl_rank_hitters_after_keepers where stat_source = " & """" & strStatSource & """" & ";"
 'Debug.Print strSQL
