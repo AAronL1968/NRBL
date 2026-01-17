@@ -4,7 +4,7 @@ Public Function fn_code_test() As String
     fn_code_test = "Success"
 End Function
 Public Sub sub_table_rowct_study()
-    Call sub_drop_table("___table_rowct_study")
+    Call sub_drop_local_table("___table_rowct_study")
     Dim db As DAO.Database
     Dim tdf As DAO.TableDef
     Dim strSQL As String
@@ -23,7 +23,7 @@ Public Sub sub_table_rowct_study()
     Set db = Nothing
 End Sub
 Public Sub sub_connect_string_study()
-    Call sub_drop_table("___qpt_connect_string_study")
+    Call sub_drop_local_table("___qpt_connect_string_study")
     Dim db As DAO.Database
     Dim tdf As DAO.TableDef
     Dim strSQL As String
@@ -44,29 +44,6 @@ Public Sub sub_connect_string_study()
     Set tdf = Nothing
     db.Close
     Set db = Nothing
-End Sub
-Public Sub sub_rebuild_REGAL_MainDataSet()
-    Dim strSQL As String
-    Dim boolIsMock As Boolean
-    Dim strDataPath As String
-    Dim strFileNameWithPath As String
-    Dim strTableName As String
-    strTableName = "REGAL_MainDataSet"
-    boolIsMock = fn_db_is_mock()
-    strDataPath = fn_get_db_data_path()
-    If boolIsMock = True Then
-        strFileNameWithPath = Replace(strDataPath & "\" & DB_DATA_MOCK, "\\", "\")
-    Else
-        strFileNameWithPath = Replace(strDataPath & "\" & DB_DATA, "\\", "\")
-    End If
-    Call sub_drop_table(strTableName)
-    strSQL = "create table REGAL_MainDataSet ( ID counter(1,1) primary key,"
-    strSQL = strSQL & " FilmKey varchar, LocationCode varchar, BusinessDate varchar, TicketClass varchar,"
-    strSQL = strSQL & " TicketType_Short varchar, TicketType varchar, ShowtimeLocal datetime, Auditorium varchar,"
-    strSQL = strSQL & " PrintId long, Attendance long, QtyVoid long, QtyRefund long, QtySwap long, BoxGross currency, BoxNet currency )"
-    Call sub_build_table_from_sql(strSQL, strFileNameWithPath)
-    Call link_access_table(strTableName, strTableName, strFileNameWithPath)
-    set_status_bar ("")
 End Sub
 Public Sub sub_check_AllModules_for_OptionExplicit()
     Dim objProject As Access.CurrentProject
