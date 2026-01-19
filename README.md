@@ -1,5 +1,27 @@
 # Norwood Recreational Baseball League (NL Only)
 ## This is where AAron maintains his fantasy baseball database application.
+## 2026 updates:  
+The 2026 NRBL auction draft is Saturday, March 28.
+ - implement "NRBL_documenter" database
+ - refactor code
+     - stop creating new DBs every year. New main front-end app is now `.\NRBL\NRBL_front.accdb`
+         - old dbs are moved to `.\Archives`
+     - stop creating separate copy of the front-end application for mock drafts.
+         - user selects environment at startup, via "Draft" or "Mock Draft" button
+         - move all data tables out of front-end, automatically drop and link after user selects environment
+             - "Draft" - set all back-end data to link to tables in `.\NRBL_data\NRBL_data.accdb`
+             - "Mock Draft" - set all back-end data to link to tables in `.\NRBL_data\NRBL_mock.accdb`
+             - copying `.\NRBL_data\NRBL_data.accdb` to `.\NRBL_data\NRBL_mock.accdb` will refresh the mock data
+                 - running `.\NRBL\backup_data_to_mock.bat` automatically refreshes `.\NRBL_data\NRBL_mock.accdb` from `.\NRBL_data\NRBL_data.accdb`
+     - move all code modules from front-end to separate database file, `.\NRBL\NRBL_code.accdb`
+         - automatically remove and connect reference to `NRBL_code.accdb` at startup
+- insert directly into NRBL_players from FanGraphs data (bypass OnRoto)
+- populate "Last Year" actual values from FanGraphs, calculate dollar values earned, value analysis queries
+- add Runs ( `R` ) and Strikeouts ( `K` ) as categories, bringing the league from 4x4 to 5x5
+    - add `stat_categories` and `season_category_junction` tables to make the categories more modular/dynamic; add and expand existing queries, form controls, etc.
+- import FanGraphs defensive data for previous year to determine position eligibility
+- implment "Out of Scope" status to reduce delete/re-inserts
+    - set `NRBL_players.Status` to "Out of Scope" if `NRBL_players.NL` = "AL" (moved to the American League) or `NRBL_players.pos` = "DH" (unable to set position based on last year's FanGraphs defensive data, likely a minor leaguer)
 ## 2025 updates:  
 The 2025 NRBL auction draft is Saturday, March 29.
  - added new OOPSY projection system 
