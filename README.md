@@ -23,7 +23,7 @@ The 2026 NRBL auction draft is Saturday, March 28.
 - update historical queries to include 2025 (user story `NRBL2026-03`)
 - add subform to frm_app_settings to enable/disable/add/edit stat caegories (user story `NRBL2026-04`)
 - implement "Out of Scope" status to reduce delete/re-inserts (user story `NRBL2026-05`)
-    - set `NRBL_players.Status` to "Out of Scope" if `NRBL_players.NL` = "AL" (moved to the American League) or `NRBL_players.pos` = "DH" (unable to set position based on last year's FanGraphs defensive data, likely a minor leaguer)
+    - default `NRBL_players.Status` to "Out of Scope" if `NRBL_players.NL` = "AL" (moved to the American League) or `NRBL_players.pos` = "DH" (unable to set position based on last year's FanGraphs defensive data, likely a minor leaguer)
 - import FanGraphs defensive data for previous year to determine position eligibility, bypassing OnRoto (user story `NRBL2026-06`)
 ## 2025 updates:  
 The 2025 NRBL auction draft is Saturday, March 29.
