@@ -3,6 +3,7 @@
 ## 2026 updates:  
 The 2026 NRBL auction draft is Saturday, March 28.
  - implement "NRBL_documenter" database
+     - exports all Access Forms, Modules, Queries, Reports, and Scripts to text files for all databases in `.\NRBL`, greatly improving Git/diff visibility
  - refactor code
      - stop creating new DBs every year. New main front-end app is now `.\NRBL\NRBL_front.accdb`
          - old dbs are moved to `.\Archives`
