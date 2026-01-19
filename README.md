@@ -2,9 +2,9 @@
 ## This is where AAron maintains his fantasy baseball database application.
 ## 2026 updates:  
 The 2026 NRBL auction draft is Saturday, March 28.
- - implement "NRBL_documenter" database
+ - implement "NRBL_documenter" database (user story `NRBL2025-25`)
      - exports all Access Forms, Modules, Queries, Reports, and Scripts to text files for all databases in `.\NRBL`, greatly improving Git/diff visibility
- - refactor code
+ - refactor code (user story `NRBL2025-26`)
      - stop creating new DBs every year. New main front-end app is now `.\NRBL\NRBL_front.accdb`
          - old dbs are moved to `.\Archives`
      - stop creating separate copy of the front-end application for mock drafts.
@@ -16,13 +16,15 @@ The 2026 NRBL auction draft is Saturday, March 28.
                  - running `.\NRBL\backup_data_to_mock.bat` automatically refreshes `.\NRBL_data\NRBL_mock.accdb` from `.\NRBL_data\NRBL_data.accdb`
      - move all code modules from front-end to separate database file, `.\NRBL\NRBL_code.accdb`
          - automatically remove and connect reference to `NRBL_code.accdb` at startup
-- insert directly into NRBL_players from FanGraphs data (bypass OnRoto)
-- populate "Last Year" actual values from FanGraphs, calculate dollar values earned, value analysis queries
-- add Runs ( `R` ) and Strikeouts ( `K` ) as categories, bringing the league from 4x4 to 5x5
+- insert directly into NRBL_players from FanGraphs data (bypass OnRoto) (tacked on to user story `NRBL2025-26`)
+- populate "Last Year" actual values from FanGraphs, calculate dollar values earned, value analysis queries (tacked on to user story `NRBL2025-26`)
+- - add Runs ( `R` ) and Strikeouts ( `K` ) as categories, bringing the league from 4x4 to 5x5 (user story `NRBL2025-27`)
     - add `stat_categories` and `season_category_junction` tables to make the categories more modular/dynamic; add and expand existing queries, form controls, etc.
-- import FanGraphs defensive data for previous year to determine position eligibility
-- implment "Out of Scope" status to reduce delete/re-inserts
+- update historical queries to include 2025 (user story `NRBL2026-03`)
+- add subform to frm_app_settings to enable/disable/add/edit stat caegories (user story `NRBL2026-04`)
+- implement "Out of Scope" status to reduce delete/re-inserts (user story `NRBL2026-05`)
     - set `NRBL_players.Status` to "Out of Scope" if `NRBL_players.NL` = "AL" (moved to the American League) or `NRBL_players.pos` = "DH" (unable to set position based on last year's FanGraphs defensive data, likely a minor leaguer)
+- import FanGraphs defensive data for previous year to determine position eligibility, bypassing OnRoto (user story `NRBL2026-06`)
 ## 2025 updates:  
 The 2025 NRBL auction draft is Saturday, March 29.
  - added new OOPSY projection system 
