@@ -323,7 +323,7 @@ Public Function fun_set_status()
         iOpeningBid = rst!opening_bid
         iSal = rst!Sal
         strNL = rst!NL
-        strPos = rst!Pos
+        strPos = rst!pos
         rst.Close
         Set rst = Nothing
         strLastDraftPick = "Last drafted: " & Trim(strFirstName) & " " & Trim(strLastName)
