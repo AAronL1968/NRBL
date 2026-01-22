@@ -11,6 +11,7 @@ Public Sub sub_run_all_imports()
     Dim boolHittersEnabled As Boolean
     Dim boolPitchersEnabled As Boolean
     Dim boolFanGraphs As Boolean
+    Dim boolFanGraphsPos As Boolean
     
     Dim db As DAO.Database
     Dim rst As DAO.Recordset
@@ -109,6 +110,7 @@ Public Sub sub_run_all_imports()
     Call fun_load_frm
     
     DoCmd.OpenQuery "import_players_10_update_first_and_last_names"
+    boolFanGraphsPos = fn_set_positions_from_fangraphs_last_year_defense
     Forms!frm_imports!btn_run_all_imports.BackColor = CLR_GREEN_BTN
     Forms!frm_imports.Requery
     Forms!frm_imports.Repaint
@@ -2831,7 +2833,7 @@ Public Sub refresh_selected_player_hitter_stats()
     Set rst = db.OpenRecordset("tbl_selected_hitter_for_stats")
     strPlayer = Trim(IIf(IsNull(rst!Player), "Player?", rst!Player))
     strTeam = Trim(IIf(IsNull(rst!NL), "?", rst!NL))
-    strPos = Trim(IIf(IsNull(rst!Pos), "?", rst!Pos))
+    strPos = Trim(IIf(IsNull(rst!pos), "?", rst!pos))
     strTeamAndPos = strTeam & " - " & strPos
     strPosCat = rst!position_category
     If IsNull(rst!tout) Then
@@ -2928,7 +2930,7 @@ Public Sub refresh_selected_player_pitcher_stats()
     Set rst = db.OpenRecordset("tbl_selected_pitcher_for_stats")
     strPlayer = Trim(IIf(IsNull(rst!Player), "Player?", rst!Player))
     strTeam = Trim(IIf(IsNull(rst!NL), "?", rst!NL))
-    strPos = Trim(IIf(IsNull(rst!Pos), "?", rst!Pos))
+    strPos = Trim(IIf(IsNull(rst!pos), "?", rst!pos))
     strTeamAndPos = strTeam & " - " & strPos
     strPosCat = rst!position_category
     If IsNull(rst!tout) Then
@@ -2957,6 +2959,64 @@ Public Sub refresh_selected_player_pitcher_stats()
     Forms![frm_selected_player_pitcher_stats].Requery
     Forms![frm_selected_player_pitcher_stats]!cbo_comp_pitchers.SetFocus
 End Sub
+Public Function fn_set_positions_from_fangraphs_last_year_defense() As Boolean
+    fn_set_positions_from_fangraphs_last_year_defense = False
+    DoCmd.OpenQuery "qry_fg_last_year_games_by_position_delete"
+    DoCmd.OpenQuery "qry_fg_last_year_games_by_position_append"
+    DoCmd.OpenQuery "qry_fg_last_year_games_by_position_OF_delete"
+    DoCmd.OpenQuery "qry_fg_last_year_games_by_position_OF_append"
+    DoCmd.OpenQuery "qry_fg_last_year_games_by_position_OF_correction_update"
+    DoCmd.OpenQuery "qry_fg_last_year_games_by_position_qualified_20_update"
+    DoCmd.OpenQuery "qry_fg_last_year_games_by_position_unqualified_delete"
+    DoCmd.OpenQuery "qry_fg_last_year_games_by_position_unqualified_append"
+    DoCmd.OpenQuery "qry_fg_last_year_games_by_position_unqualified_single_pos_update"
+    DoCmd.OpenQuery "qry_fg_last_year_games_by_position_unqualified_max_played_update"
+    DoCmd.OpenQuery "qry_fg_last_year_games_by_position_ct_delete"
+    DoCmd.OpenQuery "qry_fg_last_year_games_by_position_ct_append"
+    DoCmd.OpenQuery "qry_upd_nrbl_players_pos_from_fg_last_year_single_position"
+    Dim db As DAO.Database
+    Dim rstOuter As DAO.Recordset
+    Dim rstInner As DAO.Recordset
+    Dim strSQL As String
+    Dim strFGPlayerId As String
+    Dim strPos As String
+    Dim strPosCombined As String
+    Dim boolComma As Boolean
+    Set db = CurrentDb
+    strSQL = "select distinct steamer_id from fg_last_year_games_by_position_ct where pos_ct > 1;"
+    Set rstOuter = db.OpenRecordset(strSQL)
+    Do While Not rstOuter.EOF
+        boolComma = False
+        strPosCombined = ""
+        strFGPlayerId = IIf(IsNull(rstOuter!steamer_id), "", rstOuter!steamer_id)
+        If strFGPlayerId <> "" Then
+            strSQL = "select distinct pos from fg_last_year_games_by_position where steamer_id = " & """" & Replace(strFGPlayerId, """", """""") & """" & " and qualified = True order by pos;"
+            Set rstInner = db.OpenRecordset(strSQL)
+            Do While Not rstInner.EOF
+                strPos = IIf(IsNull(rstInner!pos), "", rstInner!pos)
+                If strPos <> "" Then
+                    If boolComma = True Then
+                        strPosCombined = strPosCombined & ","
+                    End If
+                    strPosCombined = strPosCombined & Trim(strPos)
+                End If
+                boolComma = True
+                rstInner.MoveNext
+            Loop
+            rstInner.Close
+            Set rstInner = Nothing
+        End If
+        strSQL = "update NRBL_players set pos = " & """" & Replace(strPosCombined, """", """""") & """" & " where steamer_id = " & """" & Replace(strFGPlayerId, """", """""") & """" & " and pos <> ""SW"";"
+        db.Execute strSQL, dbFailOnError
+        rstOuter.MoveNext
+    Loop
+    rstOuter.Close
+    Set rstOuter = Nothing
+    Set rstInner = Nothing
+    db.Close
+    Set db = Nothing
+    fn_set_positions_from_fangraphs_last_year_defense = True
+End Function
 Public Function fun_upd_import_status(strStatus As String)
     If CurrentProject.AllForms("frm_imports").IsLoaded Then
         Forms!frm_imports!lab_status.Caption = strStatus
