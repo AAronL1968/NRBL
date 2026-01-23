@@ -1,0 +1,28 @@
+NRBL To-do
+
+Transactions (keep up daily)
+
+Change in-game recalc to not open frm_imports
+
+Dynamic category selection
+
+Dynamic player universe selection
+
+x NRBL2026-05 Enforce "Out of Scope" exclusions
+
+x Update prices/contracts on owned players
+
+x Season/category junction
+
+x Get FanGraphs positions from defense feeds?
+
+x Update 2025 historical queries
+x qry_team_salaries_pitchers_2024 ...
+x qry_team_salaries_hitters_2024 ...
+x qry_team_salaries_2024 ...
+x qry_draft_picks_2024 ...
+x qry_owned_2024 ...
+
+
+x Formulas table
+
