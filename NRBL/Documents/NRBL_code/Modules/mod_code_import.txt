@@ -19,7 +19,6 @@ Public Sub sub_run_all_imports()
     Dim ctlAction As Control
     Dim strControlName As String
     Dim strExecute As String
-    
     Set db = CurrentDb
     ' Initialize buttons
     Set rst = db.OpenRecordset("qry_external_stat_sources")
@@ -166,16 +165,18 @@ Public Function fun_import_fangraphs_pitchers(strStatSource As String, boolTreat
         strStatsCopyTableName = "fg_stats_copy_pitchers_" & strAbbrev & "_in_game"
     End If
     strButtonName = "btn_import_" & strAbbrev & "_pitchers"
-    If CurrentProject.AllForms("frm_imports").IsLoaded Then
-        For Each ctl In Forms!frm_imports.Controls
-            ' Turn the button yellow
-            If ctl.Name = strButtonName Then
-                ctl.BackColor = CLR_BRIGHT_YELLOW
-            End If
-        Next ctl
-        'MsgBox "strAbbrev: " & strAbbrev & vbCrLf & "strSourceTable: " & strSourceTable
-        Forms!frm_imports.Requery
-        Forms!frm_imports.Repaint
+    If boolTreatDrafteesAsKeepers = False Then
+        If CurrentProject.AllForms("frm_imports").IsLoaded Then
+            For Each ctl In Forms!frm_imports.Controls
+                ' Turn the button yellow
+                If ctl.Name = strButtonName Then
+                    ctl.BackColor = CLR_BRIGHT_YELLOW
+                End If
+            Next ctl
+            'MsgBox "strAbbrev: " & strAbbrev & vbCrLf & "strSourceTable: " & strSourceTable
+            Forms!frm_imports.Requery
+            Forms!frm_imports.Repaint
+        End If
     End If
     Call fun_import_fangraphs_pitchers_build_objects(strStatSource, boolTreatDrafteesAsKeepers)
     Call fun_import_fangraphs_pitchers_populate_objects(strStatSource, boolTreatDrafteesAsKeepers)
@@ -191,14 +192,16 @@ Public Function fun_import_fangraphs_pitchers(strStatSource As String, boolTreat
     'Debug.Print "fPitcherPool: " & fPitcherPool
     'Debug.Print "strButtonName: " & strButtonName
     Call fun_load_stat_copy_aggs
-    If CurrentProject.AllForms("frm_imports").IsLoaded Then
-        For Each ctl In Forms!frm_imports.Controls
-            If ctl.Name = strButtonName Then
-                ' Turn the button green
-                ctl.BackColor = CLR_GREEN_BTN
-            End If
-        Next ctl
-        Forms!frm_imports.Requery
+    If boolTreatDrafteesAsKeepers = False Then
+        If CurrentProject.AllForms("frm_imports").IsLoaded Then
+            For Each ctl In Forms!frm_imports.Controls
+                If ctl.Name = strButtonName Then
+                    ' Turn the button green
+                    ctl.BackColor = CLR_GREEN_BTN
+                End If
+            Next ctl
+            Forms!frm_imports.Requery
+        End If
     End If
     Call fun_upd_import_status("Done (" & Now() & ").  Ready.")
     'MsgBox "strAbbrev: " & strAbbrev & vbCrLf & "strSourceTable: " & strSourceTable
@@ -1015,15 +1018,17 @@ Public Function fun_import_fangraphs_hitters(strStatSource As String, boolTreatD
         strStatsCopyTableName = "fg_stats_copy_hitters_" & strAbbrev & "_in_game"
     End If
     strButtonName = "btn_import_" & strAbbrev & "_hitters"
-    If CurrentProject.AllForms("frm_imports").IsLoaded Then
-        For Each ctl In Forms!frm_imports.Controls
-            ' Turn the button yellow
-            If ctl.Name = strButtonName Then
-                ctl.BackColor = CLR_BRIGHT_YELLOW
-            End If
-        Next ctl
-        Forms!frm_imports.Requery
-        Forms!frm_imports.Repaint
+    If boolTreatDrafteesAsKeepers = False Then
+        If CurrentProject.AllForms("frm_imports").IsLoaded Then
+            For Each ctl In Forms!frm_imports.Controls
+                ' Turn the button yellow
+                If ctl.Name = strButtonName Then
+                    ctl.BackColor = CLR_BRIGHT_YELLOW
+                End If
+            Next ctl
+            Forms!frm_imports.Requery
+            Forms!frm_imports.Repaint
+        End If
     End If
     boolResult = fun_import_fangraphs_hitters_build_objects(strStatSource, boolTreatDrafteesAsKeepers)
     Call fun_import_fangraphs_hitters_populate_objects(strStatSource, boolTreatDrafteesAsKeepers)
@@ -1039,15 +1044,17 @@ Public Function fun_import_fangraphs_hitters(strStatSource As String, boolTreatD
     'Debug.Print "fHitterPool: " & fHitterPool
     'Debug.Print "strButtonName: " & strButtonName
     Call fun_load_stat_copy_aggs
-    If CurrentProject.AllForms("frm_imports").IsLoaded Then
-        For Each ctl In Forms!frm_imports.Controls
-            If ctl.Name = strButtonName Then
-                ' Turn the button green
-                ctl.BackColor = CLR_GREEN_BTN
-            End If
-        Next ctl
-        Forms!frm_imports.Requery
-        Forms!frm_imports.Repaint
+    If boolTreatDrafteesAsKeepers = False Then
+        If CurrentProject.AllForms("frm_imports").IsLoaded Then
+            For Each ctl In Forms!frm_imports.Controls
+                If ctl.Name = strButtonName Then
+                    ' Turn the button green
+                    ctl.BackColor = CLR_GREEN_BTN
+                End If
+            Next ctl
+            Forms!frm_imports.Requery
+            Forms!frm_imports.Repaint
+        End If
     End If
     Call fun_upd_import_status("Done (" & Now() & ").  Ready.")
     'MsgBox "strAbbrev: " & strAbbrev & vbCrLf & "strSourceTable: " & strSourceTable
