@@ -66,6 +66,7 @@ Public Function fun_draft()
             End If
         End If
         If CurrentProject.AllForms("frm").IsLoaded Then
+            Forms!frm.Repaint
             DoCmd.Close acForm, "frm"
         End If
         DoCmd.OpenForm "frm_select_position"
@@ -263,6 +264,7 @@ Public Function fun_get_next_drafter()
     If CurrentProject.AllForms("frm").IsLoaded Then
         Forms!frm!txt_next_draft_ct.Value = iNextDraftCt
         Forms!frm!lab_draft_ct.Caption = "Player " & iNextDraftCt & " of " & iPreDraftSlotCt
+        Forms!frm.Repaint
     End If
     DoCmd.OpenQuery "qry_last_draft_pick_seq_delete"
     If iDraftPickCt = 0 Then
@@ -313,6 +315,7 @@ Public Function fun_get_next_drafter()
         Forms!frm!cbo_bidders.Value = strDrafter
         Forms!frm!txt_bid.Value = 1
         Forms!frm!cbo_player.SetFocus
+        Forms!frm.Repaint
         DoCmd.OpenQuery "qry_round_calc_delete"
         DoCmd.OpenQuery "qry_round_calc_append"
         DoCmd.OpenQuery "qry_round_calc_update"
@@ -324,6 +327,7 @@ Public Function fun_get_next_drafter()
         Set rst = Nothing
         strRound = "Round #" & iCurrentRound & " (" & iPicksRemaining & " " & strPickPlural & " remaining)"
         Forms!frm!lab_round.Caption = strRound
+        Forms!frm.Repaint
     End If
     Dim strRS As String
     Set rst = db.OpenRecordset("tbl_subform_recordsource")
@@ -338,6 +342,7 @@ Public Function fun_get_next_drafter()
         Call fun_set_status
         Forms!frm!frm_sub_status.Form.RecordSource = strRS
         Forms!frm!frm_sub_status.Requery
+        Forms!frm.Repaint
     End If
 End Function
 Public Sub sub_in_draft_value_recalculation()
@@ -366,6 +371,7 @@ Public Sub sub_in_draft_value_recalculation()
         If Not CurrentProject.AllForms("frm_imports").IsLoaded Then
             DoCmd.OpenForm "frm_imports"
         End If
+        Forms!frm_imports.Visible = False
         If boolRecalcHitters = True And boolHittersEnabled = True Then
             For Each ctlLoop In Forms!frm_imports.Controls
                 strControlName = ctlLoop.Name
@@ -449,10 +455,12 @@ Public Sub sub_in_draft_value_recalculation()
     Set rst = Nothing
     db.Close
     Set db = Nothing
-    Forms!frm_imports.Requery
-    Forms!frm_imports.Repaint
+    'Forms!frm_imports.Requery
+    'Forms!frm_imports.Repaint
     If Not CurrentProject.AllForms("frm").IsLoaded Then
         DoCmd.OpenForm "frm"
+    Else
+        Forms!frm.Repaint
     End If
     If CurrentProject.AllForms("frm_imports").IsLoaded Then
         DoCmd.Close acForm, "frm_imports"
