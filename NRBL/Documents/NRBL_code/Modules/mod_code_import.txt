@@ -162,6 +162,9 @@ Public Function fun_import_fangraphs_pitchers(strStatSource As String, boolTreat
     strPitchingProjectionsTableName = "fg_pitching_projections_" & strAbbrev
     strStatsCopyTableName = "fg_stats_copy_pitchers_" & strAbbrev
     If boolTreatDrafteesAsKeepers = True Then
+        If CurrentProject.AllForms("frm_imports").IsLoaded Then
+            Forms!frm_imports.Visible = False
+        End If
         strStatsCopyTableName = "fg_stats_copy_pitchers_" & strAbbrev & "_in_game"
     End If
     strButtonName = "btn_import_" & strAbbrev & "_pitchers"
@@ -384,6 +387,9 @@ Public Function fun_import_fangraphs_pitchers_calculate_values(strStatSource As 
     strPitchingProjectionsTableName = "fg_pitching_projections_" & strAbbrev
     strStatsCopyTableName = "fg_stats_copy_pitchers_" & strAbbrev
     If boolTreatDrafteesAsKeepers = True Then
+        If CurrentProject.AllForms("frm_imports").IsLoaded Then
+            Forms!frm_imports.Visible = False
+        End If
         strStatsCopyTableName = "fg_stats_copy_pitchers_" & strAbbrev & "_in_game"
     End If
     '
@@ -1015,6 +1021,9 @@ Public Function fun_import_fangraphs_hitters(strStatSource As String, boolTreatD
     strBattingProjectionsTableName = "fg_batting_projections_" & strAbbrev
     strStatsCopyTableName = "fg_stats_copy_hitters_" & strAbbrev
     If boolTreatDrafteesAsKeepers = True Then
+        If CurrentProject.AllForms("frm_imports").IsLoaded Then
+            Forms!frm_imports.Visible = False
+        End If
         strStatsCopyTableName = "fg_stats_copy_hitters_" & strAbbrev & "_in_game"
     End If
     strButtonName = "btn_import_" & strAbbrev & "_hitters"
@@ -1267,6 +1276,9 @@ Public Function fun_import_fangraphs_hitters_calculate_values(strStatSource As S
     strBattingProjectionsTableName = "fg_batting_projections_" & strAbbrev
     strStatsCopyTableName = "fg_stats_copy_hitters_" & strAbbrev
     If boolTreatDrafteesAsKeepers = True Then
+        If CurrentProject.AllForms("frm_imports").IsLoaded Then
+            Forms!frm_imports.Visible = False
+        End If
         strStatsCopyTableName = "fg_stats_copy_hitters_" & strAbbrev & "_in_game"
     End If
     '
