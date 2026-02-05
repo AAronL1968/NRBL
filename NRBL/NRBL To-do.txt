@@ -2,7 +2,7 @@ NRBL To-do
 
 Transactions (keep up daily)
 
-Change in-game recalc to not open frm_imports
+x NRBL2026-07 Make frm_imports invisible during in-game recalculations
 
 Dynamic category selection
 
