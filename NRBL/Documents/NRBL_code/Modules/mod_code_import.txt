@@ -317,7 +317,7 @@ Public Function fun_import_fangraphs_pitchers_populate_objects(strStatSource As 
             Set qdf = Nothing
             strSQL = Replace(strSQL, "FG_PITCHING_PROJECTIONS_TABLENAME", strPitchingProjectionsTableName)
             db.Execute strSQL, dbFailOnError
-        
+            DoCmd.OpenQuery "qry_set_AL_out_of_scope"
             strStatus = "Set player_id after inserting pitchers into " & strPitchingProjectionsTableName & "..."
             Call fun_upd_import_status(strStatus)
             strSQL = ""
@@ -1187,7 +1187,7 @@ Public Function fun_import_fangraphs_hitters_populate_objects(strStatSource As S
             Set qdf = Nothing
             strSQL = Replace(strSQL, "FG_BATTING_PROJECTIONS_TABLENAME", strBattingProjectionsTableName)
             db.Execute strSQL, dbFailOnError
-        
+            DoCmd.OpenQuery "qry_set_AL_out_of_scope"
             strStatus = "Set player_id after inserting hitters into " & strBattingProjectionsTableName & "..."
             Call fun_upd_import_status(strStatus)
             strSQL = ""
