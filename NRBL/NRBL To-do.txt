@@ -3,6 +3,13 @@ NRBL To-do
 Transactions (keep up daily)
 
 x NRBL2026-07 Make frm_imports invisible during in-game recalculations
+x NRBL2026-08 Implement pitchers for The Bat X
+  NRBL2026-09 load 26-man roster info from FanGraphs
+
+O-Swing
+Zone contact
+Stuff+
+
 
 Dynamic category selection
 
