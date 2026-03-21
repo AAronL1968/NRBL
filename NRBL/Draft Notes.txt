@@ -1,0 +1,19 @@
+Draft Notes
+-----------
+Auction Temp
+
+Strike Price vs Market Price 
+  (adjust strike price if necessary due to category or position scarcity)
+
+Bids:
+----
+$18
+$10
+$4
+$2
+$1
+
+
+Conversation notes:
+-------------------
+- The Bat X has pitching projections now
