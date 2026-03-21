@@ -1,3 +1,4 @@
+' mod_code_import
 Option Compare Database
 Option Explicit
 Public Sub sub_run_all_imports()
@@ -1116,7 +1117,7 @@ Public Function fun_import_fangraphs_hitters_populate_objects(strStatSource As S
             strSQL = strSQL & " FROM [fg-last-year-actual-batting] where AB > 0;"
         End If
     'Debug.Print strSQL
-        db.Execute strSQL, dbFailOnError
+        db.Execute strSQL ' , dbFailOnError
         '
         ' Clean/normalize team names
         '
