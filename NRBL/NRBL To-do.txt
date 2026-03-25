@@ -6,6 +6,7 @@ x NRBL2026-07 Make frm_imports invisible during in-game recalculations
 x NRBL2026-08 Implement pitchers for The Bat X
 x NRBL2026-09 load 26-man roster info from FanGraphs
 x NRBL2026-10 load LABR values
+x NRBL2026-11 remove tab stops for "R" and "K" in frm_sub_status
 
 Add FIP, SPTS/9 to pitching queries
 
