@@ -7,6 +7,9 @@ x NRBL2026-08 Implement pitchers for The Bat X
 x NRBL2026-09 load 26-man roster info from FanGraphs
 x NRBL2026-10 load LABR values
 x NRBL2026-11 remove tab stops for "R" and "K" in frm_sub_status
+x NRBL2026-12 add `nl_roster_notes` to all stat and position buttons ("frm_eligible_x")
+
+*** copy draft_picks to historical db as draft_picks_2026 ***
 
 Add FIP, SPTS/9 to pitching queries
 
