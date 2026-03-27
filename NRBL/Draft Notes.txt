@@ -13,6 +13,8 @@ $4
 $2
 $1
 
+Gregory Soto - $6 
+
 FAAB Penalties:
 --------------
 - Bones CES $15
@@ -23,3 +25,4 @@ Conversation notes:
 -------------------
 - The Bat X has pitching projections now
 - Bones CES $15 penalty
+- "Hope"-ium
