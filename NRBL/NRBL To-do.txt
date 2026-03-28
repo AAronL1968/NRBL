@@ -10,6 +10,7 @@ x NRBL2026-11 remove tab stops for "R" and "K" in frm_sub_status
 x NRBL2026-12 add `nl_roster_notes` to all stat and position buttons ("frm_eligible_x")
 x NRBL2026-13 finalize rosters, update "sa" steamer_id values to new FanGraphs IDs for promoted players
 x NRBL2026-14 update injury info in nl_roster_notes; release v2026.0
+x NRBL2026-15 remove obsolete prices (ToyBox, ESPN) from player drop-down; release v2026.1
 
 *** copy draft_picks to historical db as draft_picks_2026 ***
 
