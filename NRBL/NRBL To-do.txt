@@ -1,5 +1,5 @@
 NRBL To-do
-
+----------------------------
 Transactions (keep up daily)
 
 x NRBL2026-07 Make frm_imports invisible during in-game recalculations
@@ -14,7 +14,14 @@ x NRBL2026-15 remove obsolete prices (ToyBox, ESPN) from player drop-down; relea
 x NRBL2026-16 post-draft save
 x NRBL2026-17 copy 2026 data to historical database, update queries for draft analysis
 
-*** copy draft_picks to historical db as draft_picks_2026 ***
+  NRBL2026-18 speed up recalculations after draft picks (move fg stat tables to be local)
+
+In-Season Maintenance:
+---------------------
+add in-season db with date-driven transaction records
+date-driven stats, reserve vs. active
+calculate earned $ values in (weekly) real-time
+ROS player projection imports
 
 Add FIP, SPTS/9 to pitching queries
 
