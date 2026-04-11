@@ -124,7 +124,8 @@ Public Function fn_rebuild_stat_points_table(strStat As String) As Boolean
         Else
             strSQL = strSQL & " double )"
         End If
-        Call sub_rebuild_and_relink_table(strSQL, strTableName)
+        Call sub_build_local_table_from_sql(strSQL)
+        'Call sub_rebuild_and_relink_table(strSQL, strTableName)
         'If boolFrmIsLoaded = True Then
         '    DoCmd.OpenForm "frm"
         'End If
@@ -215,14 +216,6 @@ Public Function fun_reset_pre_draft_conditions() As Boolean
     Set tdf = Nothing
     db.Close
     Set db = Nothing
-    'DoCmd.OpenForm "frm"
-    'Forms!frm!frm_sub_status.Form.RecordSource = "tbl_team_projections_placeholder"
-    'Forms!frm!frm_sub_status.Requery
-    'DoCmd.Close acForm, "frm"
-    'If boolFrmIsLoaded Then
-    '    DoCmd.OpenForm "frm"
-    'End If
-  ' DoCmd.OpenQuery "qpt_NRBL_reset_to_pre_draft_status"
     fun_reset_pre_draft_conditions = True
 End Function
 Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As String, boolTreatDrafteesAsKeepers As Boolean)
@@ -249,13 +242,21 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
     db.Close
     Set db = Nothing
     boolIsMock = fn_db_is_mock()
-    strDBLocation = fn_get_db_data_path() & "\"
-    If boolIsMock = True Then
-        strDBLocation = Replace(strDBLocation & DB_DATA_MOCK, "\\", "\")
-    Else
-        strDBLocation = Replace(strDBLocation & DB_DATA, "\\", "\")
-    End If
-    Set db = OpenDatabase(strDBLocation)
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    ' For performance reasons (frequent rebuild/relinks), move these tables to the front-end
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    'strDBLocation = fn_get_db_data_path() & "\"
+    'If boolIsMock = True Then
+    '    strDBLocation = Replace(strDBLocation & DB_DATA_MOCK, "\\", "\")
+    'Else
+    '    strDBLocation = Replace(strDBLocation & DB_DATA, "\\", "\")
+    'End If
+    'Set db = OpenDatabase(strDBLocation)
+    Set db = CurrentDb
     strPitchingProjectionsTableName = "fg_pitching_projections_" & strAbbrev
     strStatsCopyTableName = "fg_stats_copy_pitchers_" & strAbbrev
     If boolTreatDrafteesAsKeepers = True Then
@@ -267,8 +268,8 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
         '
         strStatus = "Drop table " & strPitchingProjectionsTableName & " if it exists."
         Call fun_upd_import_status(strStatus)
-        Call sub_drop_table(strPitchingProjectionsTableName)
-        
+        'Call sub_drop_table(strPitchingProjectionsTableName)
+        Call sub_drop_local_table(strPitchingProjectionsTableName)
         strStatus = "create table " & strPitchingProjectionsTableName & "."
         Call fun_upd_import_status(strStatus)
         strSQL = ""
@@ -349,14 +350,15 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
         db.Execute strSQL, dbFailOnError
         strSQL = "alter table " & strPitchingProjectionsTableName & " add column player_id long"
         db.Execute strSQL, dbFailOnError
-        Call link_access_table(strPitchingProjectionsTableName, strPitchingProjectionsTableName, strDBLocation)
+        'Call link_access_table(strPitchingProjectionsTableName, strPitchingProjectionsTableName, strDBLocation)
     End If
     '
     ' Drop/create "stats copy" table
     '
     strStatus = "Drop table " & strStatsCopyTableName & " if it exists."
     Call fun_upd_import_status(strStatus)
-    Call sub_drop_table(strStatsCopyTableName)
+    'Call sub_drop_table(strStatsCopyTableName)
+    Call sub_drop_local_table(strStatsCopyTableName)
     strStatus = "create table " & strStatsCopyTableName & "."
     Call fun_upd_import_status(strStatus)
     strSQL = ""
@@ -472,7 +474,7 @@ Public Function fun_import_fangraphs_pitchers_build_objects(strStatSource As Str
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column ER long"
     db.Execute strSQL, dbFailOnError
-    Call link_access_table(strStatsCopyTableName, strStatsCopyTableName, strDBLocation)
+    'Call link_access_table(strStatsCopyTableName, strStatsCopyTableName, strDBLocation)
     Set rst = Nothing
     db.Close
     Set db = Nothing
@@ -500,13 +502,21 @@ Public Function fun_import_fangraphs_hitters_build_objects(strStatSource As Stri
     db.Close
     Set db = Nothing
     boolIsMock = fn_db_is_mock()
-    strDBLocation = fn_get_db_data_path() & "\"
-    If boolIsMock = True Then
-        strDBLocation = Replace(strDBLocation & DB_DATA_MOCK, "\\", "\")
-    Else
-        strDBLocation = Replace(strDBLocation & DB_DATA, "\\", "\")
-    End If
-    Set db = OpenDatabase(strDBLocation)
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    ' For performance reasons (frequent rebuild/relinks), move these tables to the front-end
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    'strDBLocation = fn_get_db_data_path() & "\"
+    'If boolIsMock = True Then
+    '    strDBLocation = Replace(strDBLocation & DB_DATA_MOCK, "\\", "\")
+    'Else
+    '    strDBLocation = Replace(strDBLocation & DB_DATA, "\\", "\")
+    'End If
+    'Set db = OpenDatabase(strDBLocation)
+    Set db = CurrentDb
     strBattingProjectionsTableName = "fg_batting_projections_" & strAbbrev
     strStatsCopyTableName = "fg_stats_copy_hitters_" & strAbbrev
     If boolTreatDrafteesAsKeepers = True Then
@@ -518,13 +528,13 @@ Public Function fun_import_fangraphs_hitters_build_objects(strStatSource As Stri
         '
         strStatus = "Drop table " & strBattingProjectionsTableName & " if it exists."
         Call fun_upd_import_status(strStatus)
-        Call sub_drop_table(strBattingProjectionsTableName)
+        Call sub_drop_local_table(strBattingProjectionsTableName)
+        'Call sub_drop_table(strBattingProjectionsTableName)
         strStatus = "create table " & strBattingProjectionsTableName & "."
         Call fun_upd_import_status(strStatus)
         strSQL = ""
         strSQL = strSQL & "create table " & strBattingProjectionsTableName & " ( seq counter(1, 1), PlayerId char not null primary key, stat_source varchar, Name varchar, "
         strSQL = strSQL & "Team varchar, G long, PA long, AB long, H long, [1B] long, [2B] long, [3B] long, HR long, R long, RBI long, BB long, IBB long )"
-    'Debug.Print strSQL
         db.Execute strSQL, dbFailOnError
         strSQL = "alter table " & strBattingProjectionsTableName & " add column SO long"
         db.Execute strSQL, dbFailOnError
@@ -614,7 +624,7 @@ Public Function fun_import_fangraphs_hitters_build_objects(strStatSource As Stri
         db.Execute strSQL, dbFailOnError
         strSQL = "alter table " & strBattingProjectionsTableName & " add column player_id long"
         db.Execute strSQL, dbFailOnError
-        Call link_access_table(strBattingProjectionsTableName, strBattingProjectionsTableName, strDBLocation)
+        'Call link_access_table(strBattingProjectionsTableName, strBattingProjectionsTableName, strDBLocation)
     End If
     '
     ' Drop/recreate "stats copy" table
@@ -630,14 +640,14 @@ Public Function fun_import_fangraphs_hitters_build_objects(strStatSource As Stri
     End If
     strStatus = "Drop " & strStatsCopyTableName & " if it exists."
     Call fun_upd_import_status(strStatus)
-    Call sub_drop_table(strStatsCopyTableName)
+    'Call sub_drop_table(strStatsCopyTableName)
+    Call sub_drop_local_table(strStatsCopyTableName)
     strStatus = "create table " & strStatsCopyTableName & "."
     Call fun_upd_import_status(strStatus)
     strSQL = ""
     strSQL = strSQL & "create table " & strStatsCopyTableName & " ( player_id long not null primary key, Owner varchar, "
     strSQL = strSQL & "Player varchar, NL varchar, Contract varchar, Sal currency, stat_source varchar, AB long, HR long, "
     strSQL = strSQL & "RBI long, SB long, R long, AVG double, SLG double, OPS double, Onroto_ID long, steamer_id varchar )"
-'Debug.Print strSQL
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column avgHR double"
     db.Execute strSQL, dbFailOnError
@@ -737,7 +747,7 @@ Public Function fun_import_fangraphs_hitters_build_objects(strStatSource As Stri
     db.Execute strSQL, dbFailOnError
     strSQL = "alter table " & strStatsCopyTableName & " add column aKadjDollarValue currency"
     db.Execute strSQL, dbFailOnError
-    Call link_access_table(strStatsCopyTableName, strStatsCopyTableName, strDBLocation)
+    'Call link_access_table(strStatsCopyTableName, strStatsCopyTableName, strDBLocation)
     Set rst = Nothing
     Set qdf = Nothing
     db.Close
