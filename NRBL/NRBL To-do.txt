@@ -13,12 +13,12 @@ x NRBL2026-14 update injury info in nl_roster_notes; release v2026.0
 x NRBL2026-15 remove obsolete prices (ToyBox, ESPN) from player drop-down; release v2026.1
 x NRBL2026-16 post-draft save
 x NRBL2026-17 copy 2026 data to historical database, update queries for draft analysis
-
-  NRBL2026-18 speed up recalculations after draft picks (move fg stat tables to be local)
+x NRBL2026-18 speed up recalculations after draft picks (move fg stat tables to be local)
+  NRBL2026-19 add in-season module with date-driven transaction records
 
 In-Season Maintenance:
 ---------------------
-add in-season db with date-driven transaction records
+add in-season module with date-driven transaction records
 date-driven stats, reserve vs. active
 calculate earned $ values in (weekly) real-time
 ROS player projection imports
